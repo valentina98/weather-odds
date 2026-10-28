@@ -22,7 +22,7 @@ _Run on 2026-10-28 with [`research/analyze_plovdiv.py`](../../research/analyze_p
 2. **ERA5 is good for temperature, too wet for rain.**
    - ERA5, corrected for height, matches the Plovdiv station's daily maximum temperature within 0.1 °C on average.
    - The finer ERA5-Land runs 2–3 °C too cool in summer.
-   - ERA5 counts about 40% too many wet days compared with the station.
+   - ERA5 counts more wet days than the station: 39% more in 1973–1999, 8% more in 2022–2025.
 3. **Single days are very noisy.** With 30 years of data, a single date's rain chance is uncertain by ±15 percentage points. Pooling a week (±3 days) brings that to ±7.
 4. **Early-summer rain falls mostly in the afternoon and evening.** In June, rain is reported about three times as often at 14–20 h as before noon.
 
@@ -63,7 +63,7 @@ All nine ERA5-Land cells around Plovdiv show the same summer cold bias (checked 
 | 1973–1999 (GSOD) | 16.8% of days | 23.4% | 27.7% | 84% of days |
 | 2022–2025 (NIMH) | 20.3% | 22.0% | 28.1% | 81% of days |
 
-ERA5 rains too often, mostly in light amounts and most strongly in spring and early summer (May: 33% of days in ERA5 vs 23% at the station). The monthly shape is right. **Rain chances from ERA5 need calibrating** against station data, for example by raising the wet-day threshold until the frequencies match.
+ERA5 rains too often, mostly in light amounts and most strongly in spring and early summer (May 1973–1999: 33% of days in ERA5 vs 23% at the station). The gap is much smaller against NIMH for 2022–2025. Either ERA5 has improved for recent years, or the NIMH files undercount, because blank cells may hide missing reports. The monthly shape is right in both periods. **Rain chances from ERA5 need calibrating** against station data, for example by raising the wet-day threshold until the frequencies match.
 
 ## 2. Warming
 

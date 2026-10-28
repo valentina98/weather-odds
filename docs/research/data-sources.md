@@ -8,7 +8,7 @@ Numbers comparing sources against each other are in [plovdiv-data-check.md](plov
 
 - **No single source is complete for Plovdiv.** Station measurements are precise but patchy, especially for rain. Gridded model data (reanalysis) is complete and covers any point, including mountain trails, but it is smoothed over 9–25 km.
 - **Measured rain at Plovdiv exists only for 1973–1999 (amounts) and from 2022 (NIMH).** From 2000 to 2021 we only have "rain was observed" flags from airport and synoptic reports, not amounts.
-- **ERA5 is the backbone.** It is complete hourly from 1940 to a few days ago, and Open-Meteo publishes it on AWS without a key or rate limit. At Plovdiv its height-corrected daily maximum matches the station within 0.1 °C on average, but it has about 40% too many wet days, so rain needs calibrating.
+- **ERA5 is the backbone.** It is complete hourly from 1940 to a few days ago, and Open-Meteo publishes it on AWS without a key or rate limit. At Plovdiv its height-corrected daily maximum matches the station within 0.1 °C on average, but it has more wet days than the station (39% more in 1973–1999, 8% more in 2022–2025), so rain needs calibrating.
 - **Bulgarian precision:** NIMH's open-data portal is the best source of measured daily rain (166 stations), but only from January 2022. CERRA (5.5 km European reanalysis, 1985–mid 2021) is the most precise gridded option but needs either the rate-limited Open-Meteo API or a Copernicus key.
 
 ## Gridded data (any location, complete, modelled)

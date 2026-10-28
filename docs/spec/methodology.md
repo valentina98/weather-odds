@@ -9,7 +9,7 @@ For each location the tool builds one **hourly** and one **daily** table in loca
 | Field | Unit | Main source |
 |---|---|---|
 | temperature | °C | ERA5 (≈25 km), corrected for elevation. At Plovdiv it matches the station within 0.1 °C on average; ERA5-Land (≈9 km) runs 2–3 °C too cool in summer there, so finer grids are used only after a station check. |
-| precipitation | mm | ERA5 (≈25 km), calibrated against station wet-day frequencies (ERA5 has about 40% too many wet days at Plovdiv); CERRA (5.5 km) to be evaluated |
+| precipitation | mm | ERA5 (≈25 km), calibrated against station wet-day frequencies (at Plovdiv ERA5 has 39% more wet days than the station in 1973–1999 and 8% more in 2022–2025); CERRA (5.5 km) to be evaluated |
 | snowfall, snow depth | mm water / m | ERA5 / ERA5-Land |
 | wind gusts | km/h | ERA5 |
 | cloud cover / sunshine | % / h | ERA5 |
