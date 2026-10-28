@@ -9,7 +9,7 @@ Open-Meteo's free tier (our main candidate source) is limited to non-commercial 
 ## Three rules that follow
 
 1. **The person running the tool is the data user, not the repo.** The repo contains no data and makes no requests by itself. If someone clones it to plan paid events, that is their commercial use and they need a paid Open-Meteo plan or a different source. The README must say this, and the API key and server address must be configurable.
-2. **Code licence and data licence are separate.** The code gets an open-source licence (MIT proposed, see the licence issue). Each data source keeps its own licence.
+2. **Code licence and data licence are separate.** The code gets an open-source licence (MIT proposed, see [#2](https://github.com/valentina98/weather-odds/issues/2)). Each data source keeps its own licence.
 3. **Never commit downloaded data.** The tool downloads on demand and caches locally in a git-ignored folder. Derived charts in the docs carry attribution.
 
 ## Per source

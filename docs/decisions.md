@@ -15,8 +15,8 @@ Decisions made so far, newest last. "Accepted" means the owner confirmed it; "Pr
 | D9 | 2026-10-28 | **Never commit downloaded weather data**; download on demand, cache locally. | Accepted | Licences differ per source. |
 | D10 | 2026-10-28 | Repo name: **weather-odds**. | Accepted | Owner created it. |
 | D11 | 2026-10-28 | **ERA5 is the gridded backbone** (temperature from ERA5, not ERA5-Land, at Plovdiv); station data (NOAA GSOD, NIMH, airport reports) is used to check and calibrate it. | Proposed | Only ERA5 is complete in time and space, and it matched the Plovdiv station best; see [data-sources](research/data-sources.md) and [Plovdiv data check](research/plovdiv-data-check.md). |
-| D12 | 2026-10-28 | **Default data path needs no key**: Open-Meteo API, with Open-Meteo's AWS open data as a fallback. Copernicus CDS (CERRA, seasonal) is optional with a key. | Proposed | Open-Meteo's free daily limit is often exhausted from shared cloud addresses; the AWS bucket has no limit. |
-| D13 | 2026-10-28 | Default **reference period: the last 30 complete years** (now 1996–2025). | Proposed | Plovdiv warmed noticeably since the 1980s; see the data check. Open issue. |
+| D12 | 2026-10-28 | **Default data path needs no key**: Open-Meteo API, with Open-Meteo's AWS open data as a fallback. Copernicus CDS (CERRA, seasonal) is optional with a key. | Proposed | Open-Meteo's free daily limit is often exhausted from shared cloud addresses; the AWS bucket has no limit. CDS key: #3. |
+| D13 | 2026-10-28 | Default **reference period: the last 30 complete years** (now 1996–2025). | Proposed | Plovdiv warmed noticeably since the 1980s; see the data check. Open: #6. |
 | D14 | 2026-10-28 | "Good day" odds are computed as the **joint frequency** of historical days meeting all conditions, not by multiplying separate chances. | Proposed | Rain, temperature and wind are correlated; multiplying would be wrong. |
 | D15 | 2026-10-28 | English docs use **"late-autumn warm spell" / *сиромашко лято*** rather than the other Bulgarian folk name. | Proposed | The literal English translation can read as an ethnic slur in a public repo. |
-| D16 | 2026-10-28 | Code licence: **MIT** (proposed). | Proposed | Open issue. |
+| D16 | 2026-10-28 | Code licence: **MIT** (proposed). | Proposed | Open: #2. |

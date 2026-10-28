@@ -1,6 +1,6 @@
 # Requirements (draft)
 
-Status: **draft for review.** Items marked *(open: #N)* depend on a question tracked in GitHub issue #N.
+Status: **draft for review.** Items marked *(open: #N)* depend on a question in GitHub issue #N (all collected in [#12](https://github.com/valentina98/weather-odds/issues/12)).
 Requirement IDs are stable so issues and PRs can refer to them.
 
 ## 1. Scope
@@ -25,13 +25,13 @@ weather-odds shows historical weather odds for planning outdoor activities 1–3
 | F1 | The user selects a location by place name (search), by coordinates, or from saved places in the config. |
 | F2 | A location has an elevation. For hiking spots the elevation can be set by the user (e.g. a hut or peak), and temperatures are adjusted for it. |
 | F3 | Bulgarian locations use Bulgarian station data where it improves precision (see methodology). Other locations work with gridded data only. |
-| F4 | Saved places can be given a name and a default activity profile. *(open: hiking areas to pre-configure)* |
+| F4 | Saved places can be given a name and a default activity profile. *(open: #4)* |
 
 ### Time selection
 
 | ID | Requirement |
 |---|---|
-| F5 | The user picks a start date and a horizon of up to 3 months (default: today + 3 months). |
+| F5 | The user picks a start date and a horizon of up to 3 months (default: today + 3 months). *(open: #10)* |
 | F6 | The user picks the granularity: **month, week, day or hour**. |
 | F7 | The user picks an **event time window** (e.g. 17:00–22:00). Rain, wind and temperature statistics for "the event" use only those hours. Default: whole day. |
 | F8 | The user can choose how many neighbouring days are pooled for daily statistics (e.g. ±0, ±3, ±7) and sees the effect on uncertainty. |
@@ -46,14 +46,14 @@ weather-odds shows historical weather odds for planning outdoor activities 1–3
 | F12 | Show **recurring patterns** (e.g. "warm spell 1–14 Oct in 6 of 10 years") only when they pass the statistical checks in the methodology. |
 | F13 | Every number shows its basis: data source, years used, and an uncertainty band or interval. |
 | F14 | Show sunrise, sunset and daylight for the selected dates (useful for evening events and hikes). |
-| F15 | *(open: #seasonal)* Optionally show the current seasonal outlook (tercile probabilities) for the selected months, clearly separated from the historical odds. |
+| F15 | *(open: #7)* Optionally show the current seasonal outlook (tercile probabilities) for the selected months, clearly separated from the historical odds. |
 
 ### Activity profiles
 
 | ID | Requirement |
 |---|---|
 | F16 | Activity profiles define what a "good day" means: maximum rain in the event window, comfortable temperature range, maximum wind gust, no thunder, etc. |
-| F17 | Default profiles: **gathering**, **walk**, **hike**. All thresholds are editable in the config. *(open: default thresholds)* |
+| F17 | Default profiles: **gathering**, **walk**, **hike**. All thresholds are editable in the config. *(open: #5)* |
 
 ### Configuration
 
@@ -80,8 +80,8 @@ weather-odds shows historical weather odds for planning outdoor activities 1–3
 | N3 | The statistics code is separate from the dashboard and covered by automated tests with small recorded data fixtures (no network in tests). |
 | N4 | No downloaded weather data is committed to the repo. |
 | N5 | Non-commercial data terms are documented; commercial users are pointed to paid keys. |
-| N6 | *(open: #language)* Interface language(s). |
-| N7 | *(open: #hosting)* Local-only or also a hosted instance. |
+| N6 | *(open: #9)* Interface language(s). |
+| N7 | *(open: #8)* Local-only or also a hosted instance. |
 
 ## 5. Out of scope for v1
 
