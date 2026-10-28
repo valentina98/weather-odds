@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Downloaded weather data is never committed (each source has its own licence).
+# Scripts download into this cache on demand.
+.cache/
+data/raw/
+
+# Secrets and local config
+.env
+*.local.yaml
+.cdsapirc
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/
