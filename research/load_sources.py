@@ -138,6 +138,8 @@ def era5_hourly(model: str = "copernicus_era5") -> pd.DataFrame:
         columns[var] = s
     out = pd.DataFrame(columns)
     out.index = out.index.tz_convert(TZ)
+    if "wind_gusts_10m" in out:
+        out["wind_gusts_10m"] *= 3.6  # the .om files store m/s
     if "temperature_2m" in out:
         out["temperature_2m"] += (meta["grid_elevation_m"] - STATION_ELEV) * LAPSE_RATE
     return out
@@ -167,3 +169,17 @@ def era5_daily() -> pd.DataFrame:
     # Drop partial first/last days created by the UTC -> local shift.
     counts = era5["precipitation"].groupby(day).size()
     return out[counts.reindex(out.index) >= 23]
+
+
+def grid_daily(model: str) -> pd.DataFrame:
+    """Daily tmax/tmin, and rain and gusts where the model has them, from any cached gridded series."""
+    hourly = era5_hourly(model)
+    day = hourly.index.tz_localize(None).normalize()
+    temp = hourly["temperature_2m"].groupby(day)
+    out = pd.DataFrame({"tmax": temp.max(), "tmin": temp.min()})
+    if "precipitation" in hourly:
+        out["prcp"] = hourly["precipitation"].groupby(day).sum()
+        out["wet"] = out["prcp"] >= WET_DAY_MM
+    if "wind_gusts_10m" in hourly:
+        out["gust_max"] = hourly["wind_gusts_10m"].groupby(day).max()
+    return out[temp.count() >= 23]

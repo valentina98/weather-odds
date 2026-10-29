@@ -1,7 +1,7 @@
 # Data sources
 
 What historical weather data we can use, what each source really contains for Plovdiv, and the trade-offs.
-Everything marked "tested" was downloaded and checked from a cloud session on 2026-10-28.
+Everything marked "tested" was downloaded and checked from a cloud session on 2026-10-28; ECMWF IFS was added on 2026-10-29 ([early October](early-october.md)).
 Numbers comparing sources against each other are in [plovdiv-data-check.md](plovdiv-data-check.md).
 
 ## Summary
@@ -15,11 +15,13 @@ Numbers comparing sources against each other are in [plovdiv-data-check.md](plov
 
 | Source | Resolution | Period | Access | Licence | Status |
 |---|---|---|---|---|---|
-| **ERA5** via Open-Meteo AWS open data (`s3://openmeteo/data/copernicus_era5/`) | 0.25° (~25 km), hourly | 1940 → ~5 days ago | No key, no limit. Files in Open-Meteo's `.om` format, read with the `omfiles` Python package; one location-year reads in about a second. | CC BY 4.0 | ✅ Tested. Variables: temperature, precipitation, snowfall, wind gusts, wind components, cloud cover, radiation, dew point, pressure. |
+| **ERA5** via Open-Meteo AWS open data (`s3://openmeteo/data/copernicus_era5/`) | 0.25° (~25 km), hourly | 1940 → ~5 days ago | No key, no limit. Files in Open-Meteo's `.om` format, read with the `omfiles` Python package; one location-year reads in about a second. Wind is stored in m/s (the API converts to km/h). | CC BY 4.0 | ✅ Tested. Variables: temperature, precipitation, snowfall, wind gusts, wind components, cloud cover, radiation, dew point, pressure. |
 | **ERA5-Land** via the same bucket | 0.1° (~9 km), hourly | 1950 → recent | Same as above | CC BY 4.0 | ✅ Tested, but the bucket only holds temperature, dew point, snow depth and soil variables (no precipitation). **At Plovdiv its daily maximum is 2–3 °C too cool in summer**, even after height correction; plain ERA5 is better there. |
+| **ECMWF IFS** (operational model archive) via the same bucket (`ecmwf_ifs`) | ~9 km (O1280 reduced Gaussian grid), hourly | 2017 → today | Same as above; the grid is stored as one flat axis of 6.6 million points | CC BY 4.0 | ✅ Tested (2026-10-29). Temperature, precipitation, gusts, plus CAPE and **lightning density** (a possible thunder proxy). Only 9 years, so useful as a check of recent years, not as the backbone. At Plovdiv its early-October curve matches ERA5 within about 0.5 °C. |
+| ERA5 ensemble via the same bucket | 0.5°, 3-hourly | 1940 → recent | Same as above | CC BY 4.0 | Not used: coarser than ERA5. Its spread could later show ERA5's own uncertainty. |
 | **Open-Meteo Historical API** | ERA5, ERA5-Land, CERRA, ECMWF IFS (9 km, from 2017) | 1940 → ~5 days ago | No key. Free tier: non-commercial, < 10,000 calls/day per network address. | Data CC BY 4.0 | ⚠️ Works, but from cloud sessions the shared address is usually over the daily limit. On a personal computer it works normally. Applies an elevation correction to temperature (90 m terrain model). |
 | **CERRA** (Copernicus European Regional Reanalysis) | 5.5 km, hourly | 1984/85 → mid 2021 on Open-Meteo; the Copernicus version continues | Open-Meteo API, or Copernicus CDS with a free account and API key | CC BY 4.0 | ⚠️ Not tested (API limit; no CDS key yet). Not in the Open-Meteo AWS bucket. |
-| **Copernicus CDS** (ERA5 point time series, CERRA, seasonal forecasts) | as above | as above | Free account + API key (`CDSAPI_KEY`), licence accepted once per dataset on the website, request queue | CC BY 4.0 (since July 2025) | Reachable; not used yet (needs the key). |
+| **Copernicus CDS** (ERA5 point time series, CERRA) | as above | as above | Free account + API key (`CDSAPI_KEY`), licence accepted once per dataset on the website, request queue | CC BY 4.0 (since July 2025) | Not tested yet. The owner is adding the key (#3); the `weather-odds` cloud environment must also allow `cds.climate.copernicus.eu` and the ECMWF download hosts. |
 | **NASA POWER** | ~0.5° (~50 km), daily (hourly from 2001) | 1981 → recent | No key, simple JSON API | Public | ✅ Tested. Precipitation is MERRA-2 corrected with observations. Too coarse for the Plovdiv basin or mountains. |
 | **E-OBS** (gridded station measurements) | 0.1°, daily | 1950 → recent | CDS key or large files from the ECA&D site | **Non-commercial research and education only** | Not used. No hourly data; licence is a poor fit for an event-planning tool. |
 
