@@ -22,22 +22,18 @@ The owner asked for research, planning and documentation first. Development star
   - [early October by source and range of years](research/early-october.md) (#3);
   - [cross-validation of the odds](research/validation.md) (#7);
   - [preview of the outdoor-weather scale](research/weather-scale.md) (#5);
-  - [dashboard framework comparison](research/dashboard-frameworks.md) (#8).
+  - [dashboard framework comparison](research/dashboard-frameworks.md) and a throwaway [Streamlit prototype](../research/prototype/README.md) (#8);
+  - warm-ups counted per year, to check whether a warm-up at varying dates averages out (#3).
+- **Second round of answers** (2026-10-29): scale thresholds are defaults changeable in the dashboard; colour measure and relative colours as options (#5); trend adjustment with an on/off switch (#6). Issues #2, #4–#7 and #9–#11 are closed.
 - **Spec updated**: [requirements](spec/requirements.md), [methodology](spec/methodology.md), [architecture](spec/architecture.md), [vision](vision.md).
 
 ## Waiting for the owner
 
 See [open-questions.md](open-questions.md). In short:
 
-1. **#5:** confirm the outdoor-weather scale (thresholds, rain rule, calendar colour).
-2. **#6:** turn on trend adjustment for temperature by default?
-3. **#8:** pick the dashboard framework (Streamlit proposed).
-4. **#3:** the `weather-odds` cloud environment needs:
-   - network access to the station-data hosts and Copernicus;
-   - the CDS key available to a new session.
-
-   Then the station sources and CERRA can be compared, as the owner asked.
-5. Review and merge PR #1 and the follow-up PR; close #12 when the spec is done.
+1. **#8:** keep Streamlit after looking at the [first prototype](research/dashboard-frameworks.md#first-results-streamlit-prototype), or try another framework.
+2. **#3:** the `weather-odds` cloud environment still blocks the station-data hosts and Copernicus (checked 2026-10-29). The CDS key is now set. Once the network allows it, the station sources and CERRA can be compared, as the owner asked.
+3. Review and merge PR #1 and the follow-up branch `docs/spec-answers`; close #12 when the spec is done.
 
 ## Next steps (after the answers)
 

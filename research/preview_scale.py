@@ -1,11 +1,9 @@
 """Preview of the proposed outdoor-weather scale for Plovdiv (phase-0 research,
 follow-up to issue #5).
 
-Every daylight hour gets a score from 0 (bad) to 100 (great) from temperature,
-rain and wind gusts; a day's score is the mean over its daylight hours, capped
-when the day's rain in those hours reaches 1 mm (at most Fair) or 5 mm (at most
-Poor). The definition and thresholds are in docs/spec/methodology.md (section 4).
-Thunder is not scored yet: ERA5 has no thunder variable.
+Scores every day of the reference years over its daylight hours with the scale in
+scale.py (definition: docs/spec/methodology.md, section 4) and summarises how
+often days were Good or Great.
 
 Writes docs/research/img/scale-preview.png and docs/research/scale-preview.json;
 the write-up is in docs/research/weather-scale.md.
@@ -27,54 +25,15 @@ import pandas as pd  # noqa: E402
 sys.path.insert(0, str(Path(__file__).parent))
 import load_sources as src  # noqa: E402
 from daystats import pooled, to_matrix  # noqa: E402
+from scale import CLASSES, GOOD, daylight, hour_factors, period_scores  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 IMG = ROOT / "docs" / "research" / "img"
 OUT_JSON = ROOT / "docs" / "research" / "scale-preview.json"
-LAT, LON = 42.1333, 24.75
 REF = (1996, 2025)
 POOL = 7
 
-# Thresholds (defaults proposed in methodology section 4; all configurable)
-COMFORT = (18.0, 26.0)  # deg C: no penalty inside this range
-COLD_ZERO, HOT_ZERO = 0.0, 38.0  # deg C: temperature factor reaches 0
-RAIN = ((0.2, 1.0), (1.0, 0.5), (np.inf, 0.2))  # (hourly mm below which, factor)
-RAIN_CAPS = ((5.0, 39.0), (1.0, 59.0))  # (mm in the chosen hours from which, highest score)
-GUST_OK, GUST_ZERO = 30.0, 75.0  # km/h
-CLASSES = [(80, "Great", "#1a9850"), (60, "Good", "#91cf60"), (40, "Fair", "#fee08b"),
-           (20, "Poor", "#fc8d59"), (0, "Bad", "#d73027")]
-GOOD = 60
-
 plt.rcParams.update({"figure.dpi": 110, "font.size": 9})
-
-
-def daylight(utc: pd.DatetimeIndex) -> np.ndarray:
-    """True for hours stamped between sunrise and sunset (NOAA approximation)."""
-    doy = utc.dayofyear.to_numpy()
-    decl = np.radians(23.44) * np.sin(2 * np.pi * (284 + doy) / 365)
-    half_day = np.degrees(np.arccos(-np.tan(np.radians(LAT)) * np.tan(decl))) / 15
-    b = 2 * np.pi * (doy - 81) / 364
-    eot_h = (9.87 * np.sin(2 * b) - 7.53 * np.cos(b) - 1.5 * np.sin(b)) / 60
-    noon = 12 - LON / 15 - eot_h
-    hour = utc.hour.to_numpy()
-    return (hour >= noon - half_day) & (hour <= noon + half_day)
-
-
-def temperature_factor(t: np.ndarray) -> np.ndarray:
-    cold = np.clip((t - COLD_ZERO) / (COMFORT[0] - COLD_ZERO), 0, 1)
-    hot = np.clip((HOT_ZERO - t) / (HOT_ZERO - COMFORT[1]), 0, 1)
-    return np.minimum(cold, hot)
-
-
-def rain_factor(p: np.ndarray) -> np.ndarray:
-    out = np.full(p.shape, RAIN[-1][1])
-    for limit, factor in reversed(RAIN):
-        out = np.where(p < limit, factor, out)
-    return out
-
-
-def gust_factor(g: np.ndarray) -> np.ndarray:
-    return np.clip((GUST_ZERO - g) / (GUST_ZERO - GUST_OK), 0, 1)
 
 
 # ---------------------------------------------------------------------------
@@ -82,18 +41,10 @@ def gust_factor(g: np.ndarray) -> np.ndarray:
 
 hourly = src.era5_hourly("copernicus_era5")
 hourly = hourly[daylight(hourly.index.tz_convert("UTC"))]
-factors = pd.DataFrame({
-    "temperature": temperature_factor(hourly["temperature_2m"].to_numpy()),
-    "rain": rain_factor(hourly["precipitation"].to_numpy()),
-    "wind": gust_factor(hourly["wind_gusts_10m"].to_numpy()),
-}, index=hourly.index)
-hour_score = 100 * factors.prod(axis=1)
-day = hour_score.index.tz_localize(None).normalize()
+factors = hour_factors(hourly)
+day = hourly.index.tz_localize(None).normalize()
 rain = hourly["precipitation"].groupby(day).sum()
-score = hour_score.groupby(day).mean()
-for limit, cap in RAIN_CAPS:
-    score = score.where(rain < limit, np.minimum(score, cap))
-score = score[hour_score.groupby(day).size() >= 8]
+score = period_scores(hourly, min_hours=8)
 
 matrix = to_matrix(score, REF).to_numpy()
 good = pooled(np.where(np.isnan(matrix), np.nan, matrix >= GOOD), POOL)

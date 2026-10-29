@@ -1,27 +1,25 @@
 # Open questions
 
-Questions for the owner are GitHub issues assigned to them, collected in the tracking issue **[#12 Specification phase: questions and sign-off](https://github.com/valentina98/weather-odds/issues/12)**. Answers are copied into [decisions.md](decisions.md) and the spec.
+Questions for the owner are GitHub issues assigned to them, collected in the tracking issue **[#12 Specification phase: questions and sign-off](https://github.com/valentina98/weather-odds/issues/12)**. Answers are copied into [decisions.md](decisions.md) and the spec. Issues are closed once their answer is recorded.
 
 ## Still open (as of 2026-10-29)
 
-| Issue | Question | Proposed answer |
+| Issue | Question | State |
 |---|---|---|
-| [#5](https://github.com/valentina98/weather-odds/issues/5) | Confirm the outdoor-weather scale: comfort range 18–26 °C; heat bad from 38 °C; rain rule (1 mm caps a day at Fair); calendar colour = chance of a Good or Great day; absolute rather than season-relative. | As in [methodology §4](spec/methodology.md#4-outdoor-weather-scale); preview in [weather-scale.md](research/weather-scale.md). |
-| [#6](https://github.com/valentina98/weather-odds/issues/6) | Turn on trend adjustment for temperature by default? | Yes: without it, 30-year odds were about 1 °C too cold in the [cross-validation](research/validation.md). |
-| [#8](https://github.com/valentina98/weather-odds/issues/8) | Which dashboard framework? | Streamlit, Dash as the fallback ([comparison](research/dashboard-frameworks.md)). |
-| [#3](https://github.com/valentina98/weather-odds/issues/3) | Environment: allow the data hosts and make the CDS key reachable, so station data and CERRA can be tested. | Owner action; see the issue. |
+| [#8](https://github.com/valentina98/weather-odds/issues/8) | Keep Streamlit after seeing the first prototype, or try another framework? | Prototype and assessment in [dashboard-frameworks.md](research/dashboard-frameworks.md#first-results-streamlit-prototype); waiting for the owner. |
+| [#3](https://github.com/valentina98/weather-odds/issues/3) | Test every data source and year range before implementation. | Gridded sources done ([early-october.md](research/early-october.md)). Station sources and CERRA wait for network access in the `weather-odds` environment; the CDS key is now set. |
 
 ## Answered
 
 | Issue | Question | Answer (2026-10-28/29) | Recorded as |
 |---|---|---|---|
 | [#2](https://github.com/valentina98/weather-odds/issues/2) | Code licence? | MIT, as proposed. | D16, `LICENSE` |
-| [#3](https://github.com/valentina98/weather-odds/issues/3) | Copernicus key for CERRA? | Test all databases and several year ranges (e.g. the last 10 years) before implementing; expected early-October warming. The owner adds the key. | D24, [early-october.md](research/early-october.md) |
+| [#3](https://github.com/valentina98/weather-odds/issues/3) | Copernicus key for CERRA? | Test all databases and several year ranges (e.g. the last 10 years) before implementing; expected early-October warming. The owner added the key. Could a warm-up at varying dates average out? (Tested: no early-October specific warm-up.) | D24, D33, [early-october.md](research/early-october.md) |
 | [#4](https://github.com/valentina98/weather-odds/issues/4) | Which places? | Only Plovdiv for now; precision over other cities; Sofia and Varna possibly later. | D17 |
-| [#5](https://github.com/valentina98/weather-odds/issues/5) | "Good day" per activity? | No activities. One outdoor-weather scale from green (good) to red (bad); extreme heat is bad. | D18, D19 |
-| [#6](https://github.com/valentina98/weather-odds/issues/6) | Which years are "typical"? | Configurable; default the last 30 complete years; the user can pick a smaller range in the dashboard. | D13 |
+| [#5](https://github.com/valentina98/weather-odds/issues/5) | "Good day" per activity? | No activities. One outdoor-weather scale from green to red; extreme heat is bad. Defaults set by us, changeable in the dashboard. Relative colours as an option, absolute by default. | D18–D20, D31, D32 |
+| [#6](https://github.com/valentina98/weather-odds/issues/6) | Which years are "typical"? | Configurable; default the last 30 complete years; narrowable in the dashboard. Trend adjustment agreed, with an on/off switch, clearly shown, default from the config. | D13, D27 |
 | [#7](https://github.com/valentina98/weather-odds/issues/7) | Seasonal outlook? | No: only statistics for that month/week/day/time, never current weather. Validate with leave-one-year-out cross-validation. | D23, D25, [validation.md](research/validation.md) |
-| [#8](https://github.com/valentina98/weather-odds/issues/8) | Local or hosted? | Local only; compare dashboard frameworks. | D22, [dashboard-frameworks.md](research/dashboard-frameworks.md) |
+| [#8](https://github.com/valentina98/weather-odds/issues/8) | Local or hosted? Which framework? | Local only. Pick one, show first results, then re-evaluate. | D22, D29 |
 | [#9](https://github.com/valentina98/weather-odds/issues/9) | Language and dates? | English only, dd.mm.yyyy. | D28 |
 | [#10](https://github.com/valentina98/weather-odds/issues/10) | First screen? | No activity selection. Timeframe (default ok), optional time (default: during the day), default granularity week. No best-days list; colours are enough. Selecting a day/week/month opens a detail panel. Patterns and Data tabs: yes. | D21 |
 | [#11](https://github.com/valentina98/weather-odds/issues/11) | Other local patterns? | None known. | D30 |
