@@ -2,7 +2,7 @@
 
 _Checked on 2026-10-29 for issue [#8](https://github.com/valentina98/weather-odds/issues/8). Versions and licences are from PyPI; the click-event APIs were confirmed in each package's released code._
 
-**Decision (2026-10-29): Dash**, chosen by the owner for scalability ([#8](https://github.com/valentina98/weather-odds/issues/8)). Both prototypes met every requirement. Streamlit needed less code; Dash gives full control over layout and behaviour and updates only what changed instead of re-running the whole script. The Streamlit prototype's code is kept for reference in a closed pull request; this page keeps its evaluation.
+**Decision (2026-10-29): Dash**, chosen by the owner for scalability ([#8](https://github.com/valentina98/weather-odds/issues/8)). Both prototypes met every requirement. Streamlit needed less code; Dash gives full control over layout and behaviour and updates only what changed instead of re-running the whole script. The Streamlit prototype's code is kept for reference in the closed pull request [#13](https://github.com/valentina98/weather-odds/pull/13); this page keeps its evaluation.
 
 ## What the dashboard has to do
 

@@ -1,6 +1,6 @@
 # Dashboard prototype (throwaway)
 
-A quick Dash prototype of the dashboard for issue [#8](https://github.com/valentina98/weather-odds/issues/8). The same screens were also built in Streamlit to compare the two; the owner chose Dash (D29). The Streamlit code is kept in a closed pull request. This prototype shows real screens and is the starting point for milestone 6 of the [development plan](../../docs/development-plan.md). It is **not the application**, and none of it is meant to be kept as is.
+A quick Dash prototype of the dashboard for issue [#8](https://github.com/valentina98/weather-odds/issues/8). The same screens were also built in Streamlit to compare the two; the owner chose Dash (D29). The Streamlit code is kept in the closed pull request [#13](https://github.com/valentina98/weather-odds/pull/13). This prototype shows real screens and is the starting point for milestone 6 of the [development plan](../../docs/development-plan.md). It is **not the application**, and none of it is meant to be kept as is.
 
 What it shows, for Plovdiv, from ERA5 only:
 - the calendar at day, week or month granularity, coloured by the outdoor-weather scale ([methodology §4](../../docs/spec/methodology.md#4-outdoor-weather-scale));

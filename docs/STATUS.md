@@ -30,7 +30,7 @@ The owner asked for research, planning and documentation first. Development star
   - CERRA is not more precise; Open-Meteo's "ERA5 seamless" is ERA5-Land and 3 °C too cold in summer.
   - Early October re-checked with the station: no warm-up specific to it.
 - **Validation** against the station and of the scale's calendar colour: [validation.md](research/validation.md).
-- **Dash prototype** with the same screens as the Streamlit one, compared in [dashboard-frameworks.md](research/dashboard-frameworks.md#streamlit-and-dash-side-by-side). **The owner chose Dash** (#8); the Streamlit code was moved to a closed pull request.
+- **Dash prototype** with the same screens as the Streamlit one, compared in [dashboard-frameworks.md](research/dashboard-frameworks.md#streamlit-and-dash-side-by-side). **The owner chose Dash** (#8); the Streamlit code was moved to the closed pull request [#13](https://github.com/valentina98/weather-odds/pull/13).
 - **Spec updated**: [requirements](spec/requirements.md), [methodology](spec/methodology.md), [architecture](spec/architecture.md), [vision](vision.md); **[development plan](development-plan.md)** drafted.
 
 ## Waiting for the owner
