@@ -14,7 +14,7 @@ Until the owner says the specification step is done:
 ## Where things are
 
 - `docs/` holds the research, draft spec, and decision log. Start with `docs/README.md` and `docs/STATUS.md`.
-- Open questions for the owner are GitHub issues labelled `decision-needed`, assigned to valentina98, and collected in a tracking issue.
+- Open questions for the owner are GitHub issues labelled `decision-needed`, assigned to valentina98, and collected in tracking issue #12. Development starts only after the owner closes #12.
 - Work happens on branches with pull requests into `main`. Check open PRs first: `gh api repos/valentina98/weather-odds/pulls`.
 - GitHub GraphQL is unavailable from Claude Code sessions; use the REST API (`gh api ...`).
 
