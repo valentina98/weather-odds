@@ -35,7 +35,7 @@ v1 covers **Plovdiv, Bulgaria only**, and precision for Plovdiv comes before sup
 |---|---|
 | F5 | The user picks a timeframe. Default: today to today + 3 months. |
 | F6 | The user picks the granularity: **month, week or day**. Default: **week**. |
-| F7 | The user can optionally pick a time of day (e.g. 17:00–22:00). If none is picked, the **daylight hours** of each date (sunrise to sunset) are used. All statistics for a period use only these hours. |
+| F7 | The user can optionally pick a time of day (e.g. 17:00–22:00). If none is picked, the default is **one daylight window for the whole timeframe**: from the latest sunrise to the earliest sunset among its dates, rounded inward to whole hours, so every date is judged on the same hours and every hour is in daylight. The window is shown and can be changed. All statistics for a period use only these hours. |
 | F8 | The user can choose how many neighbouring days are pooled for daily statistics (e.g. ±0, ±3, ±7) and sees the effect on uncertainty. The default comes from the [cross-validation](../research/validation.md). |
 
 ### Main view: calendar
@@ -61,13 +61,16 @@ v1 covers **Plovdiv, Bulgaria only**, and precision for Plovdiv comes before sup
 | ID | Requirement |
 |---|---|
 | F16 | One outdoor-weather scale rates every past hour from 0 (bad) to 100 (great), from temperature, rain, wind gusts and, where data allows, thunder. Both cold and heat lower the rating; extreme heat counts as bad weather. A day's rating is the mean over the selected hours. Five classes: **Great, Good, Fair, Poor, Bad**, coloured dark green to red. Definition: [methodology §4](methodology.md#4-outdoor-weather-scale). |
-| F17 | All thresholds of the scale are defaults in the config, and the user can change them in the dashboard for the session ([#5](https://github.com/valentina98/weather-odds/issues/5)). *(Removed: the activity profiles gathering, walk and hike.)* |
+| F17 | All thresholds of the scale are defaults in the config, and the user can change them in the dashboard for the session ([#5](https://github.com/valentina98/weather-odds/issues/5)). **Thresholds can differ by time of day** (night, morning, afternoon, evening; e.g. a lower comfortable temperature for evenings); by default all bands use the same values. *(Removed: the activity profiles gathering, walk and hike.)* |
 
 ### Other tabs
 
 | ID | Requirement |
 |---|---|
-| F12 | **Patterns** tab: recurring patterns that pass the statistical checks in the methodology, as frequencies ("a warm spell in this fortnight in 6 of 10 years"). |
+| F12 | **Patterns and trends** tab: recurring patterns that pass the statistical checks in the methodology, as frequencies ("a warm spell in this fortnight in 6 of 10 years"), plus the trend tools in F29–F31. |
+| F29 | **Investigate a window**: the user picks a date window (e.g. 1–10 Oct), optionally a window to compare with (e.g. 21–30 Sep), and a range of years. The tool shows each year's value (mean daily maximum, rain days, score) with the long-term trend, the per-year difference between the windows ("warmer than late September in 9 of 10 years") and the averages with 95% intervals. |
+| F30 | **Events**: warm-ups ("warmer, then colder again"), warm spells, cold snaps, rainy spells and heat waves are found in each year first, then counted per 10-day window and range of years, so events at varying dates are not averaged away. The event definitions are editable. |
+| F31 | **Year by day**: a year × day chart of how far each day was above or below normal, for any window and range of years. Every trend view warns that searching many windows finds some patterns by chance. |
 | F23 | **Data** tab: sources, years used, station-vs-grid checks and attribution for every source used. |
 | F15 | *Removed ([#7](https://github.com/valentina98/weather-odds/issues/7)): no seasonal outlook.* The odds come only from historical statistics for the month, week, day and time of day, never from current weather or forecasts. |
 

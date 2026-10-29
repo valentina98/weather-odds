@@ -18,7 +18,7 @@ For Plovdiv the tool builds one **hourly** and one **daily** table in local time
 | snowfall, snow depth | mm water / m | ERA5 / ERA5-Land |
 | wind gusts | km/h | ERA5 |
 | cloud cover | % | ERA5 |
-| thunder | yes/no | airport reports (LBPD, from 2012). Thunder is reported on 24% of June days. ERA5's rain misses half of the thunder hours, so rain cannot stand in for it. A model stand-in for years before 2012 is still to be tested (§5). |
+| thunder | yes/no | airport reports (LBPD) by hour, 2012–2014 and 2019–2025; NOAA's daily thunder flag for 1997–2011, which matches the airport where both exist. Thunder is reported on 24% of June days, and ERA5's rain misses half of the thunder hours, so rain cannot stand in for it. Both sources are empty in 2015–2018. How flagged days get their hours, and what to do about 2015–2018: [gap plan](../development-plan.md#filling-the-data-gaps). |
 | sunrise, sunset | time | computed from coordinates |
 
 **Data path.** The Open-Meteo API's default ERA5 product ("ERA5 seamless") uses ERA5-Land temperatures, which are 3 °C too cold in summer at Plovdiv. The tool reads plain ERA5: from the Open-Meteo AWS bucket, or from the API with `models=era5` (to be confirmed when the API's daily limit allows).
@@ -45,7 +45,7 @@ For Plovdiv the tool builds one **hourly** and one **daily** table in local time
 
 *Agreed in [#5](https://github.com/valentina98/weather-odds/issues/5).* There are no activity profiles. One scale rates how good the weather was for being outdoors. A preview for Plovdiv is in [weather-scale.md](../research/weather-scale.md).
 
-All numbers below are **defaults**. They are set in the config, and the user can change them in the dashboard for the session: comfort range, cold and heat limits, rain thresholds and caps, gust limits, class boundaries.
+All numbers below are **defaults**. They are set in the config, and the user can change them in the dashboard for the session: comfort range, cold and heat limits, rain thresholds and caps, gust limits, class boundaries. **Each can differ by time of day** (night 0–6, morning 6–12, afternoon 12–18, evening 18–24), for example a comfort range starting at 15 °C in the evening. By default all four bands use the same values; each hour is scored with its band's thresholds.
 
 **Each hour** gets a score from 0 to 100:
 
@@ -101,10 +101,10 @@ Without the caps, a day with a few hours of rain could still rate Good, because 
 
 | Term | Definition (default, configurable) |
 |---|---|
-| Chosen hours | the time of day the user picked; if none, the daylight hours of each date (sunrise to sunset) |
+| Chosen hours | the time of day the user picked; if none, one daylight window for the whole timeframe: from the latest sunrise to the earliest sunset among its dates, rounded inward to whole hours (for 29.10.2026–29.01.2027: about 08:00–16:00) |
 | Wet day | ≥ 1.0 mm in the 24 hours of the local calendar day |
 | Rain during the chosen hours | ≥ 0.2 mm in at least one of those hours (to be calibrated against airport rain reports) |
-| Thunder | thunder in an airport report within the hour (2012 on). Before 2012, a model stand-in (ERA5 convective rain or CAPE, or IFS lightning from 2017) is still to be tested; until then the detail panel shows the thunder chance from 2012 on, and the scale's thunder factor applies only to years with reports |
+| Thunder | thunder in an airport report within the hour; for 1997–2011, a day with NOAA's thunder flag, placed in its hours with convective signs (to be tested, see the [gap plan](../development-plan.md#filling-the-data-gaps)) |
 | Frost | daily minimum < 0 °C |
 | Heat | maximum during the chosen hours ≥ 32 °C |
 | Strong wind | gust ≥ 50 km/h during the chosen hours |

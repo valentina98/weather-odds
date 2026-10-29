@@ -31,12 +31,14 @@ The owner asked for research, planning and documentation first. Development star
   - Early October re-checked with the station: no warm-up specific to it.
 - **Validation** against the station and of the scale's calendar colour: [validation.md](research/validation.md).
 - **Dash prototype** with the same screens as the Streamlit one, compared in [dashboard-frameworks.md](research/dashboard-frameworks.md#streamlit-and-dash-side-by-side). **The owner chose Dash** (#8); the Streamlit code was moved to the closed pull request [#13](https://github.com/valentina98/weather-odds/pull/13).
+- **Owner's chat answers (2026-10-29)** recorded: station temperature, editable scale with time-of-day thresholds, transparent trend adjustment, one daylight window per timeframe, trend tools (D39), and a [gap plan](development-plan.md#filling-the-data-gaps).
 - **Spec updated**: [requirements](spec/requirements.md), [methodology](spec/methodology.md), [architecture](spec/architecture.md), [vision](vision.md); **[development plan](development-plan.md)** drafted.
 
 ## Waiting for the owner
 
-1. Review the branch `docs/spec-answers` (on top of PR #1), including the proposed data design (D34–D38) and the [development plan](development-plan.md).
-2. Close #12 when the spec is done. Then the development plan becomes GitHub issues and implementation starts.
+1. Answer the five short questions in [#14](https://github.com/valentina98/weather-odds/issues/14) (each has a proposed answer).
+2. Review the branch `docs/spec-answers` (on top of PR #1), including the proposed data design (D34–D38) and the [development plan](development-plan.md).
+3. Close #12 when the spec is done. Then the development plan becomes GitHub issues and implementation starts.
 
 ## Next steps (after the sign-off)
 

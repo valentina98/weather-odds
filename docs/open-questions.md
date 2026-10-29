@@ -4,7 +4,11 @@ Questions for the owner are GitHub issues assigned to them, collected in the tra
 
 ## Still open (as of 2026-10-29)
 
-None besides the sign-off: review the spec and close [#12](https://github.com/valentina98/weather-odds/issues/12) when it is done.
+| Issue | Questions | Proposed answers |
+|---|---|---|
+| [#14](https://github.com/valentina98/weather-odds/issues/14) | (1) different scale defaults by time of day? (2) daylight window for a whole timeframe: latest sunrise to earliest sunset, or the average? (3) which questions the trend tools should answer; (4) leave out 1996 or fill it from ERA5? (5) a written request to NIMH for station rain 2000–2021, if free neighbours fail? | (1) same for all bands; (2) latest sunrise to earliest sunset; (3) warm-ups, warm spells, cold snaps, rainy spells, heat waves, first/last frost, warming by season; (4) leave it out; (5) try ECA&D's Chirpan and Ivailo first |
+
+Then the sign-off: review the spec and close [#12](https://github.com/valentina98/weather-odds/issues/12).
 
 ## Answered
 
@@ -20,6 +24,17 @@ None besides the sign-off: review the spec and close [#12](https://github.com/va
 | [#9](https://github.com/valentina98/weather-odds/issues/9) | Language and dates? | English only, dd.mm.yyyy. | D28 |
 | [#10](https://github.com/valentina98/weather-odds/issues/10) | First screen? | No activity selection. Timeframe (default ok), optional time (default: during the day), default granularity week. No best-days list; colours are enough. Selecting a day/week/month opens a detail panel. Patterns and Data tabs: yes. | D21 |
 | [#11](https://github.com/valentina98/weather-odds/issues/11) | Other local patterns? | None known. | D30 |
+
+## Answered in chat (2026-10-29)
+
+| Topic | Answer | Recorded as |
+|---|---|---|
+| Temperature from the Plovdiv station | ok | D34 |
+| Scale defaults | ok, as long as the user can change them; penalties may differ by time of day | D20, F17 |
+| Trend adjustment | ok; transparent and switchable | D27, F27 |
+| Default time of day | daylight, as one window for the whole selected period | D21, F7 |
+| Investigating trends like the warm-up | wanted in the tool | D39, F29–F31 |
+| Data gaps | make a plan | D40, [gap plan](development-plan.md#filling-the-data-gaps) |
 
 ## Questions answered in chat (2026-10-28)
 
