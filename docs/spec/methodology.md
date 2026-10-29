@@ -13,7 +13,7 @@ For Plovdiv the tool builds one **hourly** and one **daily** table in local time
 
 | Field | Unit | Main source |
 |---|---|---|
-| temperature | °C | **The station's hourly measurements** (WMO 15625 via Meteostat/NOAA ISD, from 1997). Missing hours are filled with ERA5 corrected to the station. 1996 has no station data at all; proposed: leave it out ([#14](https://github.com/valentina98/weather-odds/issues/14), [gap plan](../development-plan.md#filling-the-data-gaps)). ERA5's ranges are too narrow against the station, and its warming trend is steeper ([all sources](../research/all-sources.md)). |
+| temperature | °C | **The station's hourly measurements** (WMO 15625 via Meteostat/NOAA ISD, from 1997). Missing hours are filled with ERA5 corrected to the station. 1996 has no station data at all and is left out (D43, [gap plan](../development-plan.md#filling-the-data-gaps)). ERA5's ranges are too narrow against the station, and its warming trend is steeper ([all sources](../research/all-sources.md)). |
 | precipitation | mm | ERA5 (≈25 km), calibrated against station wet-day frequencies (§10). ERA5 is the best grid for rain here: CERRA (5.5 km) has twice as many wet days as the station. |
 | snowfall, snow depth | mm water / m | ERA5 / ERA5-Land |
 | wind gusts | km/h | ERA5 |
@@ -27,7 +27,7 @@ For Plovdiv the tool builds one **hourly** and one **daily** table in local time
 
 ## 2. Reference period
 
-- **Default: the last 30 complete years** (currently 1996–2025), set in the config ([#6](https://github.com/valentina98/weather-odds/issues/6)).
+- **Default: the last 30 complete years** (currently 1996–2025, of which 29 have station data: 1996 is left out and the label says so), set in the config ([#6](https://github.com/valentina98/weather-odds/issues/6)).
 - In the dashboard the user can **narrow it to a shorter range** within the configured period, e.g. the last 10 years.
 - **Trend adjustment** for temperature ([#6](https://github.com/valentina98/weather-odds/issues/6)): each reference year's temperatures are shifted by the linear warming trend fitted to the reference years, up to the current year. The trend is fitted to the data the temperatures come from: the station for Plovdiv (+0.76 °C per decade since 1996; ERA5 shows +1.20). In the cross-validation, plain 30-year statistics predicted temperatures 1.07 °C too cold on average; trend adjustment cut that to 0.32 °C and lowered the error by 0.10 °C. It uses only the historical record, not current weather.
   - The user switches it **on or off** in the dashboard; the config sets the default (shipped default: on).

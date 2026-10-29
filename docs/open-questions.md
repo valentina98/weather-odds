@@ -4,11 +4,7 @@ Questions for the owner are GitHub issues assigned to them, collected in the tra
 
 ## Still open (as of 2026-10-29)
 
-| Issue | Questions | Proposed answers |
-|---|---|---|
-| [#14](https://github.com/valentina98/weather-odds/issues/14) | (3) which kinds of events the trend tools should find; (4) leave out 1996, fill it from ERA5, or use 1995 instead? Questions 1, 2 and 5 are answered. | (3) all of: warm-ups, warm spells, cold snaps, rainy spells, heat waves, first/last frost, warming by month; (4) leave it out |
-
-Then the sign-off: review the spec and close [#12](https://github.com/valentina98/weather-odds/issues/12).
+None. What is left is the sign-off: review the spec and close [#12](https://github.com/valentina98/weather-odds/issues/12).
 
 ## Answered
 
@@ -24,6 +20,7 @@ Then the sign-off: review the spec and close [#12](https://github.com/valentina9
 | [#9](https://github.com/valentina98/weather-odds/issues/9) | Language and dates? | English only, dd.mm.yyyy. | D28 |
 | [#10](https://github.com/valentina98/weather-odds/issues/10) | First screen? | No activity selection. Timeframe (default ok), optional time (default: during the day), default granularity week. No best-days list; colours are enough. Selecting a day/week/month opens a detail panel. Patterns and Data tabs: yes. | D21 |
 | [#11](https://github.com/valentina98/weather-odds/issues/11) | Other local patterns? | None known. | D30 |
+| [#14](https://github.com/valentina98/weather-odds/issues/14) | Thresholds by time of day, daylight window, trend tools, 1996, paid station data | (1) Settings loosely coupled; (2) latest sunrise to earliest sunset; (3) all proposed event kinds; (4) leave 1996 out; (5) no paid data, the option recorded. | D21, D39, D41–D43 |
 
 ## Answered in chat (2026-10-29)
 
