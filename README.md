@@ -20,3 +20,21 @@ Highlights from the first data check for Plovdiv ([details](docs/research/plovdi
 ## Data
 
 The tool will download data on demand and never ship it. Sources and their licences are listed in [`docs/research/data-sources.md`](docs/research/data-sources.md) and [`docs/research/licensing.md`](docs/research/licensing.md). The free Open-Meteo API is for non-commercial use only.
+
+## Development
+
+Needs [uv](https://docs.astral.sh/uv/). From a clone:
+
+```bash
+uv sync
+```
+
+```bash
+uv run pytest
+```
+
+```bash
+uv run weather-odds config
+```
+
+The last command checks `config.yaml` in the current folder (or the built-in defaults if there is none) and prints the settings in effect. To change a default, copy [`config.example.yaml`](config.example.yaml) to `config.yaml` and edit it. The dashboard and the data commands follow in the [v1 milestone](https://github.com/valentina98/weather-odds/milestone/1).
