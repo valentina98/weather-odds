@@ -87,7 +87,7 @@ v1 covers **Plovdiv, Bulgaria only**, and precision for Plovdiv comes before sup
 | ID | Requirement |
 |---|---|
 | F20 | Data is downloaded on demand and cached locally; the cache can be refreshed. |
-| F21 | Works with **no API key** by default (Open-Meteo API, with the Open-Meteo AWS open data as a fallback when the API limit is hit). |
+| F21 | Works with **no API key**: ERA5 comes from Open-Meteo's open-data bucket on AWS, which has no daily limit, and the station sources are free (D45). |
 | F22 | *Removed: optional Copernicus CDS sources. CERRA was tested and is not more precise at Plovdiv ([all sources](../research/all-sources.md)); no key is needed.* |
 
 ### Validation

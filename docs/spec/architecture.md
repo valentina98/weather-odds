@@ -29,7 +29,7 @@ config.yaml ──► CLI / dashboard
 | Component | Responsibility | Notes |
 |---|---|---|
 | **Config** | Load and validate `config.yaml` (location, scale thresholds, reference period, default time of day, pooling, source priority). | YAML + a typed schema (e.g. pydantic). Secrets only from environment variables. |
-| **Data adapters** | One adapter per source, all returning the same tidy schema (hourly and daily, local time, units fixed). | Meteostat hourly (station temperature), Open-Meteo AWS or API (plain ERA5; never "ERA5 seamless"), airport reports (IEM, thunder), NOAA GSOD and NIMH (rain calibration). The research loaders in `research/load_sources.py` are the prototype ([all sources](../research/all-sources.md)). |
+| **Data adapters** | One adapter per source, all returning the same tidy schema (hourly and daily, local time, units fixed). | Meteostat hourly (station temperature), ERA5 from the Open-Meteo AWS bucket (plain ERA5; never "ERA5 seamless"; D45), airport reports (IEM, thunder), NOAA GSOD and NIMH (rain calibration). The research loaders in `research/load_sources.py` are the prototype ([all sources](../research/all-sources.md)). |
 | **Cache** | Store downloads per location and source; refresh on request. | Parquet files under a cache folder; git-ignored. |
 | **Blending** | Build the Plovdiv hourly table: station temperature (ERA5 corrected to the station fills gaps), ERA5 rain and gusts with the calibrated thresholds, airport thunder. | Methodology §1 and §10. |
 | **Stats engine** | Day-of-year statistics, pooling, trend adjustment, the outdoor-weather scale, percentiles, bootstrap intervals, pattern detection. | No I/O, fully unit-tested. |
@@ -73,7 +73,7 @@ weather-odds/
 | Risk | Mitigation |
 |---|---|
 | Open-Meteo free API daily limit (especially from shared networks) | Cache aggressively; AWS open-data fallback; document the limit. |
-| `.om` file layout on AWS changes | Pin `omfiles`; keep the API adapter as the primary path. |
+| `.om` file layout on AWS changes | Pin `omfiles`; the Open-Meteo API with `models=era5` is the fallback to add if the bucket changes (D45). |
 | NIMH open data is experimental | Treat it as optional; validate before use. |
 | Users read odds as forecasts | Wording, intervals and an explicit "this is not a forecast" note in every view. |
 | Red–green colours are hard to tell apart for colour-blind users | Palette that also changes in lightness; values on hover; optional colour-blind palette. |

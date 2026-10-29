@@ -39,8 +39,16 @@ class Location(_Model):
     name: str = "Plovdiv"
     latitude: float = Field(42.1333, ge=-90, le=90)
     longitude: float = Field(24.75, ge=-180, le=180)
+    elevation_m: float = 179.0  # the station's height; grid temperatures are corrected to it
     timezone: str = "Europe/Sofia"
     station: str = "15625"  # WMO id of the station whose measurements are used
+    airport: str = "LBPD"  # ICAO id of the airport whose reports give rain and thunder by hour
+    nimh_station: str = "46011"  # id in the NIMH (Bulgaria) open-data rain files
+
+    @property
+    def slug(self) -> str:
+        """Folder name for this location's cache."""
+        return re.sub(r"[^a-z0-9]+", "-", self.name.lower()).strip("-") or "location"
 
     @field_validator("timezone")
     @classmethod
@@ -176,6 +184,7 @@ class Data(_Model):
     """Where each variable comes from, in order of priority (D34, D37), and the download cache."""
 
     cache_dir: Path = Path(".cache")
+    first_year: int = Field(1960, ge=1940)  # earliest year downloaded
     temperature: list[Literal["station", "era5"]] = ["station", "era5"]
     precipitation: list[Literal["era5"]] = ["era5"]
     wind_gusts: list[Literal["era5"]] = ["era5"]
