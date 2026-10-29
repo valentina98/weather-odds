@@ -15,6 +15,7 @@ data/raw/
 # Secrets and local config
 .env
 *.local.yaml
+config.yaml
 .cdsapirc
 
 # OS / editors

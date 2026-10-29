@@ -1,0 +1,54 @@
+# weather-odds configuration. Copy to config.yaml and change what you need;
+# anything left out keeps the default shown here. Every setting stands alone:
+# changing one never changes another. The dashboard can change most of them
+# for a session without editing this file.
+
+location:
+  name: Plovdiv
+  latitude: 42.1333
+  longitude: 24.75
+  timezone: Europe/Sofia
+  station: '15625'          # WMO id of the station whose measurements are used
+
+statistics:
+  years: 30                 # reference period: the last 30 complete years
+  last_year: null           # null: the last complete year
+  trend_adjustment: true    # shift past temperatures by the warming trend
+  pooling_days: 0           # also use +- this many days around each date
+
+scale:                      # the outdoor-weather scale (docs/spec/methodology.md, section 4)
+  thresholds:
+    comfort: [18.0, 26.0]   # deg C with no penalty
+    cold_zero: 0.0          # deg C at which the temperature factor reaches 0
+    hot_zero: 38.0
+    rain:                   # rain in the hour: factor 1 below light_mm
+      light_mm: 0.2
+      heavy_mm: 1.0
+      light_factor: 0.5
+      heavy_factor: 0.2
+    rain_caps:              # rain in the chosen hours caps the period's score
+      - {from_mm: 1.0, max_score: 59.0}
+      - {from_mm: 5.0, max_score: 39.0}
+    gust_ok: 30.0           # km/h with no penalty
+    gust_zero: 75.0         # km/h at which the gust factor reaches 0
+    thunder_factor: 0.2
+  bands: {}                 # changes for night (0-6), morning, afternoon or evening (18-24),
+                            # e.g. {evening: {comfort: [15, 26]}}; the rest comes from thresholds
+  classes:                  # lowest score of each class; below poor is Bad
+    great: 80.0
+    good: 60.0
+    fair: 40.0
+    poor: 20.0
+
+view:                       # what the dashboard shows first
+  time_of_day: daylight     # or local hours such as "18-22"
+  granularity: week         # day, week or month
+  measure: chance           # chance of a Good or Great day, or average score
+  colours: absolute         # absolute, or relative to the selected timeframe
+
+data:
+  cache_dir: .cache         # downloads are kept here, never committed
+  temperature: [station, era5]   # sources in order of priority
+  precipitation: [era5]
+  wind_gusts: [era5]
+  thunder: [airport, gsod]

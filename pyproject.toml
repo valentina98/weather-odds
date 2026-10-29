@@ -1,0 +1,39 @@
+[project]
+name = "weather-odds"
+version = "0.1.0"
+description = "Historical weather odds for planning time outdoors in Plovdiv"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.12"
+dependencies = [
+    "pydantic>=2",
+    "pyyaml>=6",
+    "tzdata>=2026.6 ; sys_platform == 'win32'",
+]
+
+[project.scripts]
+weather-odds = "weather_odds.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.11.32,<0.12.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+    "ruff>=0.17.3",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+# Specification-phase scripts are kept as they were run (see research/README.md).
+extend-exclude = ["research"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = ["--strict-markers"]
