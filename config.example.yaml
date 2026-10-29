@@ -7,8 +7,11 @@ location:
   name: Plovdiv
   latitude: 42.1333
   longitude: 24.75
+  elevation_m: 179.0        # the station's height; grid temperatures are corrected to it
   timezone: Europe/Sofia
   station: '15625'          # WMO id of the station whose measurements are used
+  airport: LBPD             # ICAO id of the airport whose reports give rain and thunder by hour
+  nimh_station: '46011'     # id in the NIMH (Bulgaria) open-data rain files
 
 statistics:
   years: 30                 # reference period: the last 30 complete years
@@ -48,6 +51,7 @@ view:                       # what the dashboard shows first
 
 data:
   cache_dir: .cache         # downloads are kept here, never committed
+  first_year: 1960          # earliest year downloaded
   temperature: [station, era5]   # sources in order of priority
   precipitation: [era5]
   wind_gusts: [era5]
