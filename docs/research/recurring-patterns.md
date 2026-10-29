@@ -25,6 +25,8 @@ Bulgarian sources disagree on the timing:
 - **Other Bulgarian sources** place it in **September to early October**, lasting from a few days to three weeks. This matches the owner's experience of a warm early October.
 - The national news agency BTA uses *сиромашко лято* ("poor man's summer") for the period from Dimitrovden to Nikulden (6 December).
 
+The Plovdiv data does not show a warm early October in any range of years. In the last 10–15 years it shows a non-significant pause in the cooling around 15–25 October, close to Dimitrovden ([early-october.md](early-october.md)).
+
 Naming note: in English-language docs and UI we use **"late-autumn warm spell"** or the Bulgarian *сиромашко лято*, because the English translation of the other folk name can read as an ethnic slur.
 
 ## Scientific caution

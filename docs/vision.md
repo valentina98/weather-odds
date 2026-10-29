@@ -6,30 +6,31 @@ When planning an outdoor gathering, a hike or a walk 1–3 months ahead, weather
 
 ## What weather-odds does
 
-For a chosen place and time window, weather-odds answers: **"In past years, how often was the weather good for my activity on these days and hours?"**
+For Plovdiv and a chosen timeframe and time of day, weather-odds answers: **"In past years, how often was the weather good for being outdoors on these days and hours?"**
 
-- It turns decades of historical weather into **odds**: the chance of rain during the event hours, typical temperature ranges, the chance of strong wind, heat, frost or snow.
-- It shows **recurring patterns** (such as a late-September rainy spell or an early-October warm spell) with how reliable they are.
-- It helps **pick the best dates** within the next 1–3 months by ranking days or weeks.
+- It rates past weather on **one outdoor-weather scale**, shown as a calendar coloured from **green (good) to red (bad)**. Cold, heat, rain, wind and thunder all lower the rating.
+- Selecting a day, week or month shows the details: typical temperatures, the chance of rain, wind, heat, frost or snow, and what most often spoiled the weather.
+- It shows **recurring patterns** with how reliable they have been. At Plovdiv these are few and small (see [early October](research/early-october.md)).
 
-It is a **climatology tool, not a forecast.** It never claims to know what the weather will be on a specific day.
+It is a **climatology tool, not a forecast.** It uses only past statistics, never current weather or forecasts, and never claims to know the weather on a specific day.
 
 ## Who it is for
 
-- **Primary:** the owner, organising non-commercial friend gatherings, hikes, walks and other outdoor activities around Plovdiv, Bulgaria.
-- **Secondary:** other developers who clone the public repo and run it for their own places. They configure it; no hosted service is planned at this stage (see open questions).
+- **Primary:** the owner, organising non-commercial friend gatherings, hikes, walks and other outdoor time in Plovdiv, Bulgaria.
+- **Secondary:** other developers who clone the public repo and run it locally. v1 covers Plovdiv only; other cities (Sofia, Varna) may come later.
 
 ## Principles
 
-1. **Honest uncertainty.** Every number comes with how many years it is based on and how noisy it is. The user can switch between month, week, day and hour views and see when daily detail is just noise.
-2. **Precision over coverage.** Where Bulgarian data is more precise than global data, use it, even if that makes other countries less well supported.
-3. **Event-centred.** The question is "will the event hours be dry and comfortable?", not "what is the daily average?" Hourly data matters.
-4. **Configurable and reproducible.** Thresholds (what counts as rain, too hot, too windy), reference period, data sources and event hours live in a config file. Another developer can run it with one command and no API key.
-5. **Free and open.** Non-commercial use of free data sources; no downloaded data committed to the repo.
+1. **Honest uncertainty.** Every number comes with how many years it is based on and how noisy it is. The user can switch between month, week and day views and see when daily detail is just noise. Defaults are checked by predicting past years from other years ([validation](research/validation.md)).
+2. **Precision over coverage.** Plovdiv first, with Bulgarian station data wherever it is more precise.
+3. **Time-of-day aware.** The question is "will those hours be dry and comfortable?", not "what is the daily average?" Hourly data matters.
+4. **Configurable and reproducible.** Thresholds of the scale, reference years, data sources and the default time of day live in a config file. Another developer can run it with one command and no API key.
+5. **Free and open.** MIT-licensed code; non-commercial use of free data sources; no downloaded data committed to the repo.
 
 ## Non-goals (for now)
 
-- Day-specific forecasts beyond the normal 1–2 week weather forecast.
+- Forecasts of any kind, including seasonal outlooks.
+- Ratings per activity.
 - Training our own forecasting model.
 - Running weather stations or collecting live data ourselves.
-- A hosted public website (open question).
+- A hosted website: the tool runs locally.

@@ -165,8 +165,12 @@ AWS_VARIABLES = {
         "temperature_2m", "precipitation", "snowfall_water_equivalent", "wind_gusts_10m", "cloud_cover",
     ],
     "copernicus_era5_land": ["temperature_2m"],
+    # ECMWF IFS HRES (~9 km), archived by Open-Meteo from 2017 on a reduced Gaussian grid.
+    "ecmwf_ifs": ["temperature_2m", "precipitation", "wind_gusts_10m"],
 }
-AWS_FIRST_YEAR = 1960
+AWS_FIRST_YEAR = {"ecmwf_ifs": 2017}  # default 1960
+GAUSSIAN_MODELS = {"ecmwf_ifs"}
+O1280 = 1280  # latitude rows per hemisphere of ECMWF's O1280 grid
 CHUNK_HOURS = 504  # from data/<model>/static/meta.json
 
 
@@ -178,10 +182,26 @@ def _grid_index(shape: tuple[int, ...]) -> tuple[int, int]:
     return iy, ix
 
 
-def fetch_aws_era5() -> None:
-    """ERA5 / ERA5-Land hourly point series from Open-Meteo's AWS open-data bucket.
+def _gaussian_index() -> tuple[int, float, float]:
+    """Nearest point of the O1280 reduced Gaussian grid, stored as one flat axis.
 
-    No key and no rate limit. Years up to 2021 are stored as one file per year;
+    Rows run north to south; row y (from the nearer pole) has 4y + 20 points
+    starting at 0 E. Returns (flat index, latitude, longitude).
+    """
+    import numpy as np
+
+    nodes, _ = np.polynomial.legendre.leggauss(2 * O1280)
+    lats = np.degrees(np.arcsin(np.sort(nodes)[::-1]))
+    counts = [4 * min(y, 2 * O1280 - 1 - y) + 20 for y in range(2 * O1280)]
+    y = int(np.argmin(np.abs(lats - LAT)))
+    x = round((LON % 360) / (360 / counts[y])) % counts[y]
+    return sum(counts[:y]) + x, float(lats[y]), x * 360 / counts[y]
+
+
+def fetch_aws() -> None:
+    """ERA5, ERA5-Land and ECMWF IFS hourly point series from Open-Meteo's AWS open-data bucket.
+
+    No key and no rate limit. Older years are stored as one file per year;
     later data are 21-day chunk files named by hours since 1970 // 504.
     """
     import numpy as np
@@ -196,12 +216,14 @@ def fetch_aws_era5() -> None:
 
     for model, variables in AWS_VARIABLES.items():
         hsurf = reader(f"{model}/static/HSURF.om")
-        iy, ix = _grid_index(hsurf.shape)
-        meta = {
-            "grid_lat": -90 + iy * 180 / (hsurf.shape[0] - 1),
-            "grid_lon": -180 + ix * 360 / hsurf.shape[1],
-            "grid_elevation_m": float(hsurf[iy:iy + 1, ix:ix + 1].ravel()[0]),
-        }
+        if model in GAUSSIAN_MODELS:
+            i, grid_lat, grid_lon = _gaussian_index()
+            cell = (slice(0, 1), slice(i, i + 1))
+        else:
+            iy, ix = _grid_index(hsurf.shape)
+            grid_lat, grid_lon = -90 + iy * 180 / (hsurf.shape[0] - 1), -180 + ix * 360 / hsurf.shape[1]
+            cell = (slice(iy, iy + 1), slice(ix, ix + 1))
+        meta = {"grid_lat": grid_lat, "grid_lon": grid_lon, "grid_elevation_m": float(hsurf[cell].ravel()[0])}
         save(CACHE / "aws" / f"{model}_meta.json", json.dumps(meta).encode())
 
         years = {int(p.rsplit("_", 1)[1][:4]) for p in fs.glob(f"openmeteo/data/{model}/temperature_2m/year_*.om")}
@@ -210,10 +232,10 @@ def fetch_aws_era5() -> None:
             if out.exists():
                 continue
             parts = []
-            for year in range(AWS_FIRST_YEAR, LAST_YEAR + 1):
+            for year in range(AWS_FIRST_YEAR.get(model, 1960), LAST_YEAR + 1):
                 if year in years:
                     r = reader(f"{model}/{var}/year_{year}.om")
-                    values = r[iy:iy + 1, ix:ix + 1, :].ravel()
+                    values = r[cell + (slice(None),)].ravel()
                     index = pd.date_range(f"{year}-01-01", periods=len(values), freq="h", tz="UTC")
                     parts.append(pd.Series(values, index=index))
                     continue
@@ -223,7 +245,7 @@ def fetch_aws_era5() -> None:
                     path = f"{model}/{var}/chunk_{chunk}.om"
                     if not fs.exists(f"openmeteo/data/{path}"):
                         continue
-                    values = reader(path)[iy:iy + 1, ix:ix + 1, :].ravel()
+                    values = reader(path)[cell + (slice(None),)].ravel()
                     index = pd.date_range(
                         pd.Timestamp(chunk * CHUNK_HOURS * 3600, unit="s", tz="UTC"),
                         periods=len(values), freq="h",
@@ -237,7 +259,7 @@ def fetch_aws_era5() -> None:
 
 
 SOURCES = {
-    "aws_era5": fetch_aws_era5,
+    "aws": fetch_aws,
     "open_meteo": fetch_open_meteo,
     "gsod": fetch_gsod,
     "meteostat": fetch_meteostat,

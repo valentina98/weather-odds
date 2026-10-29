@@ -30,7 +30,7 @@ For weather-odds this means: **the historical climatology is the core product**;
 - **v1:** none, or a link out to the NIMH and C3S outlooks.
 - **Later (optional):** show the C3S or SEAS5 monthly tercile probabilities for the selected months next to the historical odds, clearly labelled. Store each month's outlook so we can later check how often it was right for Plovdiv.
 
-This is an open question for the owner: [#7](https://github.com/valentina98/weather-odds/issues/7).
+**Decided (2026-10-29, [#7](https://github.com/valentina98/weather-odds/issues/7)): no forecasts or seasonal outlooks in weather-odds.** The odds come only from historical statistics. This page stays as background.
 
 ## Sources
 

@@ -27,4 +27,6 @@ Until the owner says the specification step is done:
 ## Environment notes (cloud sessions)
 
 - The free Open-Meteo API is often over its daily limit from cloud sessions (shared outgoing address). Sources that work without keys: NOAA GSOD, Meteostat bulk data, Iowa Environmental Mesonet (airport reports), NIMH open data (info.meteo.bg/openData), NASA POWER, Open-Meteo's AWS open-data bucket.
-- Copernicus CDS needs a personal API key. If the owner adds one, it is read from the environment variable `CDSAPI_KEY` (URL `https://cds.climate.copernicus.eu/api`). Never ask for keys in chat.
+- The owner's `weather-odds` cloud environment is meant for this repo. On 2026-10-29 its network policy blocked every data host except the AWS bucket and package registries; check with `curl -sS -o /dev/null -w '%{http_code}' https://www.ncei.noaa.gov/` before relying on station sources.
+- Copernicus CDS needs a personal API key. The owner set it as the environment variable `CDSAPI_KEY` (URL `https://cds.climate.copernicus.eu/api`); it reaches new sessions only. Check that it is set without printing it (`[ -n "$CDSAPI_KEY" ] && echo set`). Never print, log or commit its value, and never ask for keys in chat.
+- Wind in the Open-Meteo `.om` files is in m/s; `load_sources.py` converts gusts to km/h.
