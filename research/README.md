@@ -16,7 +16,7 @@ Throwaway-quality scripts that produced the evidence in [`docs/research/`](../do
 | `validate_vs_station.py` | Cross-validation against the station's measurements → [validation.md](../docs/research/validation.md#against-the-station). Needs `aws`, `gsod`, `meteostat`. |
 | `validate_scale.py` | Cross-validation of the scale's calendar colour → [validation.md](../docs/research/validation.md#the-outdoor-weather-scale). Needs `aws`. |
 | `preview_scale.py` | Preview of the outdoor-weather scale → [weather-scale.md](../docs/research/weather-scale.md). Needs `aws`. |
-| `prototype/` | Throwaway Streamlit and Dash prototypes of the dashboard for #8 → [prototype/README.md](prototype/README.md). Not the application. |
+| `prototype/` | Throwaway Dash prototype of the dashboard for #8 → [prototype/README.md](prototype/README.md). Not the application. |
 
 ## Run
 

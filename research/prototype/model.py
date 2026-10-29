@@ -1,7 +1,7 @@
-"""Data and statistics shared by the two dashboard prototypes (Streamlit and Dash).
+"""Data and statistics of the dashboard prototype (dash_app.py).
 
-Throwaway research code for issue #8: both prototypes call these functions, so
-the comparison is only about the screens, not the numbers.
+Throwaway research code for issue #8. The Streamlit prototype used the same
+functions, so the comparison was only about the screens, not the numbers.
 """
 
 from __future__ import annotations

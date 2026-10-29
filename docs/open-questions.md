@@ -4,9 +4,7 @@ Questions for the owner are GitHub issues assigned to them, collected in the tra
 
 ## Still open (as of 2026-10-29)
 
-| Issue | Question | State |
-|---|---|---|
-| [#8](https://github.com/valentina98/weather-odds/issues/8) | Streamlit or Dash, after seeing the same screens built in both? | [Side by side](research/dashboard-frameworks.md#streamlit-and-dash-side-by-side); the owner's rule: keep Streamlit unless Dash is better or looks better. |
+None besides the sign-off: review the spec and close [#12](https://github.com/valentina98/weather-odds/issues/12) when it is done.
 
 ## Answered
 
@@ -18,7 +16,7 @@ Questions for the owner are GitHub issues assigned to them, collected in the tra
 | [#5](https://github.com/valentina98/weather-odds/issues/5) | "Good day" per activity? | No activities. One outdoor-weather scale from green to red; extreme heat is bad. Defaults set by us, changeable in the dashboard. Relative colours as an option, absolute by default. | D18–D20, D31, D32 |
 | [#6](https://github.com/valentina98/weather-odds/issues/6) | Which years are "typical"? | Configurable; default the last 30 complete years; narrowable in the dashboard. Trend adjustment agreed, with an on/off switch, clearly shown, default from the config. | D13, D27 |
 | [#7](https://github.com/valentina98/weather-odds/issues/7) | Seasonal outlook? | No: only statistics for that month/week/day/time, never current weather. Validate with leave-one-year-out cross-validation. | D23, D25, [validation.md](research/validation.md) |
-| [#8](https://github.com/valentina98/weather-odds/issues/8) | Local or hosted? Which framework? | Local only. Pick one, show first results, then re-evaluate; keep Streamlit unless Dash is better or looks better; build the Dash screens to compare. | D22, D29 |
+| [#8](https://github.com/valentina98/weather-odds/issues/8) | Local or hosted? Which framework? | Local only. Pick one, show first results, then re-evaluate; both were built. **Dash**, for scalability. | D22, D29 |
 | [#9](https://github.com/valentina98/weather-odds/issues/9) | Language and dates? | English only, dd.mm.yyyy. | D28 |
 | [#10](https://github.com/valentina98/weather-odds/issues/10) | First screen? | No activity selection. Timeframe (default ok), optional time (default: during the day), default granularity week. No best-days list; colours are enough. Selecting a day/week/month opens a detail panel. Patterns and Data tabs: yes. | D21 |
 | [#11](https://github.com/valentina98/weather-odds/issues/11) | Other local patterns? | None known. | D30 |

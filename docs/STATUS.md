@@ -22,7 +22,7 @@ The owner asked for research, planning and documentation first. Development star
   - [early October by source and range of years](research/early-october.md) (#3);
   - [cross-validation of the odds](research/validation.md) (#7);
   - [preview of the outdoor-weather scale](research/weather-scale.md) (#5);
-  - [dashboard framework comparison](research/dashboard-frameworks.md) and a throwaway [Streamlit prototype](../research/prototype/README.md) (#8);
+  - [dashboard framework comparison](research/dashboard-frameworks.md) and a throwaway Streamlit prototype (#8);
   - warm-ups counted per year, to check whether a warm-up at varying dates averages out (#3).
 - **Second round of answers** (2026-10-29): scale thresholds are defaults changeable in the dashboard; colour measure and relative colours as options (#5); trend adjustment with an on/off switch (#6). Issues #2, #4–#7 and #9–#11 are closed.
 - **All data sources tested** (#3, with full network access): [all-sources.md](research/all-sources.md).
@@ -30,14 +30,13 @@ The owner asked for research, planning and documentation first. Development star
   - CERRA is not more precise; Open-Meteo's "ERA5 seamless" is ERA5-Land and 3 °C too cold in summer.
   - Early October re-checked with the station: no warm-up specific to it.
 - **Validation** against the station and of the scale's calendar colour: [validation.md](research/validation.md).
-- **Dash prototype** with the same screens as the Streamlit one, compared in [dashboard-frameworks.md](research/dashboard-frameworks.md#streamlit-and-dash-side-by-side).
+- **Dash prototype** with the same screens as the Streamlit one, compared in [dashboard-frameworks.md](research/dashboard-frameworks.md#streamlit-and-dash-side-by-side). **The owner chose Dash** (#8); the Streamlit code was moved to a closed pull request.
 - **Spec updated**: [requirements](spec/requirements.md), [methodology](spec/methodology.md), [architecture](spec/architecture.md), [vision](vision.md); **[development plan](development-plan.md)** drafted.
 
 ## Waiting for the owner
 
-1. **#8:** Streamlit or Dash, after comparing the [screens side by side](research/dashboard-frameworks.md#streamlit-and-dash-side-by-side).
-2. Review the branch `docs/spec-answers` (on top of PR #1), including the proposed data design (D34–D38) and the [development plan](development-plan.md).
-3. Close #12 when the spec is done. Then the development plan becomes GitHub issues and implementation starts.
+1. Review the branch `docs/spec-answers` (on top of PR #1), including the proposed data design (D34–D38) and the [development plan](development-plan.md).
+2. Close #12 when the spec is done. Then the development plan becomes GitHub issues and implementation starts.
 
 ## Next steps (after the sign-off)
 
