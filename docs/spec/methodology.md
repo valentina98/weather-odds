@@ -38,14 +38,14 @@ For Plovdiv the tool builds one **hourly** and one **daily** table in local time
 
 - Every date is mapped to a 365-day calendar (29 February is dropped).
 - A daily statistic for date *d* uses all reference years and the days *d−w … d+w* (the "pooling window" *w*).
-- **Default *w* = 7 days** (two weeks centred on the date). The cross-validation scored ±7 better than ±3 for both temperature and rain. The user can change it: 0 for raw single days, up to 15 for smoother curves.
+- **Default *w* = 0 days: no pooling**, the owner's choice (2026-10-29). Each date uses only the same date in the reference years. The user can raise it to 15. The cross-validation scored ±7 days better (scale skill over a flat chance 33% vs 31%; temperature error 2.38 vs 2.44 °C), and without pooling the extreme chances are too confident (93% came true 84% of the time). Using more years instead does not make up for it ([validation](../research/validation.md#the-outdoor-weather-scale)).
 - Week and month views use all days of that week or month in the reference years directly (no extra pooling).
 
 ## 4. Outdoor-weather scale
 
 *Agreed in [#5](https://github.com/valentina98/weather-odds/issues/5).* There are no activity profiles. One scale rates how good the weather was for being outdoors. A preview for Plovdiv is in [weather-scale.md](../research/weather-scale.md).
 
-All numbers below are **defaults**. They are set in the config, and the user can change them in the dashboard for the session: comfort range, cold and heat limits, rain thresholds and caps, gust limits, class boundaries. **Each can differ by time of day** (night 0–6, morning 6–12, afternoon 12–18, evening 18–24), for example a comfort range starting at 15 °C in the evening. By default all four bands use the same values; each hour is scored with its band's thresholds.
+All numbers below are **defaults**. They are set in the config, and the user can change them in the dashboard for the session: comfort range, cold and heat limits, rain thresholds and caps, gust limits, class boundaries. **Each can differ by time of day** (night 0–6, morning 6–12, afternoon 12–18, evening 18–24), for example a comfort range starting at 15 °C in the evening. By default all four bands use the same values, and changing the chosen hours never changes a threshold (settings are independent, requirement N9); each hour is scored with its band's thresholds.
 
 **Each hour** gets a score from 0 to 100:
 

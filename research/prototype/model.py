@@ -20,7 +20,7 @@ from daystats import doy365  # noqa: E402
 from scale import CLASSES, GOOD, Thresholds, class_of, daylight, hour_factors, period_scores, sun_hours_utc  # noqa: E402
 
 # Stands in for config.yaml (requirement F18).
-CONFIG = {"reference_years": 30, "trend_adjustment": True, "pooling_days": 7}
+CONFIG = {"reference_years": 30, "trend_adjustment": True, "pooling_days": 0}
 LAST_COMPLETE_YEAR = 2025
 FIRST_YEAR = 1961
 TODAY = dt.date.today()

@@ -6,7 +6,7 @@ Questions for the owner are GitHub issues assigned to them, collected in the tra
 
 | Issue | Questions | Proposed answers |
 |---|---|---|
-| [#14](https://github.com/valentina98/weather-odds/issues/14) | (1) different scale defaults by time of day? (2) daylight window for a whole timeframe: latest sunrise to earliest sunset, or the average? (3) which questions the trend tools should answer; (4) leave out 1996 or fill it from ERA5? (5) a written request to NIMH for station rain 2000–2021, if free neighbours fail? | (1) same for all bands; (2) latest sunrise to earliest sunset; (3) warm-ups, warm spells, cold snaps, rainy spells, heat waves, first/last frost, warming by season; (4) leave it out; (5) try ECA&D's Chirpan and Ivailo first |
+| [#14](https://github.com/valentina98/weather-odds/issues/14) | (3) which kinds of events the trend tools should find; (4) leave out 1996, fill it from ERA5, or use 1995 instead? Questions 1, 2 and 5 are answered. | (3) all of: warm-ups, warm spells, cold snaps, rainy spells, heat waves, first/last frost, warming by month; (4) leave it out |
 
 Then the sign-off: review the spec and close [#12](https://github.com/valentina98/weather-odds/issues/12).
 
@@ -35,6 +35,10 @@ Then the sign-off: review the spec and close [#12](https://github.com/valentina9
 | Default time of day | daylight, as one window for the whole selected period | D21, F7 |
 | Investigating trends like the warm-up | wanted in the tool | D39, F29–F31 |
 | Data gaps | make a plan | D40, [gap plan](development-plan.md#filling-the-data-gaps) |
+| Pooling ±7 days | try without it, off by default; should more years be tried? (Tried: they don't make up for it.) | D26, F8 |
+| Thresholds by time of day (#14, 1) | settings loosely coupled: changing the time must not change other defaults | D41, N9 |
+| Daylight window (#14, 2) | yes: latest sunrise to earliest sunset | D21, F7 |
+| Paid station data (#14, 5) | no paid requests; record the option and its price | D42, gap plan |
 
 ## Questions answered in chat (2026-10-28)
 

@@ -100,11 +100,22 @@ The calendar colours a date by the chance that a past day rated Good or Great ([
 
 - **The colours carry real information:** a third better than a flat chance. Unlike rain alone, the scale follows the strong seasonal cycle of temperature.
 - **With trend adjustment the chances are honest:** 67% means 67%.
-- **Without it**, mid-season chances come out too low (predicted 24%, observed 32%; predicted 45%, observed 54%), because recent springs and autumns have more good days than older years suggest.
+**No pooling and more years** (trend-adjusted; [`validate_scale.py`](../../research/validate_scale.py)):
+
+| Pooling | Training years | Skill over a flat chance | Highest predicted chances: predicted → observed |
+|---|---|---|---|
+| ±7 days | 30 before | **33%** | 86% → 84% |
+| ±0 days | 30 before | 31% | 93% → 84%, 83% → 78% |
+| ±0 days | all before (from 1966; 30–59 years) | 31% | 93% → 83%, 84% → 81% |
+
+- Without pooling, a date's chance rests on only 30 past days, so the highest and lowest chances are too extreme.
+- More years do not help: older years describe an older climate, even after trend adjustment. For temperature they are slightly worse ([table above](#results): all years before, trend-adjusted, 2.45 vs 2.44 °C at ±0); for rain slightly better (Brier 0.180 vs 0.182).
+
+- **Without trend adjustment**, mid-season chances come out too low (predicted 24%, observed 32%; predicted 45%, observed 54%), because recent springs and autumns have more good days than older years suggest.
 
 ## What this means for the tool
 
-1. **Default pooling: ±7 days** (was ±3), for both temperature and rain. The user can still choose ±0–15.
+1. **Pooling:** ±7 days scored best. The owner chose **no pooling (±0) as the default** (D26), and the user can choose up to ±15. Using all years instead of 30 does not make up for the missing pooling (table below).
 2. **Default reference period: the last 30 complete years** (the owner's choice), with **trend adjustment for temperature** on by default (agreed in #6). Without it, the tool would show temperatures about 1 °C colder than the climate they are used in. Fit the trend to the data the temperatures come from: the station for Plovdiv.
 3. **Rain should be shown as a broad chance**, not as a day-by-day signal. The colour of a week should not jump because of rain noise. This supports pooling and the monthly/weekly views for rain.
 4. **Temperature from the station** (measured hourly from 1997) gives better-calibrated ranges than ERA5.

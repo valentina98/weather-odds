@@ -3,10 +3,9 @@
   1996,
   2025
  ],
- "training_years": 30,
- "pooling_days": 7,
+ "first_year": 1966,
  "results": {
-  "not adjusted": {
+  "+-7 days, 30 years before": {
    "brier": 0.17,
    "brier_flat_chance": 0.2497,
    "skill_vs_flat_chance": 0.319,
@@ -65,7 +64,7 @@
     }
    ]
   },
-  "trend-adjusted": {
+  "+-7 days, 30 years before, trend-adjusted": {
    "brier": 0.167,
    "brier_flat_chance": 0.2497,
    "skill_vs_flat_chance": 0.331,
@@ -121,6 +120,242 @@
      "predicted": 0.903,
      "observed": 0.791,
      "days": 43
+    }
+   ]
+  },
+  "+-0 days, 30 years before": {
+   "brier": 0.1743,
+   "brier_flat_chance": 0.2497,
+   "skill_vs_flat_chance": 0.302,
+   "mean_predicted": 0.514,
+   "share_good_observed": 0.519,
+   "reliability": [
+    {
+     "predicted": 0.028,
+     "observed": 0.062,
+     "days": 2068
+    },
+    {
+     "predicted": 0.13,
+     "observed": 0.179,
+     "days": 839
+    },
+    {
+     "predicted": 0.233,
+     "observed": 0.315,
+     "days": 489
+    },
+    {
+     "predicted": 0.335,
+     "observed": 0.413,
+     "days": 453
+    },
+    {
+     "predicted": 0.433,
+     "observed": 0.525,
+     "days": 341
+    },
+    {
+     "predicted": 0.541,
+     "observed": 0.626,
+     "days": 564
+    },
+    {
+     "predicted": 0.639,
+     "observed": 0.679,
+     "days": 1469
+    },
+    {
+     "predicted": 0.733,
+     "observed": 0.693,
+     "days": 1981
+    },
+    {
+     "predicted": 0.83,
+     "observed": 0.775,
+     "days": 1940
+    },
+    {
+     "predicted": 0.924,
+     "observed": 0.823,
+     "days": 806
+    }
+   ]
+  },
+  "+-0 days, 30 years before, trend-adjusted": {
+   "brier": 0.1714,
+   "brier_flat_chance": 0.2497,
+   "skill_vs_flat_chance": 0.313,
+   "mean_predicted": 0.521,
+   "share_good_observed": 0.519,
+   "reliability": [
+    {
+     "predicted": 0.031,
+     "observed": 0.054,
+     "days": 1719
+    },
+    {
+     "predicted": 0.128,
+     "observed": 0.144,
+     "days": 894
+    },
+    {
+     "predicted": 0.23,
+     "observed": 0.243,
+     "days": 592
+    },
+    {
+     "predicted": 0.334,
+     "observed": 0.374,
+     "days": 431
+    },
+    {
+     "predicted": 0.432,
+     "observed": 0.451,
+     "days": 461
+    },
+    {
+     "predicted": 0.538,
+     "observed": 0.599,
+     "days": 684
+    },
+    {
+     "predicted": 0.64,
+     "observed": 0.671,
+     "days": 1561
+    },
+    {
+     "predicted": 0.732,
+     "observed": 0.71,
+     "days": 2105
+    },
+    {
+     "predicted": 0.83,
+     "observed": 0.781,
+     "days": 1706
+    },
+    {
+     "predicted": 0.926,
+     "observed": 0.839,
+     "days": 797
+    }
+   ]
+  },
+  "+-0 days, all years before": {
+   "brier": 0.1738,
+   "brier_flat_chance": 0.2498,
+   "skill_vs_flat_chance": 0.304,
+   "mean_predicted": 0.509,
+   "share_good_observed": 0.519,
+   "reliability": [
+    {
+     "predicted": 0.031,
+     "observed": 0.068,
+     "days": 2261
+    },
+    {
+     "predicted": 0.142,
+     "observed": 0.215,
+     "days": 791
+    },
+    {
+     "predicted": 0.25,
+     "observed": 0.331,
+     "days": 441
+    },
+    {
+     "predicted": 0.346,
+     "observed": 0.415,
+     "days": 405
+    },
+    {
+     "predicted": 0.447,
+     "observed": 0.513,
+     "days": 302
+    },
+    {
+     "predicted": 0.56,
+     "observed": 0.676,
+     "days": 649
+    },
+    {
+     "predicted": 0.653,
+     "observed": 0.675,
+     "days": 1823
+    },
+    {
+     "predicted": 0.745,
+     "observed": 0.698,
+     "days": 1999
+    },
+    {
+     "predicted": 0.842,
+     "observed": 0.797,
+     "days": 1812
+    },
+    {
+     "predicted": 0.929,
+     "observed": 0.827,
+     "days": 467
+    }
+   ]
+  },
+  "+-0 days, all years before, trend-adjusted": {
+   "brier": 0.1715,
+   "brier_flat_chance": 0.2497,
+   "skill_vs_flat_chance": 0.313,
+   "mean_predicted": 0.515,
+   "share_good_observed": 0.519,
+   "reliability": [
+    {
+     "predicted": 0.034,
+     "observed": 0.06,
+     "days": 2083
+    },
+    {
+     "predicted": 0.148,
+     "observed": 0.187,
+     "days": 790
+    },
+    {
+     "predicted": 0.244,
+     "observed": 0.302,
+     "days": 506
+    },
+    {
+     "predicted": 0.345,
+     "observed": 0.389,
+     "days": 393
+    },
+    {
+     "predicted": 0.444,
+     "observed": 0.487,
+     "days": 355
+    },
+    {
+     "predicted": 0.557,
+     "observed": 0.651,
+     "days": 607
+    },
+    {
+     "predicted": 0.654,
+     "observed": 0.665,
+     "days": 1967
+    },
+    {
+     "predicted": 0.744,
+     "observed": 0.709,
+     "days": 2128
+    },
+    {
+     "predicted": 0.843,
+     "observed": 0.807,
+     "days": 1636
+    },
+    {
+     "predicted": 0.929,
+     "observed": 0.829,
+     "days": 485
     }
    ]
   }

@@ -36,7 +36,7 @@ v1 covers **Plovdiv, Bulgaria only**, and precision for Plovdiv comes before sup
 | F5 | The user picks a timeframe. Default: today to today + 3 months. |
 | F6 | The user picks the granularity: **month, week or day**. Default: **week**. |
 | F7 | The user can optionally pick a time of day (e.g. 17:00–22:00). If none is picked, the default is **one daylight window for the whole timeframe**: from the latest sunrise to the earliest sunset among its dates, rounded inward to whole hours, so every date is judged on the same hours and every hour is in daylight. The window is shown and can be changed. All statistics for a period use only these hours. |
-| F8 | The user can choose how many neighbouring days are pooled for daily statistics (e.g. ±0, ±3, ±7) and sees the effect on uncertainty. The default comes from the [cross-validation](../research/validation.md). |
+| F8 | The user can choose how many neighbouring days are pooled for daily statistics (±0 to ±15) and sees the effect on uncertainty. Default: **±0, no pooling** (owner, 2026-10-29); the [cross-validation](../research/validation.md) result for each setting is in the docs. |
 
 ### Main view: calendar
 
@@ -107,6 +107,7 @@ v1 covers **Plovdiv, Bulgaria only**, and precision for Plovdiv comes before sup
 | N5 | Non-commercial data terms are documented; commercial users are pointed to paid keys. |
 | N6 | The interface is in **English only**. Dates are shown as **dd.mm.yyyy** (e.g. 28.10.2026). Units: °C, km/h, mm ([#9](https://github.com/valentina98/weather-odds/issues/9)). |
 | N7 | **Local only**: each person runs the dashboard on their own computer; there is no hosted instance ([#8](https://github.com/valentina98/weather-odds/issues/8)). |
+| N9 | **Settings are independent of each other.** Changing one input (e.g. the time of day, the granularity or the reference years) never changes the value or the default of another (e.g. the scale thresholds). Time-of-day thresholds apply only where the user sets them. |
 | N8 | Dashboard framework: **Dash** ([#8](https://github.com/valentina98/weather-odds/issues/8), D29); see the [comparison](../research/dashboard-frameworks.md). |
 
 ## 5. Out of scope for v1
