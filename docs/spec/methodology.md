@@ -27,7 +27,9 @@ For Plovdiv the tool builds one **hourly** and one **daily** table in local time
 
 - **Default: the last 30 complete years** (currently 1996–2025), set in the config ([#6](https://github.com/valentina98/weather-odds/issues/6)).
 - In the dashboard the user can **narrow it to a shorter range** within the configured period, e.g. the last 10 years.
-- **Trend adjustment** for temperature *(proposed default, needs the owner's confirmation)*: each reference year's temperatures are shifted by the linear warming trend fitted to the reference years, up to the current year. In the cross-validation, plain 30-year statistics predicted temperatures 1.07 °C too cold on average, and trend adjustment cut that to 0.32 °C and lowered the error by 0.10 °C. It uses only the historical record, not current weather.
+- **Trend adjustment** for temperature ([#6](https://github.com/valentina98/weather-odds/issues/6)): each reference year's temperatures are shifted by the linear warming trend fitted to the reference years, up to the current year. In the cross-validation, plain 30-year statistics predicted temperatures 1.07 °C too cold on average; trend adjustment cut that to 0.32 °C and lowered the error by 0.10 °C. It uses only the historical record, not current weather.
+  - The user switches it **on or off** in the dashboard; the config sets the default (shipped default: on).
+  - It is always visible: a label on the calendar ("temperatures adjusted to the 2026 climate"), and in the detail panel the fitted trend (°C per decade) and the shift applied to the oldest reference year.
 - Pattern detection uses the full record after removing the long-term trend.
 
 ## 3. Day-of-year statistics and pooling
@@ -39,7 +41,9 @@ For Plovdiv the tool builds one **hourly** and one **daily** table in local time
 
 ## 4. Outdoor-weather scale
 
-*Proposed for [#5](https://github.com/valentina98/weather-odds/issues/5); thresholds are config defaults.* There are no activity profiles. One scale rates how good the weather was for being outdoors. A preview for Plovdiv is in [weather-scale.md](../research/weather-scale.md).
+*Agreed in [#5](https://github.com/valentina98/weather-odds/issues/5).* There are no activity profiles. One scale rates how good the weather was for being outdoors. A preview for Plovdiv is in [weather-scale.md](../research/weather-scale.md).
+
+All numbers below are **defaults**. They are set in the config, and the user can change them in the dashboard for the session: comfort range, cold and heat limits, rain thresholds and caps, gust limits, class boundaries.
 
 **Each hour** gets a score from 0 to 100:
 
@@ -70,13 +74,24 @@ Without the caps, a day with a few hours of rain could still rate Good, because 
 | 20–39 | Poor | orange |
 | 0–19 | Bad | red |
 
-**Calendar colour.** A day, week or month cell is coloured by the **chance of good weather**: the share of past days in that period that rated Good or Great. This is the default *(proposed)*; the mean score is an alternative.
-- The colour scale is continuous: red at 0%, yellow at 50%, green at 100%.
+**Calendar colour.** The user picks what the colour of a day, week or month cell shows:
+
+| Measure | What it answers | Example |
+|---|---|---|
+| **Chance of good weather** (default) | "How often was it good?" The share of past days in the period that rated Good or Great (60 or more). | 7 of 10 past days were Good or Great → 70%. |
+| **Average score** | "How good was it typically?" The mean of the past days' scores. | Those days scored 85, 85, 80, 75, 70, 65, 62, 50, 30, 20 → 62. |
+
+- The two can differ when a period is mixed. A week that is always mediocre (every day 55) and a week that is half great (90) and half bad (20) both average about 55. But their chance of good weather is 0% and 50%.
+- For choosing a date, the chance of good weather is the more useful default: it says how likely it is that the day will be fine. The average score is the smoother option.
+- The colour scale is continuous, from red (0) through yellow (50) to green (100), for both measures.
 - Day cells use the pooling window; week and month cells use all their days.
+- **Absolute or relative** (default absolute): absolute colours use the fixed 0–100 range above.
+  - Relative colours stretch the range over the cells in the selected timeframe: the best cell is green and the worst red. This shows the best weeks of a winter timeframe.
+  - The view is labelled "relative", and hovering always shows the absolute value.
 - The palette also changes in lightness, and each cell shows its number on hover, so it stays readable with red–green colour blindness.
 
 **Notes**
-- The scale is **absolute**: most winter days rate Poor or Bad, because winter weather is worse for being outdoors. A season-relative colouring ("good for January") could be added later.
+- With absolute colours (the default), most winter days rate Poor or Bad, because winter weather is worse for being outdoors. Relative colours (above) show the best of a winter timeframe.
 - Temperature is the air temperature. A "feels like" temperature (with humidity and wind) is a later option; ERA5 has the dew point needed.
 - ERA5 has too many hours with light rain. The rain thresholds are calibrated against airport reports of rain by hour (§10) before release.
 

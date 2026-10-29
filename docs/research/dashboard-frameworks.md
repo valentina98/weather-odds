@@ -2,7 +2,7 @@
 
 _Checked on 2026-10-29 for issue [#8](https://github.com/valentina98/weather-odds/issues/8). Versions and licences are from PyPI; the click-event APIs were confirmed in each package's released code._
 
-**Recommendation: Streamlit for v1.** It needs the least code for our screens, and another developer starts it with one command. It also reports clicks on a chart, which the calendar needs to open the detail panel. If its full-page reruns or limited layout control get in the way, **Dash** is the fallback. The statistics stay in a separate package (see [architecture](../spec/architecture.md)), so switching frameworks later only means rewriting the screens.
+**Recommendation: Streamlit for v1** (a first prototype confirms it; see [first results](#first-results-streamlit-prototype)). It needs the least code for our screens, and another developer starts it with one command. It also reports clicks on a chart, which the calendar needs to open the detail panel. If its full-page reruns or limited layout control get in the way, **Dash** is the fallback. The statistics stay in a separate package (see [architecture](../spec/architecture.md)), so switching frameworks later only means rewriting the screens.
 
 ## What the dashboard has to do
 
@@ -26,6 +26,36 @@ From the answers in [#10](https://github.com/valentina98/weather-odds/issues/10)
 | **Gradio** 6.31 (Apache-2.0) | Input → function → output demos. | Very quick for a single form. | Built for machine-learning demos. A multi-tab, calendar-driven dashboard fights its model. Not recommended. |
 | **Static HTML report** (Plotly or Vega-Lite exported by a CLI) | A command writes an HTML file; no server. | Nothing to run but a browser. Easy to share as a file. | Every combination of timeframe, time of day and reference years must be computed in advance, or the user regenerates the file. The detail panel needs custom JavaScript. Fails the "change it and see" use. |
 
+## First results (Streamlit prototype)
+
+_2026-10-29._ The owner asked to pick one, show first results and then re-evaluate ([#8](https://github.com/valentina98/weather-odds/issues/8)). Streamlit was picked, and a throwaway [prototype](../../research/prototype/README.md) of about 250 lines shows the calendar, the inputs and the detail panel with real ERA5 data for Plovdiv.
+
+![Week view with the detail panel](img/prototype-week.png)
+
+_Week view, default inputs (today + 3 months, daylight hours, 1996–2025, trend-adjusted). The week of 09.11. was clicked._
+
+![Day view](img/prototype-day.png)
+
+_Day view: a month-style calendar. The selection carries over to the matching day._
+
+![Month view, relative colours](img/prototype-month-relative.png)
+
+_Month view with relative colours: the best month of the timeframe is green, while the numbers stay absolute._
+
+**What worked**
+- All requested inputs exist as ready-made widgets. Dates are shown as dd.mm.yyyy without extra code.
+- Clicking a calendar cell opens the detail panel. The calendar is an Altair chart whose cells report clicks (`on_select`); no JavaScript was needed.
+- Changing an input re-runs the script in 0.1–0.3 seconds, because the data and the scoring are cached per set of inputs (measured with Streamlit's test runner).
+- About 250 lines for the whole prototype, including the detail panel and the three tabs.
+
+**What needed work-arounds**
+- **Chart heights include the axes.** A 60-pixel row left no room for the cells. This was found only by testing four variants; the fix is a taller chart.
+- **Selections persist across views.** A week selected before switching to months pointed at a cell that no longer existed and crashed the page until guarded.
+- **Every click re-runs the whole script**, so everything slow must be cached explicitly. The first start takes about 18 seconds, mostly reading the research cache (gzipped CSV); a Parquet cache in the real tool would cut that to a few seconds.
+- **Layout is fixed to Streamlit's look**: sidebar, tabs, metric boxes. The calendar can only look like what Vega-Lite draws. The "Deploy" button shows unless it is hidden in the Streamlit config.
+
+**Assessment so far:** Streamlit is good enough for v1. The work-arounds were small, and none blocks a requirement. Dash would remove the rerun model and give full layout control, at the cost of more code per screen. Unless the owner wants a different look or finds the reruns too slow, the recommendation stays Streamlit.
+
 ## Decision needed
 
-Pick one in [#8](https://github.com/valentina98/weather-odds/issues/8): **Streamlit** (recommended), **Dash**, or another from the table. The choice does not affect the data or statistics design.
+After looking at the prototype, decide in [#8](https://github.com/valentina98/weather-odds/issues/8): keep **Streamlit**, or try **Dash** (or another option from the table) the same way. The choice does not affect the data or statistics design.

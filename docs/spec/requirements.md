@@ -42,7 +42,8 @@ v1 covers **Plovdiv, Bulgaria only**, and precision for Plovdiv comes before sup
 
 | ID | Requirement |
 |---|---|
-| F10 | The main view is a calendar of the timeframe at the selected granularity. Each cell (day, week or month) is coloured on the outdoor-weather scale for the selected time of day, from green (good) to red (bad). By default the colour is the chance that a past day in that period rated Good or Great *(proposed; open: [#5](https://github.com/valentina98/weather-odds/issues/5))*. |
+| F10 | The main view is a calendar of the timeframe at the selected granularity. Each cell (day, week or month) is coloured on the outdoor-weather scale for the selected time of day, from green (good) to red (bad). The user picks the measure: the **chance of good weather** (default: share of past days rated Good or Great) or the **average score** ([methodology §4](methodology.md#4-outdoor-weather-scale)). |
+| F28 | Colours are **absolute** by default (fixed 0–100 range). The user can switch to **relative** colours, stretched over the cells of the selected timeframe; the view is then labelled "relative" ([#5](https://github.com/valentina98/weather-odds/issues/5)). |
 | F11 | There is no separate list of best days or weeks; the colours show them at the selected granularity ([#10](https://github.com/valentina98/weather-odds/issues/10)). |
 | F25 | Selecting a day, week or month in the calendar opens the detail panel for that period and time of day. |
 | F26 | The colours stay readable for colour-blind users: the palette also changes in lightness, and every cell shows its value on hover. |
@@ -60,7 +61,7 @@ v1 covers **Plovdiv, Bulgaria only**, and precision for Plovdiv comes before sup
 | ID | Requirement |
 |---|---|
 | F16 | One outdoor-weather scale rates every past hour from 0 (bad) to 100 (great), from temperature, rain, wind gusts and, where data allows, thunder. Both cold and heat lower the rating; extreme heat counts as bad weather. A day's rating is the mean over the selected hours. Five classes: **Great, Good, Fair, Poor, Bad**, coloured dark green to red. Definition: [methodology §4](methodology.md#4-outdoor-weather-scale). |
-| F17 | All thresholds of the scale are editable in the config. *(Removed: the activity profiles gathering, walk and hike, [#5](https://github.com/valentina98/weather-odds/issues/5).)* |
+| F17 | All thresholds of the scale are defaults in the config, and the user can change them in the dashboard for the session ([#5](https://github.com/valentina98/weather-odds/issues/5)). *(Removed: the activity profiles gathering, walk and hike.)* |
 
 ### Other tabs
 
@@ -74,8 +75,9 @@ v1 covers **Plovdiv, Bulgaria only**, and precision for Plovdiv comes before sup
 
 | ID | Requirement |
 |---|---|
-| F18 | One YAML config file holds: the location, the reference period (default: **the last 30 complete years**), the scale thresholds, the default time of day, the pooling default, data-source priority, and the cache location. Optional API keys come from environment variables and are never stored in the file. |
+| F18 | One YAML config file holds: the location, the reference period (default: **the last 30 complete years**), trend adjustment on/off, the scale thresholds, the colour measure and absolute/relative default, the default time of day, the pooling default, data-source priority, and the cache location. Optional API keys come from environment variables and are never stored in the file. |
 | F19 | The dashboard can override config values for the session without editing the file. In particular, the user can **narrow the reference years** to a shorter range within the configured period ([#6](https://github.com/valentina98/weather-odds/issues/6)). |
+| F27 | **Trend adjustment** of temperatures can be switched on and off in the dashboard; the config sets the default (shipped: on). When it is on, the calendar says so, and the detail panel shows the fitted trend and the shift applied ([#6](https://github.com/valentina98/weather-odds/issues/6), [methodology §2](methodology.md#2-reference-period)). |
 
 ### Data
 

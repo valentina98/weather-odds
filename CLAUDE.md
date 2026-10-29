@@ -9,6 +9,7 @@ Until the owner says the specification step is done:
 
 - Do not write application code (no `src/`, no dashboard, no package).
 - Research scripts are allowed under `research/` when they produce evidence for the docs. Keep them small, reproducible, and clearly separate from the future application.
+- The owner asked for a framework prototype in #8; it lives in `research/prototype/` and is throwaway evidence, not the application.
 - Record every finding, decision, and open question in the repo. The owner may start a new session at any time, so nothing important should live only in chat.
 
 ## Where things are
