@@ -138,6 +138,8 @@ def era5_hourly(model: str = "copernicus_era5") -> pd.DataFrame:
         columns[var] = s
     out = pd.DataFrame(columns)
     out.index = out.index.tz_convert(TZ)
+    if "wind_gusts_10m" in out:
+        out["wind_gusts_10m"] *= 3.6  # the .om files store m/s
     if "temperature_2m" in out:
         out["temperature_2m"] += (meta["grid_elevation_m"] - STATION_ELEV) * LAPSE_RATE
     return out
@@ -167,3 +169,38 @@ def era5_daily() -> pd.DataFrame:
     # Drop partial first/last days created by the UTC -> local shift.
     counts = era5["precipitation"].groupby(day).size()
     return out[counts.reindex(out.index) >= 23]
+
+
+def grid_daily(model: str) -> pd.DataFrame:
+    """Daily tmax/tmin, and rain and gusts where the model has them, from any cached gridded series."""
+    hourly = era5_hourly(model)
+    day = hourly.index.tz_localize(None).normalize()
+    temp = hourly["temperature_2m"].groupby(day)
+    out = pd.DataFrame({"tmax": temp.max(), "tmin": temp.min()})
+    if "precipitation" in hourly:
+        out["prcp"] = hourly["precipitation"].groupby(day).sum()
+        out["wet"] = out["prcp"] >= WET_DAY_MM
+    if "wind_gusts_10m" in hourly:
+        out["gust_max"] = hourly["wind_gusts_10m"].groupby(day).max()
+    return out[temp.count() >= 23]
+
+
+def open_meteo_daily(name: str) -> pd.DataFrame:
+    """Daily table from a cached Open-Meteo API response (local dates; temperatures already
+    corrected by Open-Meteo to the requested 179 m)."""
+    data = json.loads((CACHE / "open_meteo" / f"{name}.json").read_text())["daily"]
+    out = pd.DataFrame(data).set_index("time")
+    out.index = pd.to_datetime(out.index)
+    out = out.rename(columns={"temperature_2m_max": "tmax", "temperature_2m_min": "tmin",
+                              "precipitation_sum": "prcp", "wind_gusts_10m_max": "gust_max"})
+    out["wet"] = (out["prcp"] >= WET_DAY_MM).where(out["prcp"].notna())
+    return out
+
+
+def open_meteo_hourly(name: str) -> pd.DataFrame:
+    """Hourly table from a cached Open-Meteo API response, indexed by local time (km/h for wind)."""
+    data = json.loads((CACHE / "open_meteo" / f"{name}.json").read_text())["hourly"]
+    out = pd.DataFrame(data)
+    # The API gives naive local times; DST makes some ambiguous or missing, so go through UTC offsets.
+    out.index = pd.to_datetime(out.pop("time")).dt.tz_localize(TZ, ambiguous="NaT", nonexistent="NaT")
+    return out[out.index.notna()]

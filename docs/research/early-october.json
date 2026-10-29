@@ -1,0 +1,639 @@
+{
+ "ERA5 (25 km)": {
+  "last 10 years": {
+   "from": 2016,
+   "to": 2025,
+   "years": 10,
+   "1-10 Oct": {
+    "change_c": [
+     -2.78,
+     -4.43,
+     -1.44
+    ],
+    "hump_c": [
+     -0.79,
+     -2.05,
+     0.37
+    ],
+    "years_warmer_than_before": 0,
+    "years_warmer_then_colder": 0
+   },
+   "15-25 Oct (chosen after seeing the chart)": {
+    "change_c": [
+     -0.47,
+     -1.77,
+     0.89
+    ],
+    "hump_c": [
+     0.66,
+     -0.63,
+     2.12
+    ],
+    "years_warmer_than_before": 5,
+    "years_warmer_then_colder": 4
+   }
+  },
+  "last 15 years": {
+   "from": 2011,
+   "to": 2025,
+   "years": 15,
+   "1-10 Oct": {
+    "change_c": [
+     -2.96,
+     -4.32,
+     -1.82
+    ],
+    "hump_c": [
+     -0.93,
+     -2.13,
+     0.16
+    ],
+    "years_warmer_than_before": 0,
+    "years_warmer_then_colder": 0
+   },
+   "15-25 Oct (chosen after seeing the chart)": {
+    "change_c": [
+     -0.82,
+     -1.98,
+     0.34
+    ],
+    "hump_c": [
+     0.69,
+     -0.44,
+     1.94
+    ],
+    "years_warmer_than_before": 7,
+    "years_warmer_then_colder": 5
+   }
+  },
+  "last 20 years": {
+   "from": 2006,
+   "to": 2025,
+   "years": 20,
+   "1-10 Oct": {
+    "change_c": [
+     -2.46,
+     -3.88,
+     -1.08
+    ],
+    "hump_c": [
+     -0.36,
+     -1.58,
+     0.78
+    ],
+    "years_warmer_than_before": 3,
+    "years_warmer_then_colder": 3
+   },
+   "15-25 Oct (chosen after seeing the chart)": {
+    "change_c": [
+     -1.17,
+     -2.25,
+     -0.09
+    ],
+    "hump_c": [
+     0.52,
+     -0.39,
+     1.5
+    ],
+    "years_warmer_than_before": 8,
+    "years_warmer_then_colder": 6
+   }
+  },
+  "last 30 years": {
+   "from": 1996,
+   "to": 2025,
+   "years": 30,
+   "1-10 Oct": {
+    "change_c": [
+     -2.21,
+     -3.19,
+     -1.13
+    ],
+    "hump_c": [
+     0.01,
+     -0.9,
+     0.92
+    ],
+    "years_warmer_than_before": 5,
+    "years_warmer_then_colder": 5
+   },
+   "15-25 Oct (chosen after seeing the chart)": {
+    "change_c": [
+     -1.86,
+     -2.92,
+     -0.76
+    ],
+    "hump_c": [
+     0.01,
+     -0.74,
+     0.87
+    ],
+    "years_warmer_than_before": 11,
+    "years_warmer_then_colder": 9
+   }
+  },
+  "1960-1995": {
+   "from": 1960,
+   "to": 1995,
+   "years": 36,
+   "1-10 Oct": {
+    "change_c": [
+     -2.17,
+     -3.21,
+     -1.3
+    ],
+    "hump_c": [
+     -0.26,
+     -1.12,
+     0.53
+    ],
+    "years_warmer_than_before": 9,
+    "years_warmer_then_colder": 8
+   },
+   "15-25 Oct (chosen after seeing the chart)": {
+    "change_c": [
+     -3.13,
+     -3.97,
+     -2.34
+    ],
+    "hump_c": [
+     -0.3,
+     -1.23,
+     0.63
+    ],
+    "years_warmer_than_before": 3,
+    "years_warmer_then_colder": 2
+   }
+  },
+  "all years": {
+   "from": 1960,
+   "to": 2025,
+   "years": 66,
+   "1-10 Oct": {
+    "change_c": [
+     -2.19,
+     -2.92,
+     -1.52
+    ],
+    "hump_c": [
+     -0.14,
+     -0.72,
+     0.43
+    ],
+    "years_warmer_than_before": 14,
+    "years_warmer_then_colder": 13
+   },
+   "15-25 Oct (chosen after seeing the chart)": {
+    "change_c": [
+     -2.55,
+     -3.24,
+     -1.85
+    ],
+    "hump_c": [
+     -0.16,
+     -0.78,
+     0.5
+    ],
+    "years_warmer_than_before": 14,
+    "years_warmer_then_colder": 11
+   }
+  }
+ },
+ "ERA5-Land (9 km)": {
+  "last 10 years": {
+   "from": 2016,
+   "to": 2025,
+   "years": 10,
+   "1-10 Oct": {
+    "change_c": [
+     -2.48,
+     -4.13,
+     -1.1
+    ],
+    "hump_c": [
+     -0.52,
+     -1.69,
+     0.58
+    ],
+    "years_warmer_than_before": 1,
+    "years_warmer_then_colder": 0
+   },
+   "15-25 Oct (chosen after seeing the chart)": {
+    "change_c": [
+     -0.44,
+     -2.14,
+     1.12
+    ],
+    "hump_c": [
+     0.49,
+     -0.85,
+     1.93
+    ],
+    "years_warmer_than_before": 6,
+    "years_warmer_then_colder": 4
+   }
+  },
+  "last 15 years": {
+   "from": 2011,
+   "to": 2025,
+   "years": 15,
+   "1-10 Oct": {
+    "change_c": [
+     -2.73,
+     -3.96,
+     -1.61
+    ],
+    "hump_c": [
+     -0.83,
+     -2.12,
+     0.29
+    ],
+    "years_warmer_than_before": 1,
+    "years_warmer_then_colder": 0
+   },
+   "15-25 Oct (chosen after seeing the chart)": {
+    "change_c": [
+     -0.81,
+     -2.06,
+     0.46
+    ],
+    "hump_c": [
+     0.62,
+     -0.48,
+     1.93
+    ],
+    "years_warmer_than_before": 8,
+    "years_warmer_then_colder": 5
+   }
+  },
+  "last 20 years": {
+   "from": 2006,
+   "to": 2025,
+   "years": 20,
+   "1-10 Oct": {
+    "change_c": [
+     -2.17,
+     -3.46,
+     -0.86
+    ],
+    "hump_c": [
+     -0.28,
+     -1.55,
+     0.94
+    ],
+    "years_warmer_than_before": 4,
+    "years_warmer_then_colder": 3
+   },
+   "15-25 Oct (chosen after seeing the chart)": {
+    "change_c": [
+     -1.11,
+     -2.35,
+     0.02
+    ],
+    "hump_c": [
+     0.45,
+     -0.49,
+     1.42
+    ],
+    "years_warmer_than_before": 9,
+    "years_warmer_then_colder": 6
+   }
+  },
+  "last 30 years": {
+   "from": 1996,
+   "to": 2025,
+   "years": 30,
+   "1-10 Oct": {
+    "change_c": [
+     -1.97,
+     -3.06,
+     -0.91
+    ],
+    "hump_c": [
+     0.03,
+     -0.98,
+     1.07
+    ],
+    "years_warmer_than_before": 6,
+    "years_warmer_then_colder": 5
+   },
+   "15-25 Oct (chosen after seeing the chart)": {
+    "change_c": [
+     -1.71,
+     -2.84,
+     -0.75
+    ],
+    "hump_c": [
+     0.04,
+     -0.75,
+     0.83
+    ],
+    "years_warmer_than_before": 11,
+    "years_warmer_then_colder": 8
+   }
+  },
+  "1960-1995": {
+   "from": 1960,
+   "to": 1995,
+   "years": 36,
+   "1-10 Oct": {
+    "change_c": [
+     -1.99,
+     -2.96,
+     -1.01
+    ],
+    "hump_c": [
+     -0.25,
+     -1.12,
+     0.59
+    ],
+    "years_warmer_than_before": 10,
+    "years_warmer_then_colder": 9
+   },
+   "15-25 Oct (chosen after seeing the chart)": {
+    "change_c": [
+     -2.73,
+     -3.62,
+     -1.94
+    ],
+    "hump_c": [
+     -0.12,
+     -1.04,
+     0.94
+    ],
+    "years_warmer_than_before": 5,
+    "years_warmer_then_colder": 4
+   }
+  },
+  "all years": {
+   "from": 1960,
+   "to": 2025,
+   "years": 66,
+   "1-10 Oct": {
+    "change_c": [
+     -1.98,
+     -2.79,
+     -1.3
+    ],
+    "hump_c": [
+     -0.12,
+     -0.86,
+     0.49
+    ],
+    "years_warmer_than_before": 16,
+    "years_warmer_then_colder": 14
+   },
+   "15-25 Oct (chosen after seeing the chart)": {
+    "change_c": [
+     -2.27,
+     -3.0,
+     -1.59
+    ],
+    "hump_c": [
+     -0.05,
+     -0.7,
+     0.56
+    ],
+    "years_warmer_than_before": 16,
+    "years_warmer_then_colder": 12
+   }
+  }
+ },
+ "ECMWF IFS (9 km)": {
+  "last 10 years": {
+   "from": 2017,
+   "to": 2025,
+   "years": 9,
+   "1-10 Oct": {
+    "change_c": [
+     -2.95,
+     -4.61,
+     -1.7
+    ],
+    "hump_c": [
+     -0.98,
+     -2.11,
+     0.05
+    ],
+    "years_warmer_than_before": 0,
+    "years_warmer_then_colder": 0
+   },
+   "15-25 Oct (chosen after seeing the chart)": {
+    "change_c": [
+     -0.56,
+     -2.08,
+     0.97
+    ],
+    "hump_c": [
+     0.57,
+     -0.92,
+     2.07
+    ],
+    "years_warmer_than_before": 5,
+    "years_warmer_then_colder": 4
+   }
+  }
+ },
+ "CERRA (5.5 km, to mid-2021)": {
+  "last 30 years": {
+   "from": 1996,
+   "to": 2020,
+   "years": 25,
+   "1-10 Oct": {
+    "change_c": [
+     -1.83,
+     -3.03,
+     -0.68
+    ],
+    "hump_c": [
+     0.31,
+     -0.8,
+     1.52
+    ],
+    "years_warmer_than_before": 7,
+    "years_warmer_then_colder": 6
+   },
+   "15-25 Oct (chosen after seeing the chart)": {
+    "change_c": [
+     -2.37,
+     -3.71,
+     -1.08
+    ],
+    "hump_c": [
+     0.05,
+     -1.08,
+     1.08
+    ],
+    "years_warmer_than_before": 7,
+    "years_warmer_then_colder": 5
+   }
+  }
+ },
+ "Station (GSOD + Meteostat)": {
+  "last 10 years": {
+   "from": 2016,
+   "to": 2025,
+   "years": 10,
+   "1-10 Oct": {
+    "change_c": [
+     -2.76,
+     -4.18,
+     -1.39
+    ],
+    "hump_c": [
+     -0.69,
+     -1.73,
+     0.31
+    ],
+    "years_warmer_than_before": 1,
+    "years_warmer_then_colder": 0
+   },
+   "15-25 Oct (chosen after seeing the chart)": {
+    "change_c": [
+     -0.58,
+     -2.04,
+     0.83
+    ],
+    "hump_c": [
+     0.66,
+     -0.81,
+     2.26
+    ],
+    "years_warmer_than_before": 5,
+    "years_warmer_then_colder": 4
+   }
+  },
+  "last 15 years": {
+   "from": 2011,
+   "to": 2025,
+   "years": 15,
+   "1-10 Oct": {
+    "change_c": [
+     -3.15,
+     -4.52,
+     -2.03
+    ],
+    "hump_c": [
+     -0.99,
+     -2.22,
+     0.18
+    ],
+    "years_warmer_than_before": 1,
+    "years_warmer_then_colder": 0
+   },
+   "15-25 Oct (chosen after seeing the chart)": {
+    "change_c": [
+     -1.02,
+     -2.27,
+     0.26
+    ],
+    "hump_c": [
+     0.61,
+     -0.52,
+     1.96
+    ],
+    "years_warmer_than_before": 6,
+    "years_warmer_then_colder": 4
+   }
+  },
+  "last 20 years": {
+   "from": 2006,
+   "to": 2025,
+   "years": 20,
+   "1-10 Oct": {
+    "change_c": [
+     -2.58,
+     -4.14,
+     -1.13
+    ],
+    "hump_c": [
+     -0.33,
+     -1.64,
+     0.84
+    ],
+    "years_warmer_than_before": 4,
+    "years_warmer_then_colder": 3
+   },
+   "15-25 Oct (chosen after seeing the chart)": {
+    "change_c": [
+     -1.35,
+     -2.6,
+     -0.28
+    ],
+    "hump_c": [
+     0.44,
+     -0.54,
+     1.45
+    ],
+    "years_warmer_than_before": 7,
+    "years_warmer_then_colder": 5
+   }
+  },
+  "last 30 years": {
+   "from": 1997,
+   "to": 2025,
+   "years": 29,
+   "1-10 Oct": {
+    "change_c": [
+     -2.22,
+     -3.39,
+     -1.11
+    ],
+    "hump_c": [
+     0.2,
+     -0.85,
+     1.18
+    ],
+    "years_warmer_than_before": 7,
+    "years_warmer_then_colder": 6
+   },
+   "15-25 Oct (chosen after seeing the chart)": {
+    "change_c": [
+     -2.17,
+     -3.51,
+     -0.96
+    ],
+    "hump_c": [
+     -0.15,
+     -1.14,
+     0.76
+    ],
+    "years_warmer_than_before": 8,
+    "years_warmer_then_colder": 6
+   }
+  },
+  "all years": {
+   "from": 1966,
+   "to": 2025,
+   "years": 54,
+   "1-10 Oct": {
+    "change_c": [
+     -2.37,
+     -3.23,
+     -1.49
+    ],
+    "hump_c": [
+     -0.02,
+     -0.71,
+     0.67
+    ],
+    "years_warmer_than_before": 13,
+    "years_warmer_then_colder": 12
+   },
+   "15-25 Oct (chosen after seeing the chart)": {
+    "change_c": [
+     -2.84,
+     -3.74,
+     -1.93
+    ],
+    "hump_c": [
+     -0.13,
+     -0.89,
+     0.71
+    ],
+    "years_warmer_than_before": 11,
+    "years_warmer_then_colder": 9
+   }
+  }
+ }
+}
