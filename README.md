@@ -15,6 +15,7 @@ Highlights from the first data check for Plovdiv ([details](docs/research/plovdi
 - A single date's odds from 30 years are noisy (±15 percentage points for rain); pooling a week brings that to ±7.
 - Early October does not warm up after late September, in any source or range of years, including the last 10 years ([details](docs/research/early-october.md)).
 - Predicting each past year from other years shows that 30-year temperature statistics run about 1 °C cold because of warming, unless adjusted for the trend ([details](docs/research/validation.md)).
+- Of all free sources, the Plovdiv station's own hourly temperatures are the most precise; ERA5 is the best grid for rain; CERRA is not more precise here ([details](docs/research/all-sources.md)).
 
 ## Data
 

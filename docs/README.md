@@ -10,6 +10,7 @@ Start with **[STATUS.md](STATUS.md)**: where the project stands and what happens
 | **Research** | |
 | [research/data-sources.md](research/data-sources.md) | Every historical data source evaluated, tested status, pros and cons |
 | [research/plovdiv-data-check.md](research/plovdiv-data-check.md) | Phase-0 analysis: are the autumn patterns real? How do sources compare? |
+| [research/all-sources.md](research/all-sources.md) | Every data source compared with the Plovdiv station and airport; the proposed data design |
 | [research/early-october.md](research/early-october.md) | Does early October warm up, by source and range of years (last 10, 15, 20, 30 years), and as an event at varying dates? |
 | [research/validation.md](research/validation.md) | Cross-validation: how well do past years predict an unseen year? Which defaults work best? |
 | [research/weather-scale.md](research/weather-scale.md) | The proposed outdoor-weather scale, previewed for Plovdiv |
@@ -21,5 +22,6 @@ Start with **[STATUS.md](STATUS.md)**: where the project stands and what happens
 | [spec/requirements.md](spec/requirements.md) | Functional and non-functional requirements, acceptance for v1 |
 | [spec/methodology.md](spec/methodology.md) | How the outdoor-weather scale, odds, intervals and patterns are computed, and how they are validated |
 | [spec/architecture.md](spec/architecture.md) | Proposed components, technology and layout |
+| [development-plan.md](development-plan.md) | Proposed v1 milestones, to become GitHub issues after the spec sign-off |
 
 Research scripts live in [`../research/`](../research/) and can be re-run to reproduce every number and chart.

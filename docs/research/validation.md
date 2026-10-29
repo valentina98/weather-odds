@@ -1,13 +1,15 @@
 # Cross-validation: how good are the historical odds?
 
-_Run on 2026-10-29 with [`research/validate_odds.py`](../../research/validate_odds.py) for issue [#7](https://github.com/valentina98/weather-odds/issues/7). All numbers are in [validation.json](validation.json)._
+_Run on 2026-10-29 with [`research/validate_odds.py`](../../research/validate_odds.py), [`validate_vs_station.py`](../../research/validate_vs_station.py) and [`validate_scale.py`](../../research/validate_scale.py) for issue [#7](https://github.com/valentina98/weather-odds/issues/7). Numbers are in [validation.json](validation.json), [validation-station.json](validation-station.json) and [validation-scale.json](validation-scale.json)._
 
 **Short answer:**
 - Each year from 1996 to 2025 was predicted only from other years' statistics. **Temperature odds are informative, but the warming makes plain 30-year statistics about 1 °C too cold.** Shifting older years by the warming trend fixes most of that and lowers the error by about 0.1 °C.
 - **Pooling ±7 days beats ±3 days** for both temperature and rain.
 - **Rain odds barely beat a flat chance:** at Plovdiv the chance of a wet day hardly changes through the year.
+- **Against what the station measured**, the station's own past years give the best-calibrated temperature ranges; ERA5's are too narrow ([below](#against-the-station)).
+- **The calendar colour works:** the chance of a Good or Great day is 33% better than a flat chance and, with trend adjustment, well calibrated ([below](#the-outdoor-weather-scale)).
 
-Proposed defaults from this: the last 30 complete years, ±7-day pooling, and trend adjustment for temperature. Trend adjustment needs the owner's confirmation; see [open questions](../open-questions.md).
+Defaults from this: the last 30 complete years, ±7-day pooling, and trend adjustment for temperature (agreed in [#6](https://github.com/valentina98/weather-odds/issues/6), with an on/off switch).
 
 ![Cross-validation](img/validation.png)
 
@@ -64,13 +66,49 @@ As suggested in [#7](https://github.com/valentina98/weather-odds/issues/7): pret
 - The default settings (30 years, ±3 days) are only **0.8% better than a flat chance** (Brier skill score 0.008). A flat chance means the same wet-day chance on every day of the year, from the same 30 years. At Plovdiv, the wet-day chance in ERA5 (±7 days, 1996–2025) varies only between 12% in late August and 35% in late May. Each year's rain falls on different days, so a calendar cannot say much about which week will be wet.
 - **Reliability** (right panel): mid-range chances are right (predicted 22%, observed 22%), but the extremes are too extreme (predicted 13% → observed 20%; predicted 33% → observed 30%). Part of the calendar's variation in rain chance is noise. Wider pooling or a seasonal smoothing of the rain chance would help.
 
+## Against the station
+
+The checks above predict ERA5 from ERA5. What matters to a user is the weather at Plovdiv, so each year 2001–2025 was also predicted from the 30 years before it and scored against the station's measured daily maximum ([`validate_vs_station.py`](../../research/validate_vs_station.py), ±7 days):
+
+| Predicted from | Trend-adjusted | Error (CRPS) | Bias | In the 10–90% range (80% is right) |
+|---|---|---|---|---|
+| **Station** | **yes** | 2.58 °C | **+0.15 °C** | **81%** |
+| Station | no | 2.59 °C | +0.48 °C | 83% |
+| ERA5 | yes | 2.56 °C | −0.10 °C | 76% |
+| ERA5 | no | 2.62 °C | +0.79 °C | 75% |
+| ERA5 corrected to the station (monthly) | yes | 2.57 °C | −0.40 °C | 77% |
+
+- **The average errors are practically equal.** But ERA5's predicted ranges are too narrow against the station: only 76% of days fall inside the 10–90% range. The station's own years give 81%.
+- ERA5 also warms faster than the station: +1.20 against +0.76 °C per decade since 1996 ([all sources](all-sources.md)). Trend adjustment with ERA5's trend therefore over-warms older years at the station.
+- **For temperature, the station's own data is the better base for Plovdiv**, with the trend fitted to the station.
+
+## The outdoor-weather scale
+
+The calendar colours a date by the chance that a past day rated Good or Great ([methodology §4](../spec/methodology.md#4-outdoor-weather-scale)). Each year 1996–2025 was predicted from the 30 years before it (ERA5, daylight hours, ±7 days) and scored against which days of that year really were Good or Great ([`validate_scale.py`](../../research/validate_scale.py)):
+
+| | Brier score | Flat chance | Skill over the flat chance |
+|---|---|---|---|
+| Not adjusted | 0.170 | 0.250 | 32% |
+| **Trend-adjusted** | **0.167** | 0.250 | **33%** |
+
+**Reliability, trend-adjusted:** does a predicted chance come true that often?
+
+| Predicted | 5% | 15% | 25% | 35% | 45% | 55% | 67% | 73% | 86% |
+|---|---|---|---|---|---|---|---|---|---|
+| Observed | 5% | 17% | 24% | 37% | 52% | 49% | 67% | 72% | 84% |
+| Days | 1,930 | 740 | 636 | 406 | 370 | 427 | 2,246 | 2,341 | 1,811 |
+
+- **The colours carry real information:** a third better than a flat chance. Unlike rain alone, the scale follows the strong seasonal cycle of temperature.
+- **With trend adjustment the chances are honest:** 67% means 67%.
+- **Without it**, mid-season chances come out too low (predicted 24%, observed 32%; predicted 45%, observed 54%), because recent springs and autumns have more good days than older years suggest.
+
 ## What this means for the tool
 
 1. **Default pooling: ±7 days** (was ±3), for both temperature and rain. The user can still choose ±0–15.
-2. **Default reference period: the last 30 complete years** (the owner's choice), with **trend adjustment for temperature** proposed as the default. Without it, the tool would show temperatures about 1 °C colder than the climate they are used in.
+2. **Default reference period: the last 30 complete years** (the owner's choice), with **trend adjustment for temperature** on by default (agreed in #6). Without it, the tool would show temperatures about 1 °C colder than the climate they are used in. Fit the trend to the data the temperatures come from: the station for Plovdiv.
 3. **Rain should be shown as a broad chance**, not as a day-by-day signal. The colour of a week should not jump because of rain noise. This supports pooling and the monthly/weekly views for rain.
-4. The weather-quality scale ([methodology §4](../spec/methodology.md#4-outdoor-weather-scale)) will be validated the same way once its definition is confirmed.
-5. Repeat with station data (temperature from GSOD/Meteostat, rain from NIMH) once the network allows it.
+4. **Temperature from the station** (measured hourly from 1997) gives better-calibrated ranges than ERA5.
+5. **The calendar colour is validated:** a third better than a flat chance, well calibrated with trend adjustment. Re-run when the station temperatures and thunder enter the scale.
 
 ## Reproduce
 

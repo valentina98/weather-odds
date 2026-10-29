@@ -1,0 +1,128 @@
+{
+ "targets": [
+  1996,
+  2025
+ ],
+ "training_years": 30,
+ "pooling_days": 7,
+ "results": {
+  "not adjusted": {
+   "brier": 0.17,
+   "brier_flat_chance": 0.2497,
+   "skill_vs_flat_chance": 0.319,
+   "mean_predicted": 0.514,
+   "share_good_observed": 0.519,
+   "reliability": [
+    {
+     "predicted": 0.039,
+     "observed": 0.06,
+     "days": 2216
+    },
+    {
+     "predicted": 0.144,
+     "observed": 0.197,
+     "days": 646
+    },
+    {
+     "predicted": 0.243,
+     "observed": 0.317,
+     "days": 646
+    },
+    {
+     "predicted": 0.341,
+     "observed": 0.401,
+     "days": 349
+    },
+    {
+     "predicted": 0.447,
+     "observed": 0.543,
+     "days": 348
+    },
+    {
+     "predicted": 0.552,
+     "observed": 0.629,
+     "days": 345
+    },
+    {
+     "predicted": 0.666,
+     "observed": 0.654,
+     "days": 1798
+    },
+    {
+     "predicted": 0.738,
+     "observed": 0.712,
+     "days": 2615
+    },
+    {
+     "predicted": 0.855,
+     "observed": 0.825,
+     "days": 1964
+    },
+    {
+     "predicted": 0.903,
+     "observed": 0.696,
+     "days": 23
+    }
+   ]
+  },
+  "trend-adjusted": {
+   "brier": 0.167,
+   "brier_flat_chance": 0.2497,
+   "skill_vs_flat_chance": 0.331,
+   "mean_predicted": 0.521,
+   "share_good_observed": 0.519,
+   "reliability": [
+    {
+     "predicted": 0.046,
+     "observed": 0.051,
+     "days": 1930
+    },
+    {
+     "predicted": 0.145,
+     "observed": 0.173,
+     "days": 740
+    },
+    {
+     "predicted": 0.251,
+     "observed": 0.244,
+     "days": 636
+    },
+    {
+     "predicted": 0.349,
+     "observed": 0.372,
+     "days": 406
+    },
+    {
+     "predicted": 0.449,
+     "observed": 0.522,
+     "days": 370
+    },
+    {
+     "predicted": 0.553,
+     "observed": 0.489,
+     "days": 427
+    },
+    {
+     "predicted": 0.666,
+     "observed": 0.666,
+     "days": 2246
+    },
+    {
+     "predicted": 0.734,
+     "observed": 0.724,
+     "days": 2341
+    },
+    {
+     "predicted": 0.858,
+     "observed": 0.844,
+     "days": 1811
+    },
+    {
+     "predicted": 0.903,
+     "observed": 0.791,
+     "days": 43
+    }
+   ]
+  }
+ }
+}
