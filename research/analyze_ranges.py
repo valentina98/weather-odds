@@ -96,6 +96,10 @@ sources = {
     "ECMWF IFS (9 km)": src.grid_daily("ecmwf_ifs")["tmax"],
 }
 try:
+    sources["CERRA (5.5 km, to mid-2021)"] = src.open_meteo_daily("cerra_daily")["tmax"]
+except FileNotFoundError:
+    print("CERRA cache missing; CERRA rows skipped")
+try:
     sources["Station (GSOD + Meteostat)"] = src.gsod()["tmax"].combine_first(src.meteostat_daily()["tmax"])
 except (ValueError, FileNotFoundError):
     print("station cache missing; station rows skipped")

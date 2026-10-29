@@ -29,9 +29,9 @@ config.yaml ──► CLI / dashboard
 | Component | Responsibility | Notes |
 |---|---|---|
 | **Config** | Load and validate `config.yaml` (location, scale thresholds, reference period, default time of day, pooling, source priority). | YAML + a typed schema (e.g. pydantic). Secrets only from environment variables. |
-| **Data adapters** | One adapter per source, all returning the same tidy schema (hourly and daily, local time, units fixed). | Open-Meteo API, Open-Meteo AWS (ERA5, ERA5-Land, ECMWF IFS), NIMH open data, NOAA GSOD, airport reports (IEM), Copernicus CDS (optional). The research loaders in `research/load_sources.py` are the prototype. |
+| **Data adapters** | One adapter per source, all returning the same tidy schema (hourly and daily, local time, units fixed). | Meteostat hourly (station temperature), Open-Meteo AWS or API (plain ERA5; never "ERA5 seamless"), airport reports (IEM, thunder), NOAA GSOD and NIMH (rain calibration). The research loaders in `research/load_sources.py` are the prototype ([all sources](../research/all-sources.md)). |
 | **Cache** | Store downloads per location and source; refresh on request. | Parquet files under a cache folder; git-ignored. |
-| **Blending** | Combine sources for a location: gridded backbone, station data for checking and correcting where available. | v1 can start with gridded data plus station-based checks; correction methods come later. |
+| **Blending** | Build the Plovdiv hourly table: station temperature (ERA5 corrected to the station fills gaps), ERA5 rain and gusts with the calibrated thresholds, airport thunder. | Methodology §1 and §10. |
 | **Stats engine** | Day-of-year statistics, pooling, trend adjustment, the outdoor-weather scale, percentiles, bootstrap intervals, pattern detection. | No I/O, fully unit-tested. |
 | **Validation** | Cross-validation of the odds (predict each year from other years). | Prototype: `research/validate_odds.py`. Run in CI on a small fixture; full run on demand. |
 | **Dashboard** | Calendar, detail panel, Patterns and Data tabs; runs locally only. | See the tool choice below. |

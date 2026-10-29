@@ -5,7 +5,7 @@ Averaging by calendar date can hide a warm-up that comes on a different day each
 year. This script therefore finds the events in each year first and only then
 counts how often they fall into each 10-day window of September to November.
 
-Events (ERA5 daily maximum temperature, Plovdiv):
+Events (ERA5 daily maximum temperature, Plovdiv; repeated with the station's measurements):
 - Warm spell: at least 3 days in a row at least 3 deg C above the smooth seasonal
   curve of the years used (detrended within those years). Counted at its first day.
 - Warm-up: "warmer, then colder again" in absolute terms. The 3-day mean rises by
@@ -101,11 +101,12 @@ def summarise(hits: np.ndarray) -> dict:
 
 # ---------------------------------------------------------------------------
 
-tmax = src.grid_daily("copernicus_era5")["tmax"]
-results: dict = {}
-shares: dict = {}
-for label, (a, b) in RANGES.items():
-    matrix = to_matrix(tmax, (a, b))
+def events(tmax: pd.Series, years_range: tuple[int, int]) -> tuple[np.ndarray, np.ndarray, np.ndarray] | None:
+    """Window hits of warm spells and warm-ups per year, for the complete years in the range."""
+    matrix = to_matrix(tmax, years_range)
+    matrix = matrix[matrix.notna().sum(axis=1) >= 330]
+    if len(matrix) < 0.8 * (years_range[1] - years_range[0] + 1):
+        return None
     years = matrix.index.to_numpy()
     values = matrix.to_numpy()
     # Detrend within the range so warming does not create or hide warm spells.
@@ -113,18 +114,38 @@ for label, (a, b) in RANGES.items():
     slope = np.polyfit(years, annual, 1)[0]
     detrended = values - slope * (years - years.mean())[:, None]
     anomaly = detrended - harmonic_baseline(pooled(detrended, 0))
-    spells = window_hits([warm_spell_starts(row) for row in anomaly])
-    warmups = window_hits([warm_up_peaks(row) for row in values])
+    return years, window_hits([warm_spell_starts(row) for row in anomaly]), window_hits([warm_up_peaks(row) for row in values])
+
+
+results: dict = {}
+shares: dict = {}
+for label, (a, b) in RANGES.items():
+    years, spells, warmups = events(src.grid_daily("copernicus_era5")["tmax"], (a, b))
     results[label] = {"years": [int(years[0]), int(years[-1])],
                       "warm_spell": summarise(spells), "warm_up": summarise(warmups)}
     shares[label] = (spells.mean(axis=0), warmups.mean(axis=0))
     print(label, json.dumps(results[label]["warm_spell"]["early_oct_minus_other_windows"]),
           json.dumps(results[label]["warm_up"]["early_oct_minus_other_windows"]))
 
+# The same with the station's measurements (only ranges with enough complete years)
+station: dict = {}
+try:
+    station_tmax = src.gsod()["tmax"].combine_first(src.meteostat_daily()["tmax"])
+except (ValueError, FileNotFoundError):
+    station_tmax = None
+for label, (a, b) in RANGES.items():
+    found = events(station_tmax, (a, b)) if station_tmax is not None else None
+    if found:
+        years, spells, warmups = found
+        station[label] = {"years": [int(years[0]), int(years[-1])], "complete_years": len(years),
+                          "warm_spell": summarise(spells), "warm_up": summarise(warmups)}
+        print("station", label, json.dumps(station[label]["warm_up"]))
+
 OUT_JSON.write_text(json.dumps({
     "definitions": {"warm_spell": f">= {SPELL_DAYS} days >= {SPELL_ANOMALY} C above the seasonal curve",
                     "warm_up": f"3-day mean rises >= {RISE} C within {LOOK} days, peaks, falls >= {FALL} C within {LOOK} days"},
     "results": results,
+    "station": station,
 }, indent=1))
 
 # ---------------------------------------------------------------------------

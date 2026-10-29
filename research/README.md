@@ -11,9 +11,12 @@ Throwaway-quality scripts that produced the evidence in [`docs/research/`](../do
 | `analyze_plovdiv.py` | Runs the phase-0 data check → [plovdiv-data-check.md](../docs/research/plovdiv-data-check.md). Needs all sources. |
 | `analyze_ranges.py` | Early October by source and range of years → [early-october.md](../docs/research/early-october.md). Needs `aws`; adds station data when cached. |
 | `analyze_warm_spells.py` | Warm spells and warm-ups counted per year and 10-day window → [early-october.md](../docs/research/early-october.md#does-the-timing-vary-from-year-to-year). Needs `aws`. |
+| `compare_sources.py` | Every source against the station and airport, rain calibration, thunder → [all-sources.md](../docs/research/all-sources.md). Needs all sources. |
 | `validate_odds.py` | Cross-validation of the odds → [validation.md](../docs/research/validation.md). Needs `aws`. |
+| `validate_vs_station.py` | Cross-validation against the station's measurements → [validation.md](../docs/research/validation.md#against-the-station). Needs `aws`, `gsod`, `meteostat`. |
+| `validate_scale.py` | Cross-validation of the scale's calendar colour → [validation.md](../docs/research/validation.md#the-outdoor-weather-scale). Needs `aws`. |
 | `preview_scale.py` | Preview of the outdoor-weather scale → [weather-scale.md](../docs/research/weather-scale.md). Needs `aws`. |
-| `prototype/` | Throwaway Streamlit prototype of the dashboard for #8 → [prototype/README.md](prototype/README.md). Not the application. |
+| `prototype/` | Throwaway Streamlit and Dash prototypes of the dashboard for #8 → [prototype/README.md](prototype/README.md). Not the application. |
 
 ## Run
 
@@ -48,9 +51,21 @@ The later checks need only the AWS data (`--sources aws`, about 25 minutes):
 ```
 
 ```bash
+.venv/bin/python research/compare_sources.py
+```
+
+```bash
+.venv/bin/python research/validate_vs_station.py
+```
+
+```bash
+.venv/bin/python research/validate_scale.py
+```
+
+```bash
 .venv/bin/python research/preview_scale.py
 ```
 
-Fetching takes about 15 minutes (most of it is reading 66 years of hourly ERA5 from AWS). The Open-Meteo API step is optional and is skipped when the free daily limit is exceeded; the analysis does not depend on it.
+Fetching takes about 15 minutes (most of it is reading 66 years of hourly ERA5 from AWS). The Open-Meteo API step (CERRA and ERA5 through the API) is skipped when the free daily limit is exceeded; only `compare_sources.py` needs it.
 
 Behind a TLS-intercepting proxy (as in Claude Code cloud sessions), point Python at the proxy's CA bundle, for example `REQUESTS_CA_BUNDLE`, `SSL_CERT_FILE` and `AWS_CA_BUNDLE`.

@@ -25,21 +25,24 @@ The owner asked for research, planning and documentation first. Development star
   - [dashboard framework comparison](research/dashboard-frameworks.md) and a throwaway [Streamlit prototype](../research/prototype/README.md) (#8);
   - warm-ups counted per year, to check whether a warm-up at varying dates averages out (#3).
 - **Second round of answers** (2026-10-29): scale thresholds are defaults changeable in the dashboard; colour measure and relative colours as options (#5); trend adjustment with an on/off switch (#6). Issues #2, #4–#7 and #9–#11 are closed.
-- **Spec updated**: [requirements](spec/requirements.md), [methodology](spec/methodology.md), [architecture](spec/architecture.md), [vision](vision.md).
+- **All data sources tested** (#3, with full network access): [all-sources.md](research/all-sources.md).
+  - Temperature from the station's hourly measurements; rain and gusts from ERA5 with a calibrated threshold; thunder from the airport reports.
+  - CERRA is not more precise; Open-Meteo's "ERA5 seamless" is ERA5-Land and 3 °C too cold in summer.
+  - Early October re-checked with the station: no warm-up specific to it.
+- **Validation** against the station and of the scale's calendar colour: [validation.md](research/validation.md).
+- **Dash prototype** with the same screens as the Streamlit one, compared in [dashboard-frameworks.md](research/dashboard-frameworks.md#streamlit-and-dash-side-by-side).
+- **Spec updated**: [requirements](spec/requirements.md), [methodology](spec/methodology.md), [architecture](spec/architecture.md), [vision](vision.md); **[development plan](development-plan.md)** drafted.
 
 ## Waiting for the owner
 
-See [open-questions.md](open-questions.md). In short:
+1. **#8:** Streamlit or Dash, after comparing the [screens side by side](research/dashboard-frameworks.md#streamlit-and-dash-side-by-side).
+2. Review the branch `docs/spec-answers` (on top of PR #1), including the proposed data design (D34–D38) and the [development plan](development-plan.md).
+3. Close #12 when the spec is done. Then the development plan becomes GitHub issues and implementation starts.
 
-1. **#8:** keep Streamlit after looking at the [first prototype](research/dashboard-frameworks.md#first-results-streamlit-prototype), or try another framework.
-2. **#3:** the `weather-odds` cloud environment still blocks the station-data hosts and Copernicus (checked 2026-10-29). The CDS key is now set. Once the network allows it, the station sources and CERRA can be compared, as the owner asked.
-3. Review and merge PR #1 and the follow-up branch `docs/spec-answers`; close #12 when the spec is done.
+## Next steps (after the sign-off)
 
-## Next steps (after the answers)
-
-1. With network access: re-run all checks with station data (GSOD, Meteostat, NIMH, airport reports), test CERRA via the CDS, and calibrate ERA5 rain.
-2. Validate the confirmed scale with the cross-validation.
-3. Development plan: create issues for v1 milestones (data adapters → stats engine → dashboard), then implement in small PRs.
+1. Create the v1 milestone issues from the [development plan](development-plan.md).
+2. Implement in small PRs, starting with the project skeleton and the data adapters.
 
 ## How to resume in a new session
 

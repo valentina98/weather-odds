@@ -156,6 +156,11 @@ def fetch_open_meteo() -> None:
         if r.status_code != 200:
             print(f"open-meteo {name}: HTTP {r.status_code} {r.text[:200]}")
             continue
+        try:  # a server-side timeout can arrive as HTTP 200 with a plain-text error
+            r.json()
+        except ValueError:
+            print(f"open-meteo {name}: not JSON: {r.text[:100]!r}")
+            continue
         save(out, r.content)
         time.sleep(5)
 

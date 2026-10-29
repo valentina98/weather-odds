@@ -56,6 +56,40 @@ _Month view with relative colours: the best month of the timeframe is green, whi
 
 **Assessment so far:** Streamlit is good enough for v1. The work-arounds were small, and none blocks a requirement. Dash would remove the rerun model and give full layout control, at the cost of more code per screen. Unless the owner wants a different look or finds the reruns too slow, the recommendation stays Streamlit.
 
+## Streamlit and Dash side by side
+
+_2026-10-29._ As asked in [#8](https://github.com/valentina98/weather-odds/issues/8), the same screens were also built in Dash ([`dash_app.py`](../../research/prototype/dash_app.py)). Both prototypes call the same data and statistics code ([`model.py`](../../research/prototype/model.py)), so they show identical numbers; only the screens differ.
+
+| Streamlit | Dash |
+|---|---|
+| ![Streamlit, week](img/prototype-week.png) | ![Dash, week](img/prototype-dash-week.png) |
+| ![Streamlit, day](img/prototype-day.png) | ![Dash, day](img/prototype-dash-day.png) |
+| ![Streamlit, month, relative](img/prototype-month-relative.png) | ![Dash, month, relative](img/prototype-dash-month-relative.png) |
+
+| | Streamlit | Dash |
+|---|---|---|
+| Screen code (shared statistics: 137 lines) | 150 lines | 219 lines |
+| Calendar | Altair chart, fixed width; the selected cell is shown by fading the others | Plotly heatmap across the full width; the selected cell gets an outline |
+| Detail panel | Built-in metric boxes and columns | Cards and layout written by hand (inline styles) |
+| Look | Streamlit's standard style; little to change | Any layout and style; default widgets (tabs, sliders) look plain until styled |
+| Clicking a cell | Works through `on_select`; needed a guard when the view changes | Heatmap clicks carry only the cell's x/y labels, so a lookup from position to period was needed |
+| Speed after the first start | Script re-runs in 0.1–0.3 s | Callbacks take 0.04–0.2 s |
+| First start (research cache) | about 18 s | about 21 s |
+| Start command | `streamlit run app.py` | `python dash_app.py` |
+| Testing | `AppTest` runs the script without a browser | Callbacks are plain functions and can be called directly in tests |
+
+**What Dash does better**
+- The full-width calendar is easier to read, and the outline makes the selection clear.
+- Full control over the layout, e.g. cards in a row.
+- No full re-run on every click.
+
+**What Streamlit does better**
+- About a third less screen code.
+- Widgets look finished without any styling.
+- The selection works without a lookup table.
+
+**Assessment:** both meet every requirement, and neither found a blocker. Dash gives more control over the look for about 45% more screen code. Following the rule set in #8 ("keep Streamlit unless we find something better in Dash, or Dash looks better"), the choice now depends on which look the owner prefers in the screenshots above.
+
 ## Decision needed
 
-After looking at the prototype, decide in [#8](https://github.com/valentina98/weather-odds/issues/8): keep **Streamlit**, or try **Dash** (or another option from the table) the same way. The choice does not affect the data or statistics design.
+In [#8](https://github.com/valentina98/weather-odds/issues/8): **Streamlit** (simpler) or **Dash** (more control over the look). The choice does not affect the data or statistics design.

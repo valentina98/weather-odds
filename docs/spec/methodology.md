@@ -13,13 +13,15 @@ For Plovdiv the tool builds one **hourly** and one **daily** table in local time
 
 | Field | Unit | Main source |
 |---|---|---|
-| temperature | °C | ERA5 (≈25 km), corrected for elevation. At Plovdiv it matches the station within 0.1 °C on average. ERA5-Land (≈9 km) runs 2–3 °C too cool in summer there, so finer grids are used only after a station check. ECMWF IFS (≈9 km, from 2017) is a second check for recent years. |
-| precipitation | mm | ERA5 (≈25 km), calibrated against station wet-day frequencies. At Plovdiv ERA5 has 39% more wet days than the station in 1973–1999 and 8% more in 2022–2025. CERRA (5.5 km) still to be evaluated. |
+| temperature | °C | **The station's hourly measurements** (WMO 15625 via Meteostat/NOAA ISD, from 1997). Gaps (all of 1996, missing hours) are filled with ERA5 corrected to the station. ERA5's ranges are too narrow against the station, and its warming trend is steeper ([all sources](../research/all-sources.md)). |
+| precipitation | mm | ERA5 (≈25 km), calibrated against station wet-day frequencies (§10). ERA5 is the best grid for rain here: CERRA (5.5 km) has twice as many wet days as the station. |
 | snowfall, snow depth | mm water / m | ERA5 / ERA5-Land |
 | wind gusts | km/h | ERA5 |
 | cloud cover | % | ERA5 |
-| thunder | yes/no | airport reports (LBPD, from 2012); a model proxy to be tested (see §5) |
+| thunder | yes/no | airport reports (LBPD, from 2012). Thunder is reported on 24% of June days. ERA5's rain misses half of the thunder hours, so rain cannot stand in for it. A model stand-in for years before 2012 is still to be tested (§5). |
 | sunrise, sunset | time | computed from coordinates |
+
+**Data path.** The Open-Meteo API's default ERA5 product ("ERA5 seamless") uses ERA5-Land temperatures, which are 3 °C too cold in summer at Plovdiv. The tool reads plain ERA5: from the Open-Meteo AWS bucket, or from the API with `models=era5` (to be confirmed when the API's daily limit allows).
 
 **Elevation correction.** Gridded temperature is for the grid cell's average height. It is shifted to Plovdiv's station elevation (179 m) with a lapse rate of 0.65 °C per 100 m. In winter, valley inversions in the Plovdiv basin break this rule; the station check measures how much.
 
@@ -27,7 +29,7 @@ For Plovdiv the tool builds one **hourly** and one **daily** table in local time
 
 - **Default: the last 30 complete years** (currently 1996–2025), set in the config ([#6](https://github.com/valentina98/weather-odds/issues/6)).
 - In the dashboard the user can **narrow it to a shorter range** within the configured period, e.g. the last 10 years.
-- **Trend adjustment** for temperature ([#6](https://github.com/valentina98/weather-odds/issues/6)): each reference year's temperatures are shifted by the linear warming trend fitted to the reference years, up to the current year. In the cross-validation, plain 30-year statistics predicted temperatures 1.07 °C too cold on average; trend adjustment cut that to 0.32 °C and lowered the error by 0.10 °C. It uses only the historical record, not current weather.
+- **Trend adjustment** for temperature ([#6](https://github.com/valentina98/weather-odds/issues/6)): each reference year's temperatures are shifted by the linear warming trend fitted to the reference years, up to the current year. The trend is fitted to the data the temperatures come from: the station for Plovdiv (+0.76 °C per decade since 1996; ERA5 shows +1.20). In the cross-validation, plain 30-year statistics predicted temperatures 1.07 °C too cold on average; trend adjustment cut that to 0.32 °C and lowered the error by 0.10 °C. It uses only the historical record, not current weather.
   - The user switches it **on or off** in the dashboard; the config sets the default (shipped default: on).
   - It is always visible: a label on the calendar ("temperatures adjusted to the 2026 climate"), and in the detail panel the fitted trend (°C per decade) and the shift applied to the oldest reference year.
 - Pattern detection uses the full record after removing the long-term trend.
@@ -102,7 +104,7 @@ Without the caps, a day with a few hours of rain could still rate Good, because 
 | Chosen hours | the time of day the user picked; if none, the daylight hours of each date (sunrise to sunset) |
 | Wet day | ≥ 1.0 mm in the 24 hours of the local calendar day |
 | Rain during the chosen hours | ≥ 0.2 mm in at least one of those hours (to be calibrated against airport rain reports) |
-| Thunder | ERA5 has no thunder variable. Use airport reports where available; otherwise a model proxy (ECMWF IFS lightning density from 2017, or convective precipitation) to be evaluated |
+| Thunder | thunder in an airport report within the hour (2012 on). Before 2012, a model stand-in (ERA5 convective rain or CAPE, or IFS lightning from 2017) is still to be tested; until then the detail panel shows the thunder chance from 2012 on, and the scale's thunder factor applies only to years with reports |
 | Frost | daily minimum < 0 °C |
 | Heat | maximum during the chosen hours ≥ 32 °C |
 | Strong wind | gust ≥ 50 km/h during the chosen hours |
@@ -153,12 +155,13 @@ Results so far: [validation.md](../research/validation.md). The script is part o
 
 ## 10. Combining sources
 
-- v1: gridded data with a simple station-based calibration:
-  - temperature: monthly mean bias correction against the station (ERA5 at Plovdiv: +0.6 °C in winter, −0.4 °C in July);
-  - rain: a per-month wet-day threshold chosen so ERA5's wet-day frequency matches the station's (GSOD 1973–1999, NIMH from 2022);
-  - hourly rain: a threshold chosen so the share of rainy hours matches airport reports.
+- v1, measured against the Plovdiv station and airport ([all sources](../research/all-sources.md)):
+  - **temperature:** the station's own hourly measurements; ERA5 corrected to the station (monthly mean difference over the years used) only fills gaps;
+  - **wet days:** an ERA5 day counts as wet from a per-month threshold that matches the station's wet-day frequency in 1973–1999: 1.4 mm in January, about 2 mm in spring and summer, 1.2 mm in October. Against NIMH 2022–2025 the thresholds come out lower (about 1.1 mm); re-check as NIMH years accumulate;
+  - **hourly rain:** ERA5 at ≥ 0.2 mm already rains as often as the airport reports (9.3% vs 9.1% of hours), so the scale's 0.2 mm threshold stays;
+  - **thunder:** from the airport reports.
 - Show station comparisons in the Data tab.
-- Later: quantile mapping, CERRA, and more stations from the NIMH network.
+- Later: quantile mapping, and more stations from the NIMH network. CERRA was tested and is not used ([all sources](../research/all-sources.md)).
 
 ## 11. Known limitations
 

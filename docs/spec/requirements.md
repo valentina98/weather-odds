@@ -26,7 +26,7 @@ v1 covers **Plovdiv, Bulgaria only**, and precision for Plovdiv comes before sup
 |---|---|
 | F1 | v1 has one location: Plovdiv (station WMO 15625 and the matching grid cells). It is set in the config; the dashboard has no place picker. |
 | F2 | Gridded temperatures are corrected to the location's elevation. *(Removed for v1: hiking spots with their own elevation, [#4](https://github.com/valentina98/weather-odds/issues/4).)* |
-| F3 | Plovdiv uses Bulgarian station data wherever it improves precision (see [methodology](methodology.md)). |
+| F3 | Plovdiv uses its station's measurements wherever they improve precision: hourly temperatures from 1997, airport reports for thunder, station rain to calibrate ERA5 ([methodology §1, §10](methodology.md#1-data-for-plovdiv)). |
 | F4 | *Removed ([#4](https://github.com/valentina98/weather-odds/issues/4)): saved places with activity profiles.* The code keeps the location in the config so other cities can be added later, but v1 does not need to work for them. |
 
 ### Time selection
@@ -85,7 +85,7 @@ v1 covers **Plovdiv, Bulgaria only**, and precision for Plovdiv comes before sup
 |---|---|
 | F20 | Data is downloaded on demand and cached locally; the cache can be refreshed. |
 | F21 | Works with **no API key** by default (Open-Meteo API, with the Open-Meteo AWS open data as a fallback when the API limit is hit). |
-| F22 | Optional sources with keys (Copernicus CDS for CERRA) are enabled by setting an environment variable. |
+| F22 | *Removed: optional Copernicus CDS sources. CERRA was tested and is not more precise at Plovdiv ([all sources](../research/all-sources.md)); no key is needed.* |
 
 ### Validation
 

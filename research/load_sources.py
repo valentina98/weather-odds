@@ -183,3 +183,24 @@ def grid_daily(model: str) -> pd.DataFrame:
     if "wind_gusts_10m" in hourly:
         out["gust_max"] = hourly["wind_gusts_10m"].groupby(day).max()
     return out[temp.count() >= 23]
+
+
+def open_meteo_daily(name: str) -> pd.DataFrame:
+    """Daily table from a cached Open-Meteo API response (local dates; temperatures already
+    corrected by Open-Meteo to the requested 179 m)."""
+    data = json.loads((CACHE / "open_meteo" / f"{name}.json").read_text())["daily"]
+    out = pd.DataFrame(data).set_index("time")
+    out.index = pd.to_datetime(out.index)
+    out = out.rename(columns={"temperature_2m_max": "tmax", "temperature_2m_min": "tmin",
+                              "precipitation_sum": "prcp", "wind_gusts_10m_max": "gust_max"})
+    out["wet"] = (out["prcp"] >= WET_DAY_MM).where(out["prcp"].notna())
+    return out
+
+
+def open_meteo_hourly(name: str) -> pd.DataFrame:
+    """Hourly table from a cached Open-Meteo API response, indexed by local time (km/h for wind)."""
+    data = json.loads((CACHE / "open_meteo" / f"{name}.json").read_text())["hourly"]
+    out = pd.DataFrame(data)
+    # The API gives naive local times; DST makes some ambiguous or missing, so go through UTC offsets.
+    out.index = pd.to_datetime(out.pop("time")).dt.tz_localize(TZ, ambiguous="NaT", nonexistent="NaT")
+    return out[out.index.notna()]

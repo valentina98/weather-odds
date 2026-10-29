@@ -1,6 +1,6 @@
-# Dashboard prototype (throwaway)
+# Dashboard prototypes (throwaway)
 
-A quick Streamlit prototype for issue [#8](https://github.com/valentina98/weather-odds/issues/8): "pick one, show first results, then we re-evaluate". It shows real screens so the framework can be judged; it is **not the application**, and none of it is meant to be kept as is.
+Two quick prototypes of the same screens for issue [#8](https://github.com/valentina98/weather-odds/issues/8): `app.py` in Streamlit and `dash_app.py` in Dash. Both use `model.py` for the data and statistics, so only the screens differ. They show real screens so the framework can be judged; they are **not the application**, and none of it is meant to be kept as is.
 
 What it shows, for Plovdiv, from ERA5 only:
 - the calendar at day, week or month granularity, coloured by the outdoor-weather scale ([methodology §4](../../docs/spec/methodology.md#4-outdoor-weather-scale));
@@ -15,7 +15,7 @@ Not included: station calibration, thunder, a real config file, tests.
 
 ## Run
 
-Fill the cache once (about 25 minutes), install Streamlit, then start the app:
+Fill the cache once (about 25 minutes), install Streamlit and Dash, then start one of the apps:
 
 ```bash
 .venv/bin/python research/fetch_sources.py --sources aws
@@ -29,6 +29,12 @@ Fill the cache once (about 25 minutes), install Streamlit, then start the app:
 .venv/bin/streamlit run research/prototype/app.py
 ```
 
-The first start takes about 18 seconds, because it reads the gzipped CSV cache. After that, each change of an input re-runs the script in 0.1–0.3 seconds (measured with Streamlit's test runner, `AppTest`).
+The Dash version (open http://localhost:8050 after starting it):
+
+```bash
+cd research/prototype && ../../.venv/bin/python dash_app.py
+```
+
+The first start takes about 20 seconds, because it reads the gzipped CSV cache. After that, a change of an input takes 0.1–0.3 seconds in Streamlit and 0.04–0.2 seconds in Dash (measured without the browser).
 
 Results and the evaluation are in [docs/research/dashboard-frameworks.md](../../docs/research/dashboard-frameworks.md#first-results-streamlit-prototype).
