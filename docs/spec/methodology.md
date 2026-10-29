@@ -13,7 +13,7 @@ For Plovdiv the tool builds one **hourly** and one **daily** table in local time
 
 | Field | Unit | Main source |
 |---|---|---|
-| temperature | °C | **The station's hourly measurements** (WMO 15625 via Meteostat/NOAA ISD, from 1997). Gaps (all of 1996, missing hours) are filled with ERA5 corrected to the station. ERA5's ranges are too narrow against the station, and its warming trend is steeper ([all sources](../research/all-sources.md)). |
+| temperature | °C | **The station's hourly measurements** (WMO 15625 via Meteostat/NOAA ISD, from 1997). Missing hours are filled with ERA5 corrected to the station. 1996 has no station data at all; proposed: leave it out ([#14](https://github.com/valentina98/weather-odds/issues/14), [gap plan](../development-plan.md#filling-the-data-gaps)). ERA5's ranges are too narrow against the station, and its warming trend is steeper ([all sources](../research/all-sources.md)). |
 | precipitation | mm | ERA5 (≈25 km), calibrated against station wet-day frequencies (§10). ERA5 is the best grid for rain here: CERRA (5.5 km) has twice as many wet days as the station. |
 | snowfall, snow depth | mm water / m | ERA5 / ERA5-Land |
 | wind gusts | km/h | ERA5 |

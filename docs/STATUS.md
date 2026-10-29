@@ -32,11 +32,12 @@ The owner asked for research, planning and documentation first. Development star
 - **Validation** against the station and of the scale's calendar colour: [validation.md](research/validation.md).
 - **Dash prototype** with the same screens as the Streamlit one, compared in [dashboard-frameworks.md](research/dashboard-frameworks.md#streamlit-and-dash-side-by-side). **The owner chose Dash** (#8); the Streamlit code was moved to the closed pull request [#13](https://github.com/valentina98/weather-odds/pull/13).
 - **Owner's chat answers (2026-10-29)** recorded: station temperature, editable scale with time-of-day thresholds, transparent trend adjustment, one daylight window per timeframe, trend tools (D39), and a [gap plan](development-plan.md#filling-the-data-gaps).
+- **Owner's answers to #14, 1, 2 and 5 and on pooling (2026-10-29)**: settings stay independent of each other (D41); one daylight window per timeframe; no paid data (D42, the NIMH archive and its prices recorded as an unused option); pooling off by default (D26). More reference years don't make up for the pooling: the calendar colour's skill is 31% with the 30 years before or with all years since 1966, 33% with ±7-day pooling ([validation](research/validation.md)).
 - **Spec updated**: [requirements](spec/requirements.md), [methodology](spec/methodology.md), [architecture](spec/architecture.md), [vision](vision.md); **[development plan](development-plan.md)** drafted.
 
 ## Waiting for the owner
 
-1. Answer the five short questions in [#14](https://github.com/valentina98/weather-odds/issues/14) (each has a proposed answer).
+1. Answer the last two questions in [#14](https://github.com/valentina98/weather-odds/issues/14): (3) which kinds of events the trend tools should find, (4) what to do about 1996. Questions 1, 2 and 5 are answered.
 2. Review the branch `docs/spec-answers` (on top of PR #1), including the proposed data design (D34–D38) and the [development plan](development-plan.md).
 3. Close #12 when the spec is done. Then the development plan becomes GitHub issues and implementation starts.
 
