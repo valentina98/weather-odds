@@ -8,8 +8,8 @@ The owner signed off the specification on 2026-10-29 ("I approve, we can start d
 
 | # | Milestone | Issue | State |
 |---|---|---|---|
-| 1 | Project skeleton | [#15](https://github.com/valentina98/weather-odds/issues/15) | in review in [PR #24](https://github.com/valentina98/weather-odds/pull/24): config schema, CLI (`weather-odds config`), CI |
-| 2 | Data adapters and cache | [#16](https://github.com/valentina98/weather-odds/issues/16) | not started |
+| 1 | Project skeleton | [#15](https://github.com/valentina98/weather-odds/issues/15) | done ([PR #24](https://github.com/valentina98/weather-odds/pull/24)) |
+| 2 | Data adapters and cache | [#16](https://github.com/valentina98/weather-odds/issues/16) | part 1 in review: station, airport, NOAA and NIMH sources, cache, `weather-odds prefetch`; part 2 (ERA5) next |
 | 3 | Plovdiv hourly table | [#17](https://github.com/valentina98/weather-odds/issues/17) | not started |
 | 4 | Statistics engine | [#18](https://github.com/valentina98/weather-odds/issues/18) | not started |
 | 5 | Validation command | [#19](https://github.com/valentina98/weather-odds/issues/19) | not started |
@@ -21,7 +21,7 @@ Keep this table current: update it in the pull request that starts or finishes a
 
 ## Waiting for the owner
 
-- Review and squash-merge [PR #24](https://github.com/valentina98/weather-odds/pull/24) (milestone 1). Milestone 2 starts from `main` after that.
+- Review and squash-merge the open pull request for milestone 2, part 1.
 
 ## Specification phase (done, 2026-10-28/29)
 
