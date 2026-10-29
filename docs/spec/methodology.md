@@ -1,6 +1,6 @@
-# Methodology (draft)
+# Methodology
 
-How weather-odds turns historical data into odds and colours. Updated 2026-10-29 with the owner's answers (#4–#7) and the [cross-validation](../research/validation.md).
+How weather-odds turns historical data into odds and colours. Signed off on 2026-10-29 (D44), with the owner's answers (#4–#7, #14) and the [cross-validation](../research/validation.md).
 
 The research scripts are working prototypes of most of these steps:
 - [`research/analyze_plovdiv.py`](../../research/analyze_plovdiv.py): sources, patterns, noise.

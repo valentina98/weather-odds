@@ -1,6 +1,6 @@
-# Requirements (draft)
+# Requirements
 
-Status: **draft for review, updated 2026-10-29 with the owner's answers in issues #2–#11.** Items marked *(open: #N)* still wait for an answer; all are collected in [#12](https://github.com/valentina98/weather-odds/issues/12).
+Status: **signed off by the owner on 2026-10-29** ([#12](https://github.com/valentina98/weather-odds/issues/12), D44). Changes during development go through pull requests and are recorded in the [decision log](../decisions.md).
 Requirement IDs are stable so issues and PRs can refer to them. Removed requirements keep their number and say why.
 
 ## 1. Scope

@@ -1,6 +1,6 @@
-# Architecture (proposal)
+# Architecture
 
-Status: **proposal, not decided.** Nothing here is implemented. Updated 2026-10-29: local only, Plovdiv only, one outdoor-weather scale instead of activity profiles. Choices that need the owner's input are linked to issues.
+Status: **signed off on 2026-10-29** (D44): local only, Plovdiv only, one outdoor-weather scale instead of activity profiles. Implementation follows the [development plan](../development-plan.md); details may change in pull requests and are then recorded in the [decision log](../decisions.md).
 
 ## Overview
 
@@ -37,9 +37,9 @@ config.yaml ──► CLI / dashboard
 | **Dashboard** | Calendar, detail panel, Patterns and Data tabs; runs locally only. | See the tool choice below. |
 | **CLI** | `prefetch` data for the configured location; export tables as CSV; run the validation. | Lets people pre-download before using the dashboard. |
 
-## Technology (proposed)
+## Technology
 
-| Area | Proposal | Alternatives |
+| Area | Choice | Alternatives |
 |---|---|---|
 | Language | Python 3.12+ | – |
 | Data | pandas (or polars), NumPy | xarray only if gridded maps are added |
@@ -50,13 +50,13 @@ config.yaml ──► CLI / dashboard
 | Tests | pytest with small recorded fixtures | – |
 | CI | GitHub Actions: lint + tests | – |
 
-## Repository layout (proposed)
+## Repository layout
 
 ```
 weather-odds/
 ├── docs/                 research, spec, decisions
 ├── research/             phase-0 scripts (kept for reproducibility)
-├── src/weather_odds/     application package (not created yet)
+├── src/weather_odds/     application package (from milestone 1)
 │   ├── config.py
 │   ├── sources/          one module per adapter
 │   ├── cache.py

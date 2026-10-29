@@ -1,19 +1,19 @@
-# Development plan for v1 (proposal)
+# Development plan for v1
 
-_Drafted 2026-10-29 for review. Development starts after the owner closes [#12](https://github.com/valentina98/weather-odds/issues/12). Each milestone becomes a GitHub issue and is built in small pull requests into `main`._
+_Approved with the spec sign-off on 2026-10-29 (D44). Each milestone is a GitHub issue in the [v1 milestone](https://github.com/valentina98/weather-odds/milestone/1) and is built in small pull requests into `main`._
 
 v1 is the local dashboard for Plovdiv described in the [requirements](spec/requirements.md). The research code already does most of the computing: the [prototypes](../research/prototype/README.md), `scale.py`, `daystats.py` and the loaders. v1 turns it into a tested package.
 
 | # | Milestone | Contents | Done when |
 |---|---|---|---|
-| 1 | **Project skeleton** | `pyproject.toml` (uv), `src/weather_odds/` layout, `config.example.yaml` with a typed schema, lint and tests in GitHub Actions | `uv run pytest` passes in CI on an empty test suite |
-| 2 | **Data adapters and cache** | Meteostat hourly (station temperature), ERA5 from the Open-Meteo AWS bucket (and the API with plain ERA5), airport reports, NOAA GSOD and NIMH (rain calibration). Parquet cache and a `prefetch` command | One command downloads Plovdiv in under 5 minutes; adapters are tested on small recorded files, without network |
-| 3 | **Plovdiv hourly table** | Station temperature with ERA5 gap-filling corrected to the station, ERA5 rain and gusts with the calibrated thresholds, airport thunder, daylight hours ([methodology §1, §10](spec/methodology.md#1-data-for-plovdiv)) | The table's checks against the station match [all-sources.md](research/all-sources.md) |
-| 4 | **Statistics engine** | Pooling, trend adjustment (fitted to the station), the outdoor-weather scale with configurable thresholds, calendar values (chance or average; absolute or relative), detail-panel numbers, intervals | Unit tests cover every function; numbers match the research scripts |
-| 5 | **Validation command** | The cross-validation as a command (`weather-odds validate`), with a small fixture run in CI | It reproduces [validation.md](research/validation.md) |
-| 6 | **Dashboard** | In Dash ([#8](https://github.com/valentina98/weather-odds/issues/8)), starting from the [Dash prototype](../research/prototype/README.md): inputs, calendar, detail panel, Patterns and Data tabs; dd.mm.yyyy dates; "not a forecast"; trend-adjustment label; colour-blind-safe palette | The acceptance list in [requirements §6](spec/requirements.md#6-acceptance-for-v1-plovdiv) passes |
-| 7 | **Trend tools** | The Patterns and trends tab: investigate a window against another and across ranges of years, event counts per 10-day window, year-by-day anomalies (requirements F29–F31). Ports `analyze_ranges.py` and `analyze_warm_spells.py` | The [early-October results](research/early-october.md) can be reproduced in the dashboard |
-| 8 | **Release** | README with two-command install, short user guide, data attribution, v1.0 tag | A fresh clone runs on Linux, macOS and Windows |
+| 1 ([#15](https://github.com/valentina98/weather-odds/issues/15)) | **Project skeleton** | `pyproject.toml` (uv), `src/weather_odds/` layout, `config.example.yaml` with a typed schema, lint and tests in GitHub Actions | `uv run pytest` passes in CI on an empty test suite |
+| 2 ([#16](https://github.com/valentina98/weather-odds/issues/16)) | **Data adapters and cache** | Meteostat hourly (station temperature), ERA5 from the Open-Meteo AWS bucket (and the API with plain ERA5), airport reports, NOAA GSOD and NIMH (rain calibration). Parquet cache and a `prefetch` command | One command downloads Plovdiv in under 5 minutes; adapters are tested on small recorded files, without network |
+| 3 ([#17](https://github.com/valentina98/weather-odds/issues/17)) | **Plovdiv hourly table** | Station temperature with ERA5 gap-filling corrected to the station, ERA5 rain and gusts with the calibrated thresholds, airport thunder, daylight hours ([methodology §1, §10](spec/methodology.md#1-data-for-plovdiv)) | The table's checks against the station match [all-sources.md](research/all-sources.md) |
+| 4 ([#18](https://github.com/valentina98/weather-odds/issues/18)) | **Statistics engine** | Pooling, trend adjustment (fitted to the station), the outdoor-weather scale with configurable thresholds, calendar values (chance or average; absolute or relative), detail-panel numbers, intervals | Unit tests cover every function; numbers match the research scripts |
+| 5 ([#19](https://github.com/valentina98/weather-odds/issues/19)) | **Validation command** | The cross-validation as a command (`weather-odds validate`), with a small fixture run in CI | It reproduces [validation.md](research/validation.md) |
+| 6 ([#20](https://github.com/valentina98/weather-odds/issues/20)) | **Dashboard** | In Dash ([#8](https://github.com/valentina98/weather-odds/issues/8)), starting from the [Dash prototype](../research/prototype/README.md): inputs, calendar, detail panel, Patterns and Data tabs; dd.mm.yyyy dates; "not a forecast"; trend-adjustment label; colour-blind-safe palette | The acceptance list in [requirements §6](spec/requirements.md#6-acceptance-for-v1-plovdiv) passes |
+| 7 ([#21](https://github.com/valentina98/weather-odds/issues/21)) | **Trend tools** | The Patterns and trends tab: investigate a window against another and across ranges of years, event counts per 10-day window, year-by-day anomalies (requirements F29–F31). Ports `analyze_ranges.py` and `analyze_warm_spells.py` | The [early-October results](research/early-october.md) can be reproduced in the dashboard |
+| 8 ([#22](https://github.com/valentina98/weather-odds/issues/22)) | **Release** | README with two-command install, short user guide, data attribution, v1.0 tag | A fresh clone runs on Linux, macOS and Windows |
 
 ## Filling the data gaps
 

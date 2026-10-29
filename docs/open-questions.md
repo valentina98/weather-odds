@@ -2,9 +2,9 @@
 
 Questions for the owner are GitHub issues assigned to them, collected in the tracking issue **[#12 Specification phase: questions and sign-off](https://github.com/valentina98/weather-odds/issues/12)**. Answers are copied into [decisions.md](decisions.md) and the spec. Issues are closed once their answer is recorded.
 
-## Still open (as of 2026-10-29)
+## Still open
 
-None. What is left is the sign-off: review the spec and close [#12](https://github.com/valentina98/weather-odds/issues/12).
+None. The owner signed off the spec on 2026-10-29 and [#12](https://github.com/valentina98/weather-odds/issues/12) is closed. Questions that come up during development are new issues labelled `decision-needed`, assigned to the owner, and listed here.
 
 ## Answered
 

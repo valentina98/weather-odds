@@ -2,52 +2,45 @@
 
 _Last updated: 2026-10-29._
 
-## Phase: specification (no implementation yet)
+## Phase: development of v1
 
-The owner asked for research, planning and documentation first. Development starts only after the owner closes the specification tracking issue [#12](https://github.com/valentina98/weather-odds/issues/12).
+The owner signed off the specification on 2026-10-29 ("I approve, we can start development"; D44, [#12](https://github.com/valentina98/weather-odds/issues/12) closed). v1 is built milestone by milestone following the [development plan](development-plan.md). Each milestone is an issue in the [v1 milestone](https://github.com/valentina98/weather-odds/milestone/1).
 
-## Done
+| # | Milestone | Issue | State |
+|---|---|---|---|
+| 1 | Project skeleton | [#15](https://github.com/valentina98/weather-odds/issues/15) | in progress |
+| 2 | Data adapters and cache | [#16](https://github.com/valentina98/weather-odds/issues/16) | not started |
+| 3 | Plovdiv hourly table | [#17](https://github.com/valentina98/weather-odds/issues/17) | not started |
+| 4 | Statistics engine | [#18](https://github.com/valentina98/weather-odds/issues/18) | not started |
+| 5 | Validation command | [#19](https://github.com/valentina98/weather-odds/issues/19) | not started |
+| 6 | Dashboard | [#20](https://github.com/valentina98/weather-odds/issues/20) | not started |
+| 7 | Trend tools | [#21](https://github.com/valentina98/weather-odds/issues/21) | not started |
+| 8 | Release v1.0 | [#22](https://github.com/valentina98/weather-odds/issues/22) | not started |
 
-- **Research** on data sources, seasonal forecast providers, recurring weather patterns and licensing (see [docs/README.md](README.md)). PR [#1](https://github.com/valentina98/weather-odds/pull/1).
-- **Phase-0 data check for Plovdiv** with all no-key sources: [plovdiv-data-check.md](research/plovdiv-data-check.md).
-- **Owner's answers to #2–#11** (2026-10-28/29), recorded in [decisions.md](decisions.md) and the spec:
-  - Plovdiv only;
-  - one outdoor-weather scale instead of activities;
-  - default reference period of 30 years, narrowable in the dashboard;
-  - no forecasts;
-  - local only;
-  - English with dd.mm.yyyy dates;
-  - MIT licence.
-- **Follow-up research** on the answers:
-  - [early October by source and range of years](research/early-october.md) (#3);
-  - [cross-validation of the odds](research/validation.md) (#7);
-  - [preview of the outdoor-weather scale](research/weather-scale.md) (#5);
-  - [dashboard framework comparison](research/dashboard-frameworks.md) and a throwaway Streamlit prototype (#8);
-  - warm-ups counted per year, to check whether a warm-up at varying dates averages out (#3).
-- **Second round of answers** (2026-10-29): scale thresholds are defaults changeable in the dashboard; colour measure and relative colours as options (#5); trend adjustment with an on/off switch (#6). Issues #2, #4–#7 and #9–#11 are closed.
-- **All data sources tested** (#3, with full network access): [all-sources.md](research/all-sources.md).
-  - Temperature from the station's hourly measurements; rain and gusts from ERA5 with a calibrated threshold; thunder from the airport reports.
-  - CERRA is not more precise; Open-Meteo's "ERA5 seamless" is ERA5-Land and 3 °C too cold in summer.
-  - Early October re-checked with the station: no warm-up specific to it.
-- **Validation** against the station and of the scale's calendar colour: [validation.md](research/validation.md).
-- **Dash prototype** with the same screens as the Streamlit one, compared in [dashboard-frameworks.md](research/dashboard-frameworks.md#streamlit-and-dash-side-by-side). **The owner chose Dash** (#8); the Streamlit code was moved to the closed pull request [#13](https://github.com/valentina98/weather-odds/pull/13).
-- **Owner's chat answers (2026-10-29)** recorded: station temperature, editable scale with time-of-day thresholds, transparent trend adjustment, one daylight window per timeframe, trend tools (D39), and a [gap plan](development-plan.md#filling-the-data-gaps).
-- **Owner's answers to #14, 1, 2 and 5 and on pooling (2026-10-29)**: settings stay independent of each other (D41); one daylight window per timeframe; no paid data (D42, the NIMH archive and its prices recorded as an unused option); pooling off by default (D26). More reference years don't make up for the pooling: the calendar colour's skill is 31% with the 30 years before or with all years since 1966, 33% with ±7-day pooling ([validation](research/validation.md)).
-- **Last questions answered (#14, 3 and 4)**: the trend tools find all proposed event kinds (D39); 1996 is left out (D43). All question issues are closed.
-- **Spec updated**: [requirements](spec/requirements.md), [methodology](spec/methodology.md), [architecture](spec/architecture.md), [vision](vision.md); **[development plan](development-plan.md)** drafted.
+Keep this table current: update it in the pull request that starts or finishes a milestone.
 
 ## Waiting for the owner
 
-1. Review the branch `docs/spec-answers` (on top of PR #1), including the proposed data design (D34–D38) and the [development plan](development-plan.md).
-2. Close #12 when the spec is done. Then the development plan becomes GitHub issues and implementation starts.
+- Review and merge the open pull requests (`gh api repos/valentina98/weather-odds/pulls`).
 
-## Next steps (after the sign-off)
+## Specification phase (done, 2026-10-28/29)
 
-1. Create the v1 milestone issues from the [development plan](development-plan.md).
-2. Implement in small PRs, starting with the project skeleton and the data adapters.
+- **Research** on data sources, seasonal forecast providers, recurring weather patterns and licensing (see [docs/README.md](README.md)); PR [#1](https://github.com/valentina98/weather-odds/pull/1).
+- **Owner's answers** in issues #2–#11 and #14 and in chat, all recorded in [decisions.md](decisions.md) (D1–D44) and [open-questions.md](open-questions.md). In short:
+  - Plovdiv only, local only, English with dd.mm.yyyy dates, MIT licence, no forecasts, no paid data;
+  - one outdoor-weather scale (green to red) with defaults the user can change, also per time of day;
+  - default reference period: the last 30 complete years, with a switchable trend adjustment; no pooling by default; 1996 left out (no station data);
+  - default time of day: one daylight window (latest sunrise to earliest sunset) for the whole timeframe;
+  - settings independent of each other;
+  - trend tools to investigate patterns like the early-October warm-up;
+  - Dash for the dashboard.
+- **Data design** ([all sources](research/all-sources.md)): temperature from the station's hourly measurements, rain and gusts from ERA5 with a calibrated threshold, thunder from the airport reports. CERRA and Open-Meteo's "ERA5 seamless" are not used. Gaps are filled per the [gap plan](development-plan.md#filling-the-data-gaps).
+- **Findings**: [early October](research/early-october.md) has no warm-up specific to it; [validation](research/validation.md) of the odds and of the scale; [scale preview](research/weather-scale.md).
+- **Prototypes**: the [Dash prototype](../research/prototype/README.md) is the starting point for milestone 6; the Streamlit one is in the closed PR [#13](https://github.com/valentina98/weather-odds/pull/13).
 
 ## How to resume in a new session
 
-1. Read this file and [decisions.md](decisions.md).
-2. Check open PRs and issues: `gh api repos/valentina98/weather-odds/pulls` and `gh api "repos/valentina98/weather-odds/issues?state=open"`.
-3. To reproduce the research, follow [research/README.md](../research/README.md).
+1. Read [CLAUDE.md](../CLAUDE.md), this file and [decisions.md](decisions.md).
+2. Check open pull requests and issues: `gh api repos/valentina98/weather-odds/pulls` and `gh api "repos/valentina98/weather-odds/issues?state=open"`.
+3. Continue the first milestone in the table above that is not done. Its issue lists the contents, the "done when" check and the research code to port.
+4. To reproduce the research, follow [research/README.md](../research/README.md).

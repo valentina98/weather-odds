@@ -2,21 +2,20 @@
 
 Guidance for Claude sessions working in this repository.
 
-## Project phase: specification (no implementation yet)
+## Project phase: development of v1
 
-The owner (GitHub: valentina98) has asked for planning and documentation **before any implementation**.
-Until the owner says the specification step is done:
+The owner (GitHub: valentina98) signed off the specification on 2026-10-29 (D44; tracking issue #12 closed). v1 is built following `docs/development-plan.md`: one issue per milestone (#15–#22, GitHub milestone "v1").
 
-- Do not write application code (no `src/`, no dashboard, no package).
-- Research scripts are allowed under `research/` when they produce evidence for the docs. Keep them small, reproducible, and clearly separate from the future application.
-- The owner asked for framework prototypes in #8 and chose Dash. The Dash prototype lives in `research/prototype/`; it is throwaway evidence, not the application.
-- Record every finding, decision, and open question in the repo. The owner may start a new session at any time, so nothing important should live only in chat.
+- Work on a branch per milestone or part of one, with a pull request into `main` that names its issue ("Part of #15" or "Closes #15"). The owner reviews and merges; do not merge your own development PRs unless the owner asks.
+- Follow the spec in `docs/spec/` (requirement IDs F*/N*, methodology sections) and the decision log. If the code shows the spec should change, record the change as a new decision in `docs/decisions.md`; if it is the owner's call, open an issue labelled `decision-needed`, assigned to valentina98.
+- Application code lives in `src/weather_odds/`, tests in `tests/`. Run `uv run pytest` and `uv run ruff check .` before pushing. Tests never use the network: adapters are tested on small recorded files.
+- `research/` holds the specification-phase scripts and the Dash prototype. Keep them as reproducible evidence; the package does not import from `research/`. Port code into the package with tests instead.
+- Record progress in `docs/STATUS.md` (milestone table) in each PR. The owner may start a new session at any time, so nothing important should live only in chat.
 
 ## Where things are
 
-- `docs/` holds the research, draft spec, and decision log. Start with `docs/README.md` and `docs/STATUS.md`.
-- Open questions for the owner are GitHub issues labelled `decision-needed`, assigned to valentina98, and collected in tracking issue #12. Development starts only after the owner closes #12.
-- Work happens on branches with pull requests into `main`. Check open PRs first: `gh api repos/valentina98/weather-odds/pulls`.
+- `docs/` holds the research, spec, decision log and development plan. Start with `docs/STATUS.md`.
+- Check open PRs and issues first: `gh api repos/valentina98/weather-odds/pulls` and `gh api "repos/valentina98/weather-odds/issues?state=open"`.
 - GitHub GraphQL is unavailable from Claude Code sessions; use the REST API (`gh api ...`).
 
 ## Data and licences
