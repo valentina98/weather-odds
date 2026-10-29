@@ -6,7 +6,7 @@ Pick a timeframe and, optionally, a time of day. weather-odds shows a calendar c
 
 ## Status
 
-**Definition phase. No application code yet.** The research and the draft specification are in [`docs/`](docs/README.md); start with [`docs/STATUS.md`](docs/STATUS.md). Open questions are GitHub issues collected in [#12](https://github.com/valentina98/weather-odds/issues/12). Code licence: [MIT](LICENSE).
+**v1 is in development** (the specification was signed off on 29.10.2026). Progress and next steps are in [`docs/STATUS.md`](docs/STATUS.md); the research and the specification are in [`docs/`](docs/README.md); the work is planned in the [v1 milestone](https://github.com/valentina98/weather-odds/milestone/1). Code licence: [MIT](LICENSE).
 
 Highlights from the first data check for Plovdiv ([details](docs/research/plovdiv-data-check.md)):
 
