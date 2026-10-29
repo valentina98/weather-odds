@@ -44,8 +44,8 @@ config.yaml ──► CLI / dashboard
 | Language | Python 3.12+ | – |
 | Data | pandas (or polars), NumPy | xarray only if gridded maps are added |
 | Open-Meteo `.om` files | `omfiles` + `s3fs` | – |
-| Dashboard | **Streamlit**: one command to start, easy for other developers; reports clicks on chart marks for the calendar ([comparison](../research/dashboard-frameworks.md), open: [#8](https://github.com/valentina98/weather-odds/issues/8)) | Dash (more layout control), Panel, Shiny for Python |
-| Charts | Altair or Plotly; the calendar is drawn as clickable marks (Altair `rect` or Plotly square markers) | – |
+| Dashboard | **Dash** (decided in [#8](https://github.com/valentina98/weather-odds/issues/8), D29): callbacks update only what changed; full layout control | – |
+| Charts | Plotly. The calendar is a heatmap; a click is mapped to its period by the cell's position (heatmap clicks carry no custom data) | – |
 | Packaging | `uv` / `pyproject.toml`; optional Docker image | pip + venv |
 | Tests | pytest with small recorded fixtures | – |
 | CI | GitHub Actions: lint + tests | – |

@@ -104,7 +104,7 @@ v1 covers **Plovdiv, Bulgaria only**, and precision for Plovdiv comes before sup
 | N5 | Non-commercial data terms are documented; commercial users are pointed to paid keys. |
 | N6 | The interface is in **English only**. Dates are shown as **dd.mm.yyyy** (e.g. 28.10.2026). Units: °C, km/h, mm ([#9](https://github.com/valentina98/weather-odds/issues/9)). |
 | N7 | **Local only**: each person runs the dashboard on their own computer; there is no hosted instance ([#8](https://github.com/valentina98/weather-odds/issues/8)). |
-| N8 | Dashboard framework: Streamlit proposed, see the [comparison](../research/dashboard-frameworks.md). *(open: [#8](https://github.com/valentina98/weather-odds/issues/8))* |
+| N8 | Dashboard framework: **Dash** ([#8](https://github.com/valentina98/weather-odds/issues/8), D29); see the [comparison](../research/dashboard-frameworks.md). |
 
 ## 5. Out of scope for v1
 

@@ -1,7 +1,7 @@
 """Throwaway dashboard prototype in Dash for issue #8 (phase-0 research, not the application).
 
-The same screens as the Streamlit prototype (app.py), built with Dash so the two
-can be compared. Both use model.py for the data and statistics.
+Built alongside a Streamlit prototype of the same screens; the owner chose Dash
+(D29). The data and statistics are in model.py.
 Reads the ERA5 cache filled by `research/fetch_sources.py --sources aws`.
 
 Run:  .venv/bin/python research/prototype/dash_app.py   (then open http://localhost:8050)

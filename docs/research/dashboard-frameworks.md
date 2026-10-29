@@ -2,7 +2,7 @@
 
 _Checked on 2026-10-29 for issue [#8](https://github.com/valentina98/weather-odds/issues/8). Versions and licences are from PyPI; the click-event APIs were confirmed in each package's released code._
 
-**Recommendation: Streamlit for v1** (a first prototype confirms it; see [first results](#first-results-streamlit-prototype)). It needs the least code for our screens, and another developer starts it with one command. It also reports clicks on a chart, which the calendar needs to open the detail panel. If its full-page reruns or limited layout control get in the way, **Dash** is the fallback. The statistics stay in a separate package (see [architecture](../spec/architecture.md)), so switching frameworks later only means rewriting the screens.
+**Decision (2026-10-29): Dash**, chosen by the owner for scalability ([#8](https://github.com/valentina98/weather-odds/issues/8)). Both prototypes met every requirement. Streamlit needed less code; Dash gives full control over layout and behaviour and updates only what changed instead of re-running the whole script. The Streamlit prototype's code is kept for reference in a closed pull request; this page keeps its evaluation.
 
 ## What the dashboard has to do
 
@@ -90,6 +90,6 @@ _2026-10-29._ As asked in [#8](https://github.com/valentina98/weather-odds/issue
 
 **Assessment:** both meet every requirement, and neither found a blocker. Dash gives more control over the look for about 45% more screen code. Following the rule set in #8 ("keep Streamlit unless we find something better in Dash, or Dash looks better"), the choice now depends on which look the owner prefers in the screenshots above.
 
-## Decision needed
+## Decision
 
-In [#8](https://github.com/valentina98/weather-odds/issues/8): **Streamlit** (simpler) or **Dash** (more control over the look). The choice does not affect the data or statistics design.
+**Dash** (owner, 2026-10-29, [#8](https://github.com/valentina98/weather-odds/issues/8)): no strong preference for either look; Dash was chosen for scalability. The [Dash prototype](../../research/prototype/README.md) is the reference for milestone 6 of the [development plan](../development-plan.md). The choice does not affect the data or statistics design.
