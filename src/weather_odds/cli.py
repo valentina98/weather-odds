@@ -10,6 +10,8 @@ import sys
 from pathlib import Path
 
 from weather_odds import __version__
+from weather_odds.cache import Cache
+from weather_odds.checks import check_fills, report
 from weather_odds.config import ConfigError, dump_config, load_config
 from weather_odds.prefetch import prefetch
 from weather_odds.sources import SOURCES
@@ -30,6 +32,7 @@ def main(argv: list[str] | None = None) -> int:
         "--sources", type=_source_list, default=None, help=f"comma-separated subset of: {', '.join(SOURCES)}"
     )
     fetch.add_argument("--refresh", action="store_true", help="download every file again")
+    commands.add_parser("check", help="test the gap fills on the cached data by hiding measured hours")
     args = parser.parse_args(argv)
 
     try:
@@ -43,6 +46,16 @@ def main(argv: list[str] | None = None) -> int:
         failed = prefetch(config, args.sources, refresh=args.refresh)
         if failed:
             print(f"error: {', '.join(failed)} could not be downloaded; run prefetch again later", file=sys.stderr)
+            return 1
+    elif args.command == "check":
+        cache = Cache(config.data.cache_dir, config.location.slug)
+        station, era5 = cache.load_table("meteostat"), cache.load_table("era5")
+        if station is None or era5 is None:
+            print("error: no cached data; run `weather-odds prefetch` first", file=sys.stderr)
+            return 1
+        checks = check_fills(station["temperature"], era5["temperature"])
+        print(report(checks))
+        if not all(c.passed for c in checks):
             return 1
     return 0
 

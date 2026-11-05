@@ -9,8 +9,8 @@ The owner signed off the specification on 2026-10-29 ("I approve, we can start d
 | # | Milestone | Issue | State |
 |---|---|---|---|
 | 1 | Project skeleton | [#15](https://github.com/valentina98/weather-odds/issues/15) | done ([PR #24](https://github.com/valentina98/weather-odds/pull/24)) |
-| 2 | Data adapters and cache | [#16](https://github.com/valentina98/weather-odds/issues/16) | part 1 done ([PR #25](https://github.com/valentina98/weather-odds/pull/25)): station, airport, NOAA and NIMH sources, cache, `weather-odds prefetch`; part 2 (ERA5 from the AWS bucket, D45) in review in [PR #26](https://github.com/valentina98/weather-odds/pull/26) |
-| 3 | Plovdiv hourly table | [#17](https://github.com/valentina98/weather-odds/issues/17) | not started |
+| 2 | Data adapters and cache | [#16](https://github.com/valentina98/weather-odds/issues/16) | done ([PR #25](https://github.com/valentina98/weather-odds/pull/25), [PR #26](https://github.com/valentina98/weather-odds/pull/26)): station, airport, NOAA, NIMH and ERA5 sources, cache, `weather-odds prefetch` |
+| 3 | Plovdiv hourly table | [#17](https://github.com/valentina98/weather-odds/issues/17) | part 1 in review in [PR #27](https://github.com/valentina98/weather-odds/pull/27): station temperature with tested gap fills (D46), `weather-odds check`; part 2 (rain, gusts, thunder, daylight) next |
 | 4 | Statistics engine | [#18](https://github.com/valentina98/weather-odds/issues/18) | not started |
 | 5 | Validation command | [#19](https://github.com/valentina98/weather-odds/issues/19) | not started |
 | 6 | Dashboard | [#20](https://github.com/valentina98/weather-odds/issues/20) | not started |
@@ -21,7 +21,7 @@ Keep this table current: update it in the pull request that starts or finishes a
 
 ## Waiting for the owner
 
-- Review and squash-merge [PR #26](https://github.com/valentina98/weather-odds/pull/26) (milestone 2, part 2: ERA5). Milestone 3 starts from `main` after that.
+- Review and squash-merge [PR #27](https://github.com/valentina98/weather-odds/pull/27) (milestone 3, part 1: station temperature).
 
 ## Specification phase (done, 2026-10-28/29)
 
