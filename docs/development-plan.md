@@ -19,7 +19,7 @@ v1 is the local dashboard for Plovdiv described in the [requirements](spec/requi
 
 Checked on 2026-10-29 which sources could fill each gap. Every fill is tested by hiding data the tool has and filling it the same way; a fill is used only if that test passes. Test results: [table-checks.md](research/table-checks.md) (`weather-odds check`).
 
-**Progress (05.11.2026):** 1996 tested; filling it fails, so 1996 stays out (D47). The 3-hourly years are rebuilt and pass (D46, [gap fills](research/gap-fills.md)). Thunder: the years each source reports it are settled (D48). Still open: placing NOAA's thunder days in their hours, 2015–2018, the rain-threshold checks and the wind check.
+**Progress (05.11.2026):** 1996 tested; filling it fails, so 1996 stays out (D47). The 3-hourly years are rebuilt and pass (D46, [gap fills](research/gap-fills.md)). Thunder: the years each source reports it are settled (D48). The wet-day thresholds agree between the periods once NIMH's rounding is allowed for (D51), so the station-rain row needs nothing more. Thunder by hour and strong wind wait for the owner's choices in [#29](https://github.com/valentina98/weather-odds/issues/29).
 
 | Gap | What exists | Plan | Test | Milestone |
 |---|---|---|---|---|

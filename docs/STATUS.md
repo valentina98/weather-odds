@@ -21,17 +21,18 @@ Keep this table current: update it in the pull request that starts or finishes a
 
 ## Waiting for the owner
 
-- Squash-merge [PR #27](https://github.com/valentina98/weather-odds/pull/27) (milestone 3, part 1), then [PR #28](https://github.com/valentina98/weather-odds/pull/28) (part 2), which builds on it. After #27 is merged, #28 is updated from `main` (merge, no force push) so its diff shows only part 2.
-- D47–D50 in #28 are implementation choices you can object to in the PR; the main findings are in [table-checks.md](research/table-checks.md).
+1. Squash-merge [PR #27](https://github.com/valentina98/weather-odds/pull/27) (milestone 3, part 1), then [PR #28](https://github.com/valentina98/weather-odds/pull/28) (part 2), which builds on it. After #27 is merged, #28 is updated from `main` (merge, no force push) so its diff shows only part 2. D47–D51 in #28 are implementation choices and findings you can object to in the PR.
+2. Answer [#29](https://github.com/valentina98/weather-odds/issues/29): thunder by hour and strong wind, two choices with a recommendation each.
 
-## Next (milestone 3, part 3)
+## Next (milestone 3, part 3, after #29)
 
-The [gap plan](development-plan.md#filling-the-data-gaps) rows still open for milestone 3:
+1. Build the answers to #29: thunder by hour for NOAA's thunder days (1997–2011) and what counts for 2022 onward; strong wind (ERA5's gusts against the airport's). The analysis is in [table-checks.md](research/table-checks.md#thunder-the-reports-changed-in-2022) and `research/check_wind_thunder.py`.
+2. Then milestone 3 is done: close #17, update this table, start milestone 4 (#18).
 
-1. **Thunder by hour for NOAA's thunder days** (1997–2011): place each flagged day's thunder in its hours. CAPE and convective rain are not in the AWS bucket (only on the Copernicus CDS, which needs a key, against F21), so first try ERA5's rain and the hour of day; fit on 2012–2014 and 2019–2021, check on 2022–2025 against the airport's thunder hours. Then decide 2015–2018 (model signs, or leave them out of the thunder numbers).
-2. **Thunder reports falling since 2022** (airport: about 50 days a year in 2019–2021, 13 in 2025; NOAA's flag even fewer): check whether this is reporting or weather.
-3. **Wet-day threshold disagreement** (1973–1999 about 1.7 mm, 2022–2025 about 1.1 mm): the airport's rain days 2012–2025 as a third check; ECA&D's Chirpan and Ivailo stations (check their years and licence).
-4. **Wind:** ERA5's 10 m wind against the station's mean wind by month (needs ERA5's wind components and the station's wind from Meteostat).
+Notes for milestone 4:
+- A tested port of the outdoor-weather scale (hour factors per time band, day scores with the rain caps) was written on 05.11.2026 and left out of #28 to keep it to milestone 3. It is in PR #28's history: `git show 9e52b2e:src/weather_odds/stats/scale.py` and `git show 9e52b2e:tests/test_scale.py` (`git fetch origin pull/28/head` first).
+- D50: frost from the hourly minimum may miss some nights; compare with NOAA's daily minimum.
+- Hours with no thunder data (1996, 2015–2018) need a rule in the scale; #29 decides the rest.
 
 ## Specification phase (done, 2026-10-28/29)
 

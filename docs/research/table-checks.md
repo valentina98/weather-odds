@@ -56,6 +56,36 @@ Thunder days fall from about 50 a year in 2019–2021 to 13 in 2025 at the airpo
 
 The gap-fill tests that `weather-odds check` runs first are in [gap-fills.md](gap-fills.md).
 
+## Rain: the two periods agree
+
+all-sources.md found that ERA5's wet-day threshold came out lower against NIMH 2022–2025 (about 1.1 mm) than against NOAA 1973–1999 (about 1.7 mm). The reason is in NIMH's files: **they round rain to whole millimetres.** A cell "0." is a day with less than 0.5 mm (Plovdiv has 122 of them in 2022–2026), and "1." means 0.5 to 1.5 mm. So NIMH's "1 mm or more" is "0.5 mm or more" in NOAA's terms:
+
+| | Days with 0.5 mm or more |
+|---|---|
+| NOAA GSOD 1973–1999 | 21.1% |
+| NIMH 2022–2025 (its "1 mm") | 20.3% |
+| ERA5 2022–2025, with thresholds calibrated on NOAA 1973–1999 at 0.5 mm | **20.2%** (agrees with NIMH on 81% of days) |
+
+Calibrated on one period and checked on the other, ERA5 matches. ERA5 has not become less wet, and the calibration on NOAA 1973–1999 stays (D51). The airport's rain days tell the same story: ERA5's rainy days keep the same relation to them in 2012–2017, 2018–2021 and 2022–2025.
+
+## Thunder: the reports changed in 2022
+
+| | 2012–2014 | 2019–2021 | 2022–2024 | 2025 |
+|---|---|---|---|---|
+| Thunder days a year (airport) | 35 | 50 | 29 | 13 |
+| Thunder reports per thunder day | 3.5 | 4.6 | 2.3 | 2.2 |
+| Share of thunder reports "in the vicinity" (VCTS) | 17% | 4% | 67% | 64% |
+
+From 2022 the airport mostly reports thunder "in the vicinity" and for half as many half-hours per storm. That looks like a change in how it observes, not only in the weather. Placing NOAA's thunder days (1997–2011) in their hours with ERA5's rain from the AWS bucket barely helps: on thunder days in 2022–2025, the daylight score would be off by 5.4 points on average, against 7.3 points if thunder is ignored. The options are in [#29](https://github.com/valentina98/weather-odds/issues/29).
+
+## Wind: ERA5 misses strong gusts
+
+- ERA5's mean wind at 10 m is 42% weaker than the station's measured mean wind (6.3 against 10.8 km/h, 2000–2025, every month alike).
+- ERA5's gusts reach 30 km/h about as often as the airport's reports (5.7% and 6.1% of hours, 2019–2025), so the scale's wind factor is about right on average.
+- Strong gusts are rarer in ERA5: 0.18% of hours reach 50 km/h, against 0.70% at the airport, so the chance of strong wind would be about 4 times too low. Options in [#29](https://github.com/valentina98/weather-odds/issues/29).
+
+Reproduce: `uv run python research/check_wind_thunder.py`.
+
 ## Reproduce
 
 ```bash

@@ -170,6 +170,7 @@ def station_checks(tables: Tables, sources: dict[str, pd.DataFrame]) -> list[Com
         )
     )
     recent = nimh["precipitation"].loc["2022":"2025"]
+    out.append(rounded_nimh_check(model, gsod["precipitation"].loc[f"{first}" : f"{last}"].dropna(), recent))
     try:
         old = wet_day_thresholds(as_research, recent).to_numpy()
         new = wet_day_thresholds(model, recent).to_numpy()
@@ -225,6 +226,25 @@ def station_checks(tables: Tables, sources: dict[str, pd.DataFrame]) -> list[Com
         )
     )
     return out
+
+
+def rounded_nimh_check(model: pd.Series, gsod: pd.Series, nimh: pd.Series) -> Comparison:
+    """Calibrate on NOAA at 0.5 mm, which is what NIMH's rounded 1 mm means, and check on NIMH's years (D51)."""
+    if nimh.dropna().empty:
+        return Comparison("Wet-day thresholds across the periods (NIMH)", "no NIMH data for 2022-2025")
+    thresholds = wet_day_thresholds(model, gsod, wet_mm=0.5)
+    days = nimh.dropna().index
+    era5 = model.reindex(days)
+    era5_wet = era5 >= thresholds.reindex(days.month).to_numpy()
+    station_wet = nimh.loc[days] >= 1
+    first, last = gsod.index.year.min(), gsod.index.year.max()
+    return Comparison(
+        f"ERA5 calibrated on NOAA GSOD {first}-{last} at 0.5 mm, checked on NIMH {days.year.min()}-{days.year.max()} "
+        "(NIMH rounds to whole mm, so its 1 mm is 0.5 mm)",
+        f"ERA5 {era5_wet.mean():.1%}, NIMH {station_wet.mean():.1%} (agree on {(era5_wet == station_wet).mean():.0%})",
+        "within 1 point: the periods agree once NIMH's rounding is allowed for",
+        _close(float(era5_wet.mean()), float(station_wet.mean()), 0.01),
+    )
 
 
 def _years(years: list[int]) -> str:

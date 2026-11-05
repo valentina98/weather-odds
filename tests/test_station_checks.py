@@ -2,7 +2,14 @@ import numpy as np
 import pandas as pd
 from test_table import config, sources
 
-from weather_odds.station_checks import Comparison, _years, station_checks, to_markdown, whole_year
+from weather_odds.station_checks import (
+    Comparison,
+    _years,
+    rounded_nimh_check,
+    station_checks,
+    to_markdown,
+    whole_year,
+)
 from weather_odds.table import assemble
 
 TZ = "Europe/Sofia"
@@ -18,7 +25,7 @@ def test_station_checks_run_on_every_source(monkeypatch):
     nimh = pd.DataFrame({"precipitation": gsod.loc[days, "precipitation"]}, index=days)
     tables = assemble(config(), era5, station, airport, gsod)
     out = station_checks(tables, {"era5": era5, "gsod": gsod, "nimh": nimh, "airport": airport})
-    assert all(isinstance(c, Comparison) for c in out) and len(out) == 13
+    assert all(isinstance(c, Comparison) for c in out) and len(out) == 14
     calibrated = next(c for c in out if c.name.startswith("Calibrated wet days in the table, 2019"))
     assert calibrated.passed  # calibrated on these years, so the wet-day share matches
 
@@ -51,3 +58,15 @@ def test_markdown_report():
     assert "| A number | 5% | 5% | matches |" in report
     assert "| Another | 6% | 5% | **differs** |" in report
     assert "| Context | 7% | for information | info |" in report
+
+
+def test_rounded_nimh_amounts_are_compared_at_half_a_millimetre():
+    days = pd.date_range("1980-01-01", "1999-12-31", freq="D")
+    rng = np.random.default_rng(3)
+    true_rain = pd.Series(np.where(rng.random(len(days)) < 0.3, rng.exponential(2.0, len(days)), 0.0), index=days)
+    model = true_rain * 1.5  # a model that rains more than the station
+    gsod = true_rain.loc["1980":"1989"]
+    nimh = true_rain.loc["1990":"1999"].round()  # whole millimetres, as NIMH writes them
+    result = rounded_nimh_check(model, gsod, nimh)
+    assert result.passed, result.value
+    assert rounded_nimh_check(model, gsod, nimh.iloc[:0]).passed is None
