@@ -3,14 +3,14 @@ from datetime import date
 import pandas as pd
 import pytest
 import samples
-from fakes import FakeSession
+from fakes import FakeBucket, FakeSession
 
 from weather_odds import cli
 from weather_odds.cache import Cache
 from weather_odds.config import Config
 from weather_odds.download import Downloader
 from weather_odds.prefetch import prefetch
-from weather_odds.sources import SOURCES, airport, gsod, meteostat, nimh
+from weather_odds.sources import SOURCES, airport, era5, gsod, meteostat, nimh
 
 TODAY = date(2026, 10, 29)
 
@@ -31,7 +31,8 @@ def all_sources() -> dict:
     }
 
 
-def test_prefetch_stores_a_table_per_source(tmp_path):
+def test_prefetch_stores_a_table_per_source(tmp_path, monkeypatch):
+    monkeypatch.setattr(era5, "open_bucket", FakeBucket)
     lines = []
     failed = prefetch(
         config(tmp_path),
@@ -50,7 +51,8 @@ def test_prefetch_stores_a_table_per_source(tmp_path):
     assert len(lines) == len(SOURCES)
 
 
-def test_a_failing_source_does_not_stop_the_others(tmp_path):
+def test_a_failing_source_does_not_stop_the_others(tmp_path, monkeypatch):
+    monkeypatch.setattr(era5, "open_bucket", FakeBucket)
     routes = all_sources() | {nimh.INDEX: 500}
     lines = []
     failed = prefetch(
