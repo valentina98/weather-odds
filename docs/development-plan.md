@@ -17,7 +17,9 @@ v1 is the local dashboard for Plovdiv described in the [requirements](spec/requi
 
 ## Filling the data gaps
 
-Checked on 2026-10-29 which sources could fill each gap. Every fill is tested by hiding data the tool has and filling it the same way; a fill is used only if that test passes.
+Checked on 2026-10-29 which sources could fill each gap. Every fill is tested by hiding data the tool has and filling it the same way; a fill is used only if that test passes. Test results: [table-checks.md](research/table-checks.md) (`weather-odds check`).
+
+**Progress (05.11.2026):** 1996 tested, the fill fails, so 1996 stays out (D47). The 3-hourly years are rebuilt and pass (D46). Thunder: the years each source reports it are settled (D48); placing NOAA's thunder days in their hours, 2015–2018, the rain-threshold checks and the wind check are next (milestone 3, part 2).
 
 | Gap | What exists | Plan | Test | Milestone |
 |---|---|---|---|---|

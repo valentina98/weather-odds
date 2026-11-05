@@ -1,6 +1,6 @@
 # Status
 
-_Last updated: 2026-10-29._
+_Last updated: 2026-11-05._
 
 ## Phase: development of v1
 
@@ -9,8 +9,8 @@ The owner signed off the specification on 2026-10-29 ("I approve, we can start d
 | # | Milestone | Issue | State |
 |---|---|---|---|
 | 1 | Project skeleton | [#15](https://github.com/valentina98/weather-odds/issues/15) | done ([PR #24](https://github.com/valentina98/weather-odds/pull/24)) |
-| 2 | Data adapters and cache | [#16](https://github.com/valentina98/weather-odds/issues/16) | part 1 done ([PR #25](https://github.com/valentina98/weather-odds/pull/25)): station, airport, NOAA and NIMH sources, cache, `weather-odds prefetch`; part 2 (ERA5 from the AWS bucket, D45) in review in [PR #26](https://github.com/valentina98/weather-odds/pull/26) |
-| 3 | Plovdiv hourly table | [#17](https://github.com/valentina98/weather-odds/issues/17) | not started |
+| 2 | Data adapters and cache | [#16](https://github.com/valentina98/weather-odds/issues/16) | done ([PR #25](https://github.com/valentina98/weather-odds/pull/25), [PR #26](https://github.com/valentina98/weather-odds/pull/26)): station, airport, NOAA, NIMH and ERA5 (AWS bucket, D45) sources, cache, `weather-odds prefetch` |
+| 3 | Plovdiv hourly table | [#17](https://github.com/valentina98/weather-odds/issues/17) | part 1 in review in [PR #27](https://github.com/valentina98/weather-odds/pull/27): hourly and daily tables, temperature fills, calibrated wet days, thunder days, daylight, `weather-odds build` and `check` ([table checks](research/table-checks.md)); part 2 (gap plan) next |
 | 4 | Statistics engine | [#18](https://github.com/valentina98/weather-odds/issues/18) | not started |
 | 5 | Validation command | [#19](https://github.com/valentina98/weather-odds/issues/19) | not started |
 | 6 | Dashboard | [#20](https://github.com/valentina98/weather-odds/issues/20) | not started |
@@ -21,7 +21,16 @@ Keep this table current: update it in the pull request that starts or finishes a
 
 ## Waiting for the owner
 
-- Review and squash-merge [PR #26](https://github.com/valentina98/weather-odds/pull/26) (milestone 2, part 2: ERA5). Milestone 3 starts from `main` after that.
+- Review and squash-merge [PR #27](https://github.com/valentina98/weather-odds/pull/27) (milestone 3, part 1). Decisions D46–D50 in it are implementation choices you can object to in the PR; the main findings are in [table-checks.md](research/table-checks.md).
+
+## Next (milestone 3, part 2)
+
+The [gap plan](development-plan.md#filling-the-data-gaps) rows still open for milestone 3:
+
+1. **Thunder by hour for NOAA's thunder days** (1997–2011): place each flagged day's thunder in its hours. CAPE and convective rain are not in the AWS bucket (only on the Copernicus CDS, which needs a key, against F21), so first try ERA5's rain and the hour of day; fit on 2012–2014 and 2019–2021, check on 2022–2025 against the airport's thunder hours. Then decide 2015–2018 (model signs, or leave them out of the thunder numbers).
+2. **Thunder reports falling since 2022** (airport: about 50 days a year in 2019–2021, 13 in 2025; NOAA's flag even fewer): check whether this is reporting or weather.
+3. **Wet-day threshold disagreement** (1973–1999 about 1.7 mm, 2022–2025 about 1.1 mm): the airport's rain days 2012–2025 as a third check; ECA&D's Chirpan and Ivailo stations (check their years and licence).
+4. **Wind:** ERA5's 10 m wind against the station's mean wind by month (needs ERA5's wind components and the station's wind from Meteostat).
 
 ## Specification phase (done, 2026-10-28/29)
 
@@ -41,6 +50,7 @@ Keep this table current: update it in the pull request that starts or finishes a
 ## How to resume in a new session
 
 1. Read [CLAUDE.md](../CLAUDE.md), this file and [decisions.md](decisions.md).
-2. Check open pull requests and issues: `gh api repos/valentina98/weather-odds/pulls` and `gh api "repos/valentina98/weather-odds/issues?state=open"`.
-3. Continue the first milestone in the table above that is not done. Its issue lists the contents, the "done when" check and the research code to port.
-4. To reproduce the research, follow [research/README.md](../research/README.md).
+2. Check open pull requests and issues: `gh api repos/valentina98/weather-odds/pulls` and `gh api "repos/valentina98/weather-odds/issues?state=open"`. Progress notes for the running milestone are also in its issue's comments.
+3. Continue the first milestone in the table above that is not done. Its issue lists the contents, the "done when" check and the research code to port; the "Next" list above says where the last session stopped.
+4. `uv sync`, then `uv run weather-odds prefetch` (a few minutes) and `uv run weather-odds check` to rebuild the tables and see the checks.
+5. To reproduce the research, follow [research/README.md](../research/README.md).

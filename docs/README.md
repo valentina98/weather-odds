@@ -11,6 +11,7 @@ Start with **[STATUS.md](STATUS.md)**: where the project stands and what happens
 | [research/data-sources.md](research/data-sources.md) | Every historical data source evaluated, tested status, pros and cons |
 | [research/plovdiv-data-check.md](research/plovdiv-data-check.md) | Phase-0 analysis: are the autumn patterns real? How do sources compare? |
 | [research/all-sources.md](research/all-sources.md) | Every data source compared with the Plovdiv station and airport; the proposed data design |
+| [research/table-checks.md](research/table-checks.md) | The Plovdiv tables checked against the station and airport, and the hidden-data test of every fill (milestone 3) |
 | [research/early-october.md](research/early-october.md) | Does early October warm up, by source and range of years (last 10, 15, 20, 30 years), and as an event at varying dates? |
 | [research/validation.md](research/validation.md) | Cross-validation: how well do past years predict an unseen year? Which defaults work best? |
 | [research/weather-scale.md](research/weather-scale.md) | The proposed outdoor-weather scale, previewed for Plovdiv |

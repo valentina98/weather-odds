@@ -13,6 +13,7 @@ from weather_odds import __version__
 from weather_odds.config import ConfigError, dump_config, load_config
 from weather_odds.prefetch import prefetch
 from weather_odds.sources import SOURCES
+from weather_odds.table import MissingDataError
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -30,6 +31,9 @@ def main(argv: list[str] | None = None) -> int:
         "--sources", type=_source_list, default=None, help=f"comma-separated subset of: {', '.join(SOURCES)}"
     )
     fetch.add_argument("--refresh", action="store_true", help="download every file again")
+    commands.add_parser("build", help="combine the downloaded sources into the hourly and daily tables")
+    check = commands.add_parser("check", help="build the tables and check them against the station's measurements")
+    check.add_argument("--output", type=Path, help="also write the report to this Markdown file")
     args = parser.parse_args(argv)
 
     try:
@@ -44,7 +48,32 @@ def main(argv: list[str] | None = None) -> int:
         if failed:
             print(f"error: {', '.join(failed)} could not be downloaded; run prefetch again later", file=sys.stderr)
             return 1
+    elif args.command in ("build", "check"):
+        try:
+            return _build(config) if args.command == "build" else _check(config, args.output)
+        except MissingDataError as e:
+            print(f"error: {e}", file=sys.stderr)
+            return 1
     return 0
+
+
+def _build(config) -> int:
+    from weather_odds.table import build
+
+    build(config)
+    return 0
+
+
+def _check(config, output: Path | None) -> int:
+    from weather_odds.checks import run_checks, to_markdown
+
+    checks = run_checks(config)
+    report = to_markdown(checks)
+    print(report)
+    if output is not None:
+        output.write_text(report, encoding="utf-8")
+    failed = [c for c in checks if c.passed is False and c.section == "station"]
+    return 1 if failed else 0
 
 
 def _source_list(text: str) -> list[str]:

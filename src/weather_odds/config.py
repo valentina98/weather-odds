@@ -189,6 +189,19 @@ class Data(_Model):
     precipitation: list[Literal["era5"]] = ["era5"]
     wind_gusts: list[Literal["era5"]] = ["era5"]
     thunder: list[Literal["airport", "gsod"]] = ["airport", "gsod"]
+    # Filling the station's missing temperatures (weather_odds.fill, gap plan):
+    interpolate_hours: int = Field(12, ge=0)  # gaps up to this long follow ERA5's shape between readings
+    fill_days: int = Field(31, ge=0)  # longer gaps up to this many days: ERA5 corrected to the station
+    fill_window_years: int = Field(3, ge=0)  # the correction comes from the years within this many years
+    fill_years_without_station: bool = False  # also fill longer gaps such as 1996 (D43: off; its check fails)
+    rain_calibration_years: tuple[int, int] = (1973, 1999)  # station rain amounts that calibrate ERA5's wet days
+
+    @field_validator("rain_calibration_years")
+    @classmethod
+    def _span(cls, v: tuple[int, int]) -> tuple[int, int]:
+        if v[0] > v[1]:
+            raise ValueError("first year after last year")
+        return v
 
     @field_validator("temperature", "precipitation", "wind_gusts", "thunder")
     @classmethod

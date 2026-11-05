@@ -45,4 +45,16 @@ To download the data for the configured location into the cache (`.cache/` by de
 uv run weather-odds prefetch
 ```
 
-It downloads only what is missing, plus the current year, which keeps growing. `--sources` limits it to some sources and `--refresh` downloads everything again. The dashboard follows in the [v1 milestone](https://github.com/valentina98/weather-odds/milestone/1).
+It downloads only what is missing, plus the current year, which keeps growing. `--sources` limits it to some sources and `--refresh` downloads everything again.
+
+To combine the downloads into the hourly and daily tables, and to check them against the station's measurements:
+
+```bash
+uv run weather-odds build
+```
+
+```bash
+uv run weather-odds check
+```
+
+The dashboard follows in the [v1 milestone](https://github.com/valentina98/weather-odds/milestone/1).
