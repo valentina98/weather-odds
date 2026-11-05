@@ -37,4 +37,12 @@ uv run pytest
 uv run weather-odds config
 ```
 
-The last command checks `config.yaml` in the current folder (or the built-in defaults if there is none) and prints the settings in effect. To change a default, copy [`config.example.yaml`](config.example.yaml) to `config.yaml` and edit it. The dashboard and the data commands follow in the [v1 milestone](https://github.com/valentina98/weather-odds/milestone/1).
+The last command checks `config.yaml` in the current folder (or the built-in defaults if there is none) and prints the settings in effect. To change a default, copy [`config.example.yaml`](config.example.yaml) to `config.yaml` and edit it.
+
+To download the data for the configured location into the cache (`.cache/` by default):
+
+```bash
+uv run weather-odds prefetch
+```
+
+It downloads only what is missing, plus the current year, which keeps growing. `--sources` limits it to some sources and `--refresh` downloads everything again. The dashboard follows in the [v1 milestone](https://github.com/valentina98/weather-odds/milestone/1).
