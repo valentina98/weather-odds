@@ -13,7 +13,7 @@ For Plovdiv the tool builds one **hourly** and one **daily** table in local time
 
 | Field | Unit | Main source |
 |---|---|---|
-| temperature | °C | **The station's hourly measurements** (WMO 15625 via Meteostat/NOAA ISD, from 1997; 3-hourly before). Missing hours are filled with ERA5 corrected to the station: up to 12 hours with ERA5's shape between the readings, up to 31 days with the difference typical of nearby years (D46, [table checks](../research/table-checks.md)). 1996 has no station data at all and is left out (D43, D47). ERA5's ranges are too narrow against the station, and its warming trend is steeper ([all sources](../research/all-sources.md)). |
+| temperature | °C | **The station's hourly measurements** (WMO 15625 via Meteostat/NOAA ISD, from 1997). Gaps are filled as tested in [gap fills](../research/gap-fills.md) (D46): up to 6 hours, and the hours between the 3-hourly readings before 1997, from the station's own daily curve; up to 7 days from ERA5 corrected to the station; longer gaps stay missing. 1996 has no station data at all and is left out (D43, [gap plan](../development-plan.md#filling-the-data-gaps)). ERA5's ranges are too narrow against the station, and its warming trend is steeper ([all sources](../research/all-sources.md)). |
 | precipitation | mm | ERA5 (≈25 km), calibrated against station wet-day frequencies (§10). ERA5 is the best grid for rain here: CERRA (5.5 km) has twice as many wet days as the station. |
 | snowfall, snow depth | mm water / m | ERA5 / ERA5-Land |
 | wind gusts | km/h | ERA5 |
@@ -21,7 +21,7 @@ For Plovdiv the tool builds one **hourly** and one **daily** table in local time
 | thunder | yes/no | airport reports (LBPD) by hour, 2012–2014 and 2019–2026 (and 2003, 2011); NOAA's daily thunder flag for 1997–2011, which matches the airport where both exist. Thunder is reported on 33% of June days in the years with thunder reports, and ERA5's rain misses half of the thunder hours, so rain cannot stand in for it. Neither source reports thunder in 2015–2018 (D48). How flagged days get their hours, and what to do about 2015–2018: [gap plan](../development-plan.md#filling-the-data-gaps). |
 | sunrise, sunset | time | computed from coordinates |
 
-**Data path.** The Open-Meteo API's default ERA5 product ("ERA5 seamless") uses ERA5-Land temperatures, which are 3 °C too cold in summer at Plovdiv. The tool reads plain ERA5: from the Open-Meteo AWS bucket, or from the API with `models=era5` (to be confirmed when the API's daily limit allows).
+**Data path.** The Open-Meteo API's default ERA5 product ("ERA5 seamless") uses ERA5-Land temperatures, which are 3 °C too cold in summer at Plovdiv. The tool reads plain ERA5 from the Open-Meteo AWS bucket (D45).
 
 **Elevation correction.** Gridded temperature is for the grid cell's average height. It is shifted to Plovdiv's station elevation (179 m) with a lapse rate of 0.65 °C per 100 m. In winter, valley inversions in the Plovdiv basin break this rule; the station check measures how much.
 
@@ -156,7 +156,7 @@ Results so far: [validation.md](../research/validation.md). The script is part o
 ## 10. Combining sources
 
 - v1, measured against the Plovdiv station and airport ([all sources](../research/all-sources.md)):
-  - **temperature:** the station's own hourly measurements; ERA5 corrected to the station (monthly mean difference over the years used) only fills gaps;
+  - **temperature:** the station's own hourly measurements; gaps filled as in §1 (D46), with ERA5 corrected to the station (difference by month and hour of day over the 5 years around the gap) for gaps of 6 hours to 7 days;
   - **wet days:** an ERA5 day counts as wet from a per-month threshold that matches the station's wet-day frequency in 1973–1999: 1.5 mm in January, about 2 mm in spring and summer, 1.2 mm in October. The thresholds are calibrated each time the table is built (D49). Against NIMH 2022–2025 they come out lower (about 1.1 mm); re-check as NIMH years accumulate;
   - **hourly rain:** ERA5 at ≥ 0.2 mm already rains as often as the airport reports (9.3% vs 9.1% of hours), so the scale's 0.2 mm threshold stays;
   - **thunder:** from the airport reports.

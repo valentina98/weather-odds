@@ -10,7 +10,7 @@ The owner signed off the specification on 2026-10-29 ("I approve, we can start d
 |---|---|---|---|
 | 1 | Project skeleton | [#15](https://github.com/valentina98/weather-odds/issues/15) | done ([PR #24](https://github.com/valentina98/weather-odds/pull/24)) |
 | 2 | Data adapters and cache | [#16](https://github.com/valentina98/weather-odds/issues/16) | done ([PR #25](https://github.com/valentina98/weather-odds/pull/25), [PR #26](https://github.com/valentina98/weather-odds/pull/26)): station, airport, NOAA, NIMH and ERA5 (AWS bucket, D45) sources, cache, `weather-odds prefetch` |
-| 3 | Plovdiv hourly table | [#17](https://github.com/valentina98/weather-odds/issues/17) | part 1 in review in [PR #27](https://github.com/valentina98/weather-odds/pull/27): hourly and daily tables, temperature fills, calibrated wet days, thunder days, daylight, `weather-odds build` and `check` ([table checks](research/table-checks.md)); part 2 (gap plan) next |
+| 3 | Plovdiv hourly table | [#17](https://github.com/valentina98/weather-odds/issues/17) | in review: part 1 in [PR #27](https://github.com/valentina98/weather-odds/pull/27) (temperature gap fills, D46); part 2 in [PR #28](https://github.com/valentina98/weather-odds/pull/28), built on #27 (hourly and daily tables, calibrated wet days, thunder days, daylight, `weather-odds build`, comparison with the station: [table checks](research/table-checks.md)); part 3 (the rest of the gap plan) next |
 | 4 | Statistics engine | [#18](https://github.com/valentina98/weather-odds/issues/18) | not started |
 | 5 | Validation command | [#19](https://github.com/valentina98/weather-odds/issues/19) | not started |
 | 6 | Dashboard | [#20](https://github.com/valentina98/weather-odds/issues/20) | not started |
@@ -21,9 +21,10 @@ Keep this table current: update it in the pull request that starts or finishes a
 
 ## Waiting for the owner
 
-- Review and squash-merge [PR #27](https://github.com/valentina98/weather-odds/pull/27) (milestone 3, part 1). Decisions D46–D50 in it are implementation choices you can object to in the PR; the main findings are in [table-checks.md](research/table-checks.md).
+- Squash-merge [PR #27](https://github.com/valentina98/weather-odds/pull/27) (milestone 3, part 1), then [PR #28](https://github.com/valentina98/weather-odds/pull/28) (part 2), which builds on it. After #27 is merged, #28 is updated from `main` (merge, no force push) so its diff shows only part 2.
+- D47–D50 in #28 are implementation choices you can object to in the PR; the main findings are in [table-checks.md](research/table-checks.md).
 
-## Next (milestone 3, part 2)
+## Next (milestone 3, part 3)
 
 The [gap plan](development-plan.md#filling-the-data-gaps) rows still open for milestone 3:
 

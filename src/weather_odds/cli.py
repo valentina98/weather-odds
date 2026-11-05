@@ -10,7 +10,9 @@ import sys
 from pathlib import Path
 
 from weather_odds import __version__
-from weather_odds.config import ConfigError, dump_config, load_config
+from weather_odds.cache import Cache
+from weather_odds.checks import check_fills, report
+from weather_odds.config import Config, ConfigError, dump_config, load_config
 from weather_odds.prefetch import prefetch
 from weather_odds.sources import SOURCES
 from weather_odds.table import MissingDataError
@@ -32,7 +34,9 @@ def main(argv: list[str] | None = None) -> int:
     )
     fetch.add_argument("--refresh", action="store_true", help="download every file again")
     commands.add_parser("build", help="combine the downloaded sources into the hourly and daily tables")
-    check = commands.add_parser("check", help="build the tables and check them against the station's measurements")
+    check = commands.add_parser(
+        "check", help="test the gap fills, build the tables and compare them with the station's measurements"
+    )
     check.add_argument("--output", type=Path, help="also write the report to this Markdown file")
     args = parser.parse_args(argv)
 
@@ -57,22 +61,29 @@ def main(argv: list[str] | None = None) -> int:
     return 0
 
 
-def _build(config) -> int:
+def _build(config: Config) -> int:
     from weather_odds.table import build
 
     build(config)
     return 0
 
 
-def _check(config, output: Path | None) -> int:
-    from weather_odds.checks import run_checks, to_markdown
+def _check(config: Config, output: Path | None) -> int:
+    from weather_odds.station_checks import compare_with_station, to_markdown
 
-    checks = run_checks(config)
-    report = to_markdown(checks)
-    print(report)
+    cache = Cache(config.data.cache_dir, config.location.slug)
+    station, era5 = cache.load_table("meteostat"), cache.load_table("era5")
+    if station is None or era5 is None:
+        raise MissingDataError("no cached data; run `weather-odds prefetch` first")
+    fills = check_fills(station["temperature"], era5["temperature"])
+    comparisons = compare_with_station(config)
+    text = "\n\n".join(
+        ["### Gap fills (hidden hours)", report(fills), "### Against the station", to_markdown(comparisons)]
+    )
+    print(text)
     if output is not None:
-        output.write_text(report, encoding="utf-8")
-    failed = [c for c in checks if c.passed is False and c.section == "station"]
+        output.write_text(text + "\n", encoding="utf-8")
+    failed = not all(c.passed for c in fills) or any(c.passed is False for c in comparisons)
     return 1 if failed else 0
 
 

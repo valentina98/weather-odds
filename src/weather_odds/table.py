@@ -2,8 +2,8 @@
 
 Hourly table, indexed by the start of each local hour (ERA5's hours):
 
-    temperature          deg C: the station, with gaps filled from ERA5 (weather_odds.fill)
-    temperature_source   station, interpolated or era5; missing where nothing was filled
+    temperature          deg C: the station, with gaps filled (weather_odds.temperature, D46)
+    temperature_source   station, station curve or era5 corrected; missing where nothing was filled
     precipitation        mm in the hour, ERA5
     wind_gust            km/h, ERA5
     rain_seen            airport reports in the hour saw rain; missing without reports
@@ -37,8 +37,8 @@ import pandas as pd
 
 from weather_odds.cache import Cache
 from weather_odds.config import Config
-from weather_odds.fill import FillSettings, fill_temperature
 from weather_odds.sun import daylight, sun_times
+from weather_odds.temperature import fill_temperature
 
 AIRPORT_DAY_HOURS = 16  # hours with reports for an airport day to count as observed
 MIN_YEAR_DAYS = 30  # observed days for a source's year to count
@@ -95,7 +95,7 @@ def wet_day_thresholds(model_daily: pd.Series, station_daily: pd.Series, wet_mm:
 
     Both series are daily precipitation in mm; only the days both have count.
     """
-    joined = pd.concat([station_daily.rename("station"), model_daily.rename("model")], axis=1).dropna()
+    joined = pd.concat([station_daily.rename("station"), model_daily.rename("model")], axis=1, sort=True).dropna()
     if joined.empty:
         raise ValueError("no days with both model and station precipitation to calibrate on")
     out = {}
@@ -177,8 +177,7 @@ def assemble(
     if era5.empty:
         raise MissingDataError("ERA5 has no hours for the configured years; run `weather-odds prefetch`")
 
-    settings = fill_settings(config)
-    temperature = fill_temperature(station["temperature"], era5["temperature"], settings)
+    temperature = fill_temperature(station["temperature"], era5["temperature"]).reindex(era5.index)
     hourly = pd.concat([temperature, era5[["precipitation", "wind_gust"]], airport_hours(airport, era5.index)], axis=1)
     hourly["daylight"] = daylight(hourly.index, location.latitude, location.longitude)
     hourly.index.name = "time"
@@ -206,7 +205,6 @@ def assemble(
     info = {
         "built": pd.Timestamp.now(tz="UTC").isoformat(timespec="seconds"),
         "hours": [f"{hourly.index.min():%d.%m.%Y %H:%M}", f"{hourly.index.max():%d.%m.%Y %H:%M}"],
-        "fill": settings.__dict__,
         "temperature_sources": hourly["temperature_source"].value_counts(dropna=False).to_dict(),
         "wet_day_thresholds_mm": {int(k): v for k, v in thresholds.items()},
         "rain_calibration_days": int(len(calibration)),
@@ -214,16 +212,6 @@ def assemble(
     }
     info["temperature_sources"] = {str(k): int(v) for k, v in info["temperature_sources"].items()}
     return Tables(hourly=hourly, daily=daily, info=_plain(info))
-
-
-def fill_settings(config: Config) -> FillSettings:
-    data = config.data
-    return FillSettings(
-        interpolate_hours=data.interpolate_hours,
-        fill_days=data.fill_days,
-        window_years=data.fill_window_years,
-        fill_long_gaps=data.fill_years_without_station,
-    )
 
 
 def build(config: Config, today: date | None = None, log=print) -> Tables:

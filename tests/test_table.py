@@ -156,8 +156,8 @@ def test_assemble_combines_the_sources():
         "daylight",
     ]
     assert hourly["temperature"].notna().all()
-    assert set(hourly["temperature_source"]) == {"station", "interpolated", "era5"}
-    assert np.allclose(hourly["temperature"], era5["temperature"] + 0.5)
+    assert set(hourly["temperature_source"]) == {"station", "station curve", "era5 corrected"}
+    assert np.allclose(hourly["temperature"], era5["temperature"] + 0.5, atol=0.1)
     assert hourly.index.name == "time" and daily.index.name == "date"
     assert daily.loc["2019-06-21", "sunrise"].hour == 5 and daily.loc["2019-06-21", "sunset"].hour == 21
     assert daily.loc["2019-06-04", "thunder"] and daily.loc["2019-06-04", "thunder_source"] == "airport"
@@ -165,7 +165,7 @@ def test_assemble_combines_the_sources():
     assert daily["wet"].mean() == pytest.approx((gsod["precipitation"] >= 1).mean(), abs=0.01)
     assert daily.loc["2019-06-21", "tmax"] == pytest.approx(hourly.loc["2019-06-21", "temperature"].max())
     assert daily["station_hours"].max() == 25 and daily["station_hours"].min() < 23  # 25: clocks go back
-    assert tables.info["temperature_sources"]["interpolated"] == 3
+    assert tables.info["temperature_sources"]["station curve"] == 3
     assert len(tables.info["wet_day_thresholds_mm"]) == 12
 
 

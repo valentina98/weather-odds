@@ -14,6 +14,7 @@ The owner (GitHub: valentina98) signed off the specification on 2026-10-29 (D44;
 - `uv run weather-odds prefetch` downloads the data into `.cache/` (1.5–7 minutes the first time; the airport reports are the slowest). `uv run weather-odds build` combines them into the hourly and daily tables (`src/weather_odds/table.py`), and `uv run weather-odds check` reruns the hidden-data tests and the station comparison ([table-checks.md](docs/research/table-checks.md)); rerun it when a source or a fill changes. Tests block the network (`tests/conftest.py`); use the fakes in `tests/fakes.py` and the invented sources in `tests/test_table.py`.
 - `research/` holds the specification-phase scripts and the Dash prototype. Keep them as reproducible evidence; the package does not import from `research/`. Port code into the package with tests instead.
 - Record progress in `docs/STATUS.md` (milestone table) in each PR. The owner may start a new session at any time, so nothing important should live only in chat.
+- Only one session should work on a milestone at a time. Before starting work, check the open PRs and the remote branches (`git ls-remote origin`): a session subscribed to a PR's events can wake up on a merge and carry on by itself. On 05.11.2026 two sessions built milestone 3 in parallel (#27 and #28).
 
 ## Where things are
 
