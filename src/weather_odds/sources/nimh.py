@@ -4,6 +4,10 @@ One file per month lists every station; each row holds the station id, its name
 and one cell per day in mm. A blank cell is read as no precipitation: the files
 are unverified operational data, so a blank could also hide a missing report.
 A station without a row in a month has no data for that month.
+
+Amounts are rounded to whole millimetres: "0." is a day with less than 0.5 mm
+(read as 0), and "1." means 0.5 to 1.5 mm. So ">= 1 mm" in these files is
+">= 0.5 mm" in other sources (D51).
 """
 
 from __future__ import annotations

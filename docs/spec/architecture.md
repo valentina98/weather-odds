@@ -31,7 +31,7 @@ config.yaml ──► CLI / dashboard
 | **Config** | Load and validate `config.yaml` (location, scale thresholds, reference period, default time of day, pooling, source priority). | YAML + a typed schema (e.g. pydantic). Secrets only from environment variables. |
 | **Data adapters** | One adapter per source, all returning the same tidy schema (hourly and daily, local time, units fixed). | Meteostat hourly (station temperature), ERA5 from the Open-Meteo AWS bucket (plain ERA5; never "ERA5 seamless"; D45), airport reports (IEM, thunder), NOAA GSOD and NIMH (rain calibration). The research loaders in `research/load_sources.py` are the prototype ([all sources](../research/all-sources.md)). |
 | **Cache** | Store downloads per location and source; refresh on request. | Parquet files under a cache folder; git-ignored. |
-| **Blending** | Build the Plovdiv hourly table: station temperature (ERA5 corrected to the station fills gaps), ERA5 rain and gusts with the calibrated thresholds, airport thunder. | Methodology §1 and §10. |
+| **Blending** | Build the Plovdiv hourly table: station temperature (ERA5 corrected to the station fills gaps), ERA5 rain and gusts with the calibrated thresholds, airport thunder. | Methodology §1 and §10. `table.py` (the tables), `temperature.py` (temperature gaps), `sun.py` (sunrise, sunset); `weather-odds check` runs `checks.py` (hidden-data tests of the fills) and `station_checks.py` (the comparison with the measurements). |
 | **Stats engine** | Day-of-year statistics, pooling, trend adjustment, the outdoor-weather scale, percentiles, bootstrap intervals, pattern detection. | No I/O, fully unit-tested. |
 | **Validation** | Cross-validation of the odds (predict each year from other years). | Prototype: `research/validate_odds.py`. Run in CI on a small fixture; full run on demand. |
 | **Dashboard** | Calendar, detail panel, Patterns and Data tabs; runs locally only. | See the tool choice below. |
@@ -60,6 +60,8 @@ weather-odds/
 │   ├── config.py
 │   ├── sources/          one module per adapter
 │   ├── cache.py
+│   ├── table.py          the hourly and daily tables (temperature.py, sun.py)
+│   ├── checks.py         hidden-data tests of the fills; station_checks.py: comparison with the measurements
 │   ├── stats/            pooling, odds, intervals, patterns
 │   ├── cli.py
 │   └── dashboard/

@@ -18,7 +18,7 @@ Columns come from one vocabulary, in fixed units:
     reports          number of airport reports in the hour
 
 A value that was not measured is missing (NaN or <NA>), never guessed. Filling
-gaps and combining sources is the next step (milestone 3, #17).
+gaps and combining the sources happens in weather_odds.table (milestone 3, #17).
 """
 
 from weather_odds.sources import airport, era5, gsod, meteostat, nimh

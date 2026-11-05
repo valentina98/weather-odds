@@ -4,7 +4,11 @@ Questions for the owner are GitHub issues assigned to them, collected in the tra
 
 ## Still open
 
-None. The owner signed off the spec on 2026-10-29 and [#12](https://github.com/valentina98/weather-odds/issues/12) is closed. Questions that come up during development are new issues labelled `decision-needed`, assigned to the owner, and listed here.
+The owner signed off the spec on 2026-10-29 and [#12](https://github.com/valentina98/weather-odds/issues/12) is closed. Questions that come up during development are new issues labelled `decision-needed`, assigned to the owner, and listed here.
+
+| Issue | Question | Asked |
+|---|---|---|
+| [#29](https://github.com/valentina98/weather-odds/issues/29) | Thunder by hour (NOAA's thunder days, the reporting change from 2022) and strong wind (ERA5 misses strong gusts): which option? | 2026-11-05 |
 
 ## Answered
 

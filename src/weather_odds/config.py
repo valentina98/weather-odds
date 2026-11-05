@@ -189,6 +189,14 @@ class Data(_Model):
     precipitation: list[Literal["era5"]] = ["era5"]
     wind_gusts: list[Literal["era5"]] = ["era5"]
     thunder: list[Literal["airport", "gsod"]] = ["airport", "gsod"]
+    rain_calibration_years: tuple[int, int] = (1973, 1999)  # station rain amounts that calibrate ERA5's wet days
+
+    @field_validator("rain_calibration_years")
+    @classmethod
+    def _span(cls, v: tuple[int, int]) -> tuple[int, int]:
+        if v[0] > v[1]:
+            raise ValueError("first year after last year")
+        return v
 
     @field_validator("temperature", "precipitation", "wind_gusts", "thunder")
     @classmethod

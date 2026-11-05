@@ -56,3 +56,4 @@ data:
   precipitation: [era5]
   wind_gusts: [era5]
   thunder: [airport, gsod]
+  rain_calibration_years: [1973, 1999]   # station rain amounts that calibrate ERA5's wet days
